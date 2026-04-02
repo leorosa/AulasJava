@@ -193,7 +193,7 @@ public class ListaExercicio02 {
 		return false;
 	}
 
-	static void exercicio() {
+	static void exercicio09() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe o comprimento de três lados: ");
 		float lado1 = sc.nextFloat();
@@ -236,5 +236,17 @@ public class ListaExercicio02 {
 		}
 	}
 
+	static void exercicio() {
+		System.out.print("informe o seu nome de usuário e senha: ");
+		Scanner sc = new Scanner(System.in);
+		String nome = sc.nextLine();
+		String senha = sc.nextLine();
+		if (senha.equals("123") || senha.equals("12345") || senha.equals("senha")) {
+			System.out.println("acesso negado");
+		} else {
+			System.out.println("acesso permitido");
+		}
+		sc.close();
+	}
 }
 
