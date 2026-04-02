@@ -236,16 +236,48 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio10() {
 		System.out.print("informe o seu nome de usuário e senha: ");
 		Scanner sc = new Scanner(System.in);
 		String nome = sc.nextLine();
 		String senha = sc.nextLine();
+		sc.close();
 		if (senha.equals("123") || senha.equals("12345") || senha.equals("senha")) {
 			System.out.println("acesso negado");
 		} else {
 			System.out.println("acesso permitido");
 		}
+	}
+
+	static void exercicio11() {
+		System.out.print("informe o ano: ");
+		Scanner sc = new Scanner(System.in);
+		int ano = sc.nextInt();
+		sc.close();
+		if (ano%4==0 && (ano%100!=0 || ano%400==0)) {
+			System.out.println("ano bissexto");
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe dois valores: ");
+		Scanner sc = new Scanner(System.in);
+		float val1 = sc.nextFloat();
+		float val2 = sc.nextFloat();
+		System.out.print("agora informe a operação: ");
+		String oper = sc.nextLine();
+		System.out.println(oper);
+//		if (oper.equals("+")) {
+//			System.out.println("resultado: " + (val1+val2));
+//		} else if (oper.equals("-")) {
+//			System.out.println("resultado: " + (val1-val2));
+//		} else if (oper.equals("*")) {
+//			System.out.println("resultado: " + (val1*val2));
+//		} else if (oper.equals("/")) {
+//			System.out.println("resultado: " + (val1/val2));
+//		} else {
+//			System.out.println("operação inválida.");
+//		}
 		sc.close();
 	}
 }
