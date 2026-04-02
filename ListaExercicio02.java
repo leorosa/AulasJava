@@ -32,12 +32,12 @@ public class ListaExercicio02 {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe um valor: ");
 		int val = sc.nextInt();
+		sc.close();
 		if(val%2==0) {
 			System.out.println(val + " é par");			
 		} else {
 			System.out.println(val + " é ímpar");
 		}
-		sc.close();
 	}
 
 	static void exercicio02() {
@@ -45,19 +45,20 @@ public class ListaExercicio02 {
 		System.out.print("informe dois valores: ");
 		float val1 = sc.nextFloat();
 		float val2 = sc.nextFloat();
+		sc.close();
 //		System.out.println("o maior valor é: " + Math.max(val1,val2));
 		if (val1>val2) {
 			System.out.println("o maior valor é: " + val1);
 		} else {
 			System.out.println("o maior valor é: " + val2);
 		}
-		sc.close();
 	}
 
 	static void exercicio03() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe um valor: ");
 		float val = sc.nextFloat();
+		sc.close();
 //		System.out.println((val>0?"pos":"neg"));	// estilo C
 		if (val<0) {
 			System.out.println(val + " é negativo.");
@@ -66,11 +67,11 @@ public class ListaExercicio02 {
 		} else {
 			System.out.println(val + " é nulo.");
 		}
-		sc.close();
 	}
 
 	static void exercicio04() {
 		Scanner sc = new Scanner(System.in);
+		sc.close();
 		System.out.print("informe a nota do aluno: ");
 		float val = sc.nextFloat();
 		if (val>=6) {
@@ -78,19 +79,18 @@ public class ListaExercicio02 {
 		} else {
 			System.out.println("aluno reprovado.");
 		}
-		sc.close();
 	}
 
 	static void exercicio05() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe a idade: ");
+		sc.close();
 		int val = sc.nextInt();
 		if (val>=16) {
 			System.out.println("a pessoa já pode votar.");
 		} else {
 			System.out.println("a pessoa pode votar em " + (16-val) + " anos.");
 		}
-		sc.close();
 	}
 
 ///// ///// /////
@@ -102,6 +102,7 @@ public class ListaExercicio02 {
 		float val2 = sc.nextFloat();
 		float val3 = sc.nextFloat();
 		float valm;
+		sc.close();
 //		Math.max(val1,val2)
 		if (val1>val2) {
 			valm = val1;
@@ -113,7 +114,6 @@ public class ListaExercicio02 {
 		} else {
 			System.out.println("o maior valor é: " + val3);
 		}
-		sc.close();
 	}
 
 
@@ -139,30 +139,59 @@ public class ListaExercicio02 {
 		float lado1 = sc.nextFloat();
 		float lado2 = sc.nextFloat();
 		float lado3 = sc.nextFloat();
-		if (lado1>lado2) {
-			if (lado1>lado3) { 	// lado1 é o maior
-				if (lado2+lado3 > lado1) {
-					System.out.println("os 3 lados formam um triângulo.");
+		sc.close();
+		if (isTriangle(lado1, lado2, lado3)) {
+			System.out.println("os 3 lados formam um triângulo.");
+		} else {
+			System.out.println("os 3 lados não formam um triângulo.");
+		}
+//		if (lado1>lado2) {
+//			if (lado1>lado3) { 	// lado1 é o maior
+//				if (lado2+lado3 > lado1) {
+//					System.out.println("os 3 lados formam um triângulo.");
+//				}
+//			} else {			// lado3 é o maior
+//				if (lado1+lado2 > lado3) {
+//					System.out.println("os 3 lados formam um triângulo.");
+//				}
+//			}
+//		} else {
+//			if (lado2>lado3) { 	// lado2 é o maior
+//				if (lado1+lado3 > lado2) {
+//					System.out.println("os 3 lados formam um triângulo.");
+//				}
+//			} else {			// lado3 é o maior
+//				if (lado1+lado2 > lado3) {
+//					System.out.println("os 3 lados formam um triângulo.");
+//				}
+//			}
+//		}
+	}
+
+	static boolean isTriangle(float a, float b, float c) {
+		if (a>b) {
+			if (a>c) { 	// a é o maior
+				if (b+c > a) {
+					return true;
 				}
-			} else {			// lado3 é o maior
-				if (lado1+lado2 > lado3) {
-					System.out.println("os 3 lados formam um triângulo.");
+			} else {			// c é o maior
+				if (a+b > c) {
+					return true;
 				}
 			}
 		} else {
-			if (lado2>lado3) { 	// lado2 é o maior
-				if (lado1+lado3 > lado2) {
-					System.out.println("os 3 lados formam um triângulo.");
+			if (b>c) { 	// b é o maior
+				if (a+c > b) {
+					return true;
 				}
-			} else {			// lado3 é o maior
-				if (lado1+lado2 > lado3) {
-					System.out.println("os 3 lados formam um triângulo.");
+			} else {			// c é o maior
+				if (a+b > c) {
+					return true;
 				}
 			}
 		}
-		sc.close();
+		return false;
 	}
-
 
 	static void exercicio() {
 		Scanner sc = new Scanner(System.in);
@@ -170,39 +199,41 @@ public class ListaExercicio02 {
 		float lado1 = sc.nextFloat();
 		float lado2 = sc.nextFloat();
 		float lado3 = sc.nextFloat();
+		sc.close();
 		String tipo = "";
-// ideia: usar resposta do exercicio08 para checar se é um triângulo 
-		if (lado1==lado2 || lado1==lado3 || lado2==lado3) {
-			tipo = "isósceles";
-		} else {
-// testar se é retângulo
-			if (lado1>lado2) {
-				if (lado1>lado3) { 	// lado1 é o maior
-					if (lado2*lado2+lado3*lado3 == lado1*lado1) {
-						tipo = "retângulo";
-					}
-				} else {			// lado3 é o maior
-					if (lado1*lado1+lado2*lado2 == lado3*lado3) {
-						tipo = "retângulo";
-					}
-				}
+		if (isTriangle(lado1, lado2, lado3)) {	// testar se é retângulo
+			if (lado1==lado2 || lado1==lado3 || lado2==lado3) {
+				tipo = "isósceles";
 			} else {
-				if (lado2>lado3) { 	// lado2 é o maior
-					if (lado1*lado1+lado3*lado3 == lado2*lado2) {
-						tipo = "retângulo";
+				if (lado1>lado2) {
+					if (lado1>lado3) { 	// lado1 é o maior
+						if (lado2*lado2+lado3*lado3 == lado1*lado1) {
+							tipo = "retângulo";
+						}
+					} else {			// lado3 é o maior
+						if (lado1*lado1+lado2*lado2 == lado3*lado3) {
+							tipo = "retângulo";
+						}
 					}
-				} else {			// lado3 é o maior
-					if (lado1*lado1+lado2*lado2 == lado3*lado3) {
-						tipo = "retângulo";
+				} else {
+					if (lado2>lado3) { 	// lado2 é o maior
+						if (lado1*lado1+lado3*lado3 == lado2*lado2) {
+							tipo = "retângulo";
+						}
+					} else {			// lado3 é o maior
+						if (lado1*lado1+lado2*lado2 == lado3*lado3) {
+							tipo = "retângulo";
+						}
 					}
 				}
 			}
+			if (tipo=="") {
+				tipo = "escaleno";
+			}
+			System.out.println("o triângulo) é " + tipo);
+		} else {
+			System.out.println("não é um triângulo.");
 		}
-		if (tipo=="") {
-			tipo = "escaleno";
-		}
-		System.out.println("(se for um triângulo) é " + tipo);
-		sc.close();
 	}
 
 }
