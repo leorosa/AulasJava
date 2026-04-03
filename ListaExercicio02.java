@@ -331,7 +331,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio16() {
 		System.out.print("informe o valor de três notas: ");
 		Scanner sc = new Scanner(System.in);
 		float nota1 = sc.nextInt();
@@ -345,6 +345,20 @@ public class ListaExercicio02 {
 			System.out.println("em recuperação");
 		} else {
 			System.out.println("aprovado");
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe o valor do salário: ");
+		Scanner sc = new Scanner(System.in);
+		float salario = sc.nextInt();
+		System.out.print("informe o valor das parcelas de um financiamento: ");
+		float parcela = sc.nextInt();
+		sc.close();
+		if (salario*0.3>=parcela) { // não exceder 30% do salário
+			System.out.println("o empréstimo pode ser aprovado");
+		} else {
+			System.out.println("o empréstimo não ser aprovado");
 		}
 	}
 }
