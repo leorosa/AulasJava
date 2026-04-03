@@ -315,7 +315,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio15() {
 		System.out.print("informe a idade: ");
 		Scanner sc = new Scanner(System.in);
 		int idade = sc.nextInt();
@@ -328,6 +328,23 @@ public class ListaExercicio02 {
 			System.out.println("adulto");
 		} else {
 			System.out.println("idoso");
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe o valor de três notas: ");
+		Scanner sc = new Scanner(System.in);
+		float nota1 = sc.nextInt();
+		float nota2 = sc.nextInt();
+		float nota3 = sc.nextInt();
+		sc.close();
+		float media = (nota1+nota2+nota3)/3;
+		if (media<5) {
+			System.out.println("reprovado");
+		} else if (media<7) {
+			System.out.println("em recuperação");
+		} else {
+			System.out.println("aprovado");
 		}
 	}
 }
