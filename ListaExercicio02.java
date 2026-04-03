@@ -24,8 +24,7 @@ public class ListaExercicio02 {
 //		exercicio17();
 //		exercicio18();
 //		exercicio19();
-//		exercicio20();
-		exercicio();
+		exercicio20();
 	}
 	
 	static void exercicio01() {
@@ -377,7 +376,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio19() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe o peso: ");
 		float peso = sc.nextFloat();
@@ -394,6 +393,24 @@ public class ListaExercicio02 {
 		} else {
 			System.out.println("obeeso");
 		}
+	}
+
+	static void exercicio20() {
+		int tentativa = 0;
+		String senha = "321";
+		Scanner sc = new Scanner(System.in);
+		while (tentativa<3) {
+			System.out.print("informe a senha: ");
+			String senhaDada = sc.nextLine();
+			if (senhaDada.equals(senha)) {
+				System.out.println("acesso permitido");
+				tentativa = 3; // finalizar laço
+			} else {
+				System.out.println("acesso inválida; ainda restam " + tentativa + " tentativas.");
+			}
+			tentativa += 1;
+		}
+		sc.close();
 	}
 }
 
