@@ -259,7 +259,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio12() {
 		System.out.print("informe dois valores: ");
 		Scanner sc = new Scanner(System.in);
 		float val1 = sc.nextFloat();
@@ -278,6 +278,26 @@ public class ListaExercicio02 {
 			System.out.println("resultado: " + (val1/val2));
 		} else {
 			System.out.println("operação inválida.");
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe o valor do salário: ");
+		Scanner sc = new Scanner(System.in);
+		float salario = sc.nextFloat();
+		sc.close();
+		if (salario<5000) {
+			System.out.println("isento");
+		} else if (salario<6000) {
+			System.out.println("o valor do imposto é: " + (salario*7.5/100));
+		} else if (salario<7000) {
+			System.out.println("o valor do imposto é: " + (salario*12.5/100));
+		} else if (salario<8000) {
+			System.out.println("o valor do imposto é: " + (salario*17.5/100));
+		} else if (salario<9000) {
+			System.out.println("o valor do imposto é: " + (salario*22.5/100));
+		} else {
+			System.out.println("o valor do imposto é: " + (salario*27.5/100));
 		}
 	}
 }
