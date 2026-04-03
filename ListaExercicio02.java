@@ -167,7 +167,7 @@ public class ListaExercicio02 {
 //		}
 	}
 
-	static boolean isTriangle(float a, float b, float c) {
+	static boolean testeTriangulo_(float a, float b, float c) {
 		if (a>b) {
 			if (a>c) { 	// a é o maior
 				if (b+c > a) {
@@ -192,6 +192,16 @@ public class ListaExercicio02 {
 		return false;
 	}
 
+	static boolean testeTriangulo(float a, float b, float c) {
+		float soma = a+b+c;
+		d = Math.max(Math.max(a,b),c);
+		if (soma-d>d) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	static void exercicio09() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("informe o comprimento de três lados: ");
@@ -200,7 +210,7 @@ public class ListaExercicio02 {
 		float lado3 = sc.nextFloat();
 		sc.close();
 		String tipo = "";
-		if (isTriangle(lado1, lado2, lado3)) {	// testar se é retângulo
+		if (testeTriangulo(lado1, lado2, lado3)) {	// testar se é retângulo
 			if (lado1==lado2 || lado1==lado3 || lado2==lado3) {
 				tipo = "isósceles";
 			} else {
