@@ -362,7 +362,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio18() {
 		float numeroSecreto = 123;
 		System.out.print("informe um número: ");
 		Scanner sc = new Scanner(System.in);
@@ -374,6 +374,25 @@ public class ListaExercicio02 {
 			System.out.println("o número informado é menor");
 //		} else {
 //			System.out.println("o número informado igual ao secreto");
+		}
+	}
+
+	static void exercicio() {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("informe o peso: ");
+		float peso = sc.nextFloat();
+		System.out.print("informe a altura (em metros): ");
+		float altura = sc.nextFloat();
+		sc.close();
+		float imc = peso/(altura*altura);
+		if (imc<18.5) {	// tabela para homens: https://myfitnesspal.com.br/tabela-imc
+			System.out.println("peso baixo");
+		} else if (imc<25) {
+			System.out.println("peso normal");
+		} else if (imc<30) {
+			System.out.println("sobrepeso");
+		} else {
+			System.out.println("obeeso");
 		}
 	}
 }
