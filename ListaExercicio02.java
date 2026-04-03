@@ -281,7 +281,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio13() {
 		System.out.print("informe o valor do salário: ");
 		Scanner sc = new Scanner(System.in);
 		float salario = sc.nextFloat();
@@ -298,6 +298,20 @@ public class ListaExercicio02 {
 			System.out.println("o valor do imposto é: " + (salario*22.5/100));
 		} else {
 			System.out.println("o valor do imposto é: " + (salario*27.5/100));
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe o valor da compra: ");
+		Scanner sc = new Scanner(System.in);
+		int valor = sc.nextInt(); // o valor poderia ser float, mas o enunciado listava faixas com valores inteiros (i.e., qual o desconto para R$100,50?)
+		sc.close();
+		if (valor<=100) {
+			System.out.println("sem desconto");
+		} else if (valor<500) {
+			System.out.println("o valor com desconto é: " + (valor*0.9));
+		} else {
+			System.out.println("o valor com desconto é: " + (valor*0.8));
 		}
 	}
 }
