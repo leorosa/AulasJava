@@ -267,6 +267,7 @@ public class ListaExercicio02 {
 		sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
 		System.out.print("agora informe a operação: ");
 		String oper = sc.nextLine();
+		sc.close();
 		if (oper.equals("+")) {
 			System.out.println("resultado: " + (val1+val2));
 		} else if (oper.equals("-")) {
@@ -278,7 +279,6 @@ public class ListaExercicio02 {
 		} else {
 			System.out.println("operação inválida.");
 		}
-		sc.close();
 	}
 }
 
