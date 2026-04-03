@@ -348,7 +348,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio17() {
 		System.out.print("informe o valor do salário: ");
 		Scanner sc = new Scanner(System.in);
 		float salario = sc.nextInt();
@@ -359,6 +359,21 @@ public class ListaExercicio02 {
 			System.out.println("o empréstimo pode ser aprovado");
 		} else {
 			System.out.println("o empréstimo não ser aprovado");
+		}
+	}
+
+	static void exercicio() {
+		float numeroSecreto = 123;
+		System.out.print("informe um número: ");
+		Scanner sc = new Scanner(System.in);
+		float numero = sc.nextInt();
+		sc.close();
+		if (numero>numeroSecreto) {
+			System.out.println("o número informado é maior");
+		} else if (numero<numeroSecreto) {
+			System.out.println("o número informado é menor");
+//		} else {
+//			System.out.println("o número informado igual ao secreto");
 		}
 	}
 }
