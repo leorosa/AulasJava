@@ -301,7 +301,7 @@ public class ListaExercicio02 {
 		}
 	}
 
-	static void exercicio() {
+	static void exercicio14() {
 		System.out.print("informe o valor da compra: ");
 		Scanner sc = new Scanner(System.in);
 		int valor = sc.nextInt(); // o valor poderia ser float, mas o enunciado listava faixas com valores inteiros (i.e., qual o desconto para R$100,50?)
@@ -312,6 +312,22 @@ public class ListaExercicio02 {
 			System.out.println("o valor com desconto é: " + (valor*0.9));
 		} else {
 			System.out.println("o valor com desconto é: " + (valor*0.8));
+		}
+	}
+
+	static void exercicio() {
+		System.out.print("informe a idade: ");
+		Scanner sc = new Scanner(System.in);
+		int idade = sc.nextInt();
+		sc.close();
+		if (idade<=12) {
+			System.out.println("criança");
+		} else if (idade<=17) {
+			System.out.println("adolescente");
+		} else if (idade<=59) {
+			System.out.println("adulto");
+		} else {
+			System.out.println("idoso");
 		}
 	}
 }
