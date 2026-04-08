@@ -4,7 +4,8 @@ public class Vetores {
 	public static void main(String[] args) {
 //		exemplo();
 //		exercicio01();
-		exercicio02();
+		exemplosFuncao();
+//		exercicio02();
 	}
 	
 	public static void exemplo() {
@@ -52,12 +53,30 @@ public class Vetores {
 		for (int i=0; i<valores.length; i++) {
 			System.out.println("o dobro do valor na posição " + i + " é: " + (valores[i]*2));
 		}
-		System.out.println(max(valores));
+	}
+
+	public static void exemplosFuncao() {
+		int[] numeros = {1,2,3,4,5};
+		System.out.println(max(numeros));
+		int[] notas = {7,8,9,10,3};
+		listarArray(numeros);
+		System.out.println( somar(1000,300));
 	}
 	
-	public static float max(float[] vals) {
-		float max = vals[0];
-		for (float v : vals) {
+	static void listarArray(int[] dados) {
+		for (int n : dados) {
+			System.out.println(n);
+		}
+
+	}
+
+	static int somar(int n1, int n2) {
+		return n1 + n2;
+	}
+
+	public static int max(int[] vals) {
+		int max = vals[0];
+		for (int v : vals) {
 			if (v>max) {
 				max=v;
 			}
@@ -85,5 +104,6 @@ public class Vetores {
 			}
 		}
 	}
+
 }
 
