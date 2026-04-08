@@ -4,8 +4,9 @@ public class Vetores {
 	public static void main(String[] args) {
 //		exemplo();
 //		exercicio01();
-		exemplosFuncao();
+//		exemplosFuncao();
 //		exercicio02();
+		jogoDaVelha();
 	}
 	
 	public static void exemplo() {
@@ -105,5 +106,64 @@ public class Vetores {
 		}
 	}
 
+	public static void jogoDaVelha() {
+		Scanner sc = new Scanner(System.in);
+		int[][] valores = {{0,0,0} , {0,0,0} , {0,0,0}};
+		int x = 0;
+		int y = 0;
+		while (! testeFim(valores)) {
+			imprimeStatus(valores);
+			while (true) {
+				System.out.println("jogador 1, indique posição x e y: ");
+				x = sc.nextInt();
+				y = sc.nextInt();
+				if (testePosicao(valores, x, y)) {
+					
+					break;
+				}
+			if (testeJogador(valores, 1)) {
+				System.out.println("jogador 1 venceu");
+				break;
+			}
+			System.out.println("jogador 2, indique posição x e y: ");
+			x = sc.nextInt();
+			y = sc.nextInt();
+		}
+	}
+
+	public static boolean testePosicao(int[][] valores, int i, int j) {
+		if (valores[i][j]==0) { return true; } // posição válida/livre
+		else {return false; }
+	}
+
+	public static boolean testeJogador(int[][] valores, int jogador) {
+		for(int i=0;i<=2;i++) {
+			if (valores[i][0]==jogador && valores[i][1]==jogador && valores[i][2]==jogador) { return true; }
+			if (valores[0][i]==jogador && valores[1][i]==jogador && valores[2][i]==jogador) { return true; }
+			if (valores[0][0]==jogador && valores[1][1]==jogador && valores[2][2]==jogador) { return true; }
+			if (valores[0][2]==jogador && valores[1][1]==jogador && valores[2][0]==jogador) { return true; }
+		}
+		return false;
+	}
+
+	public static boolean testeFim(int[][] valores) {
+		for(int i=0;i<=2;i++) {
+			for(int j=0;j<=2;j++) {
+				if (valores[i][j]==0) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public static void imprimeStatus(int[][] valores) {
+		for(int i=0;i<=2;i++) {
+			for(int j=0;j<=2;j++) {
+				System.out.print(valores[i][j]);
+			}
+			System.out.println("");
+		}
+	}
 }
 
