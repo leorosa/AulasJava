@@ -8,8 +8,8 @@ public class Vetores {
 //		exercicio02();
 //		exercicio03();
 //		exercicio04();
-//		exercicio05();
-		exercicio06();
+		exercicio05();
+//		exercicio06();
 //		jogoDaVelha();
 	}
 	
@@ -89,6 +89,26 @@ public class Vetores {
 		return(max);
 	}
 
+	public static int min(int[] vals) {
+		int min = vals[0];
+		for (int v : vals) {
+			if (v<min) {
+				min=v;
+			}
+		}
+		return(min);
+	}
+
+	public static int minLimitado(int[] vals, int limite) {
+		int min = max(vals);
+		for (int v : vals) {
+			if (v<min && v>limite) {
+				min=v;
+			}
+		}
+		return(min);
+	}
+
 	public static int soma(int[] vals) {
 		int res = 0;
 		for (int v : vals) {
@@ -154,23 +174,31 @@ public class Vetores {
 		}
 	}
 
-//	public static void exercicio05() {
-//		int[] valores1 = new int[8];
-//		int[] valores2 = new int[8];
-//		int[] indices  = new int[8];
-//		Scanner sc = new Scanner(System.in);
-//		for (int i=0; i<valores1.length; i++) {
-//			System.out.print("informe valor: ");
-//			valores1[i] = sc.nextInt();
-//		}
-//		sc.close();
-//		int maxVal = imax(valores1);
-//		for (int i=0; i<valores1.length; i++) {
-//			if (valores1[i]==maxVal) {
-//				System.out.println(maxVal + " está na posição" + i);
-//			}
-//		}
-//	}
+	public static void exercicio05() {
+		int[] valores = new int[8];
+		int[] ordenado = new int[valores.length];
+		Scanner sc = new Scanner(System.in);
+		for (int i=0; i<valores.length; i++) {
+			System.out.print("informe valor: ");
+			valores[i] = sc.nextInt();
+		}
+		sc.close();
+		int minVal = min(valores);
+		int j=0;
+		while (j<valores.length) {
+			for (int i=0; i<valores.length; i++) {
+				if (valores[i]==minVal) {
+					ordenado[j] = valores[i];
+					j++;
+				}
+			}
+			minVal = minLimitado(valores, minVal);
+		}
+		for (int i=0; i<ordenado.length; i++) {
+			System.out.println(ordenado[i]);
+		}
+
+	}
 
 	public static void exercicio06() {
 		int[] valores = new int[10];
