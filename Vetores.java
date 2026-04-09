@@ -8,9 +8,9 @@ public class Vetores {
 //		exercicio02();
 //		exercicio03();
 //		exercicio04();
-//		exercicio05();
+		exercicio05();
 //		exercicio06();
-		jogoDaVelha();
+//		jogoDaVelha();
 	}
 	
 	public static void exemplo() {
@@ -63,7 +63,7 @@ public class Vetores {
 	public static void exemplosFuncao() {
 		int[] numeros = {1,2,3,4,5};
 		System.out.println(max(numeros));
-		int[] notas = {7,8,9,10,3};
+//		int[] notas = {7,8,9,10,3};
 		listarArray(numeros);
 		System.out.println( somar(1000,300));
 	}
@@ -194,10 +194,7 @@ public class Vetores {
 			}
 			minVal = minLimitado(valores, minVal);
 		}
-		for (int i=0; i<ordenado.length; i++) {
-			System.out.println(ordenado[i]);
-		}
-
+		listarArray(ordenado);
 	}
 
 	public static void exercicio06() {
