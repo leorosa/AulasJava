@@ -7,8 +7,9 @@ public class Vetores {
 //		exemplosFuncao();
 //		exercicio02();
 //		exercicio03();
-		exercicio04();
+//		exercicio04();
 //		exercicio05();
+		exercicio06();
 //		jogoDaVelha();
 	}
 	
@@ -88,6 +89,14 @@ public class Vetores {
 		return(max);
 	}
 
+	public static int soma(int[] vals) {
+		int res = 0;
+		for (int v : vals) {
+			res += v;
+		}
+		return(res);
+	}
+
 	public static void exercicio02() {
 //Crie um array de 10 números.
 //Solicite ao usuário que informe dados.
@@ -132,15 +141,49 @@ public class Vetores {
 	public static void exercicio04() {
 		int[] valores = new int[15];
 		Scanner sc = new Scanner(System.in);
-		for (int i=0; i<15; i++) {
+		for (int i=0; i<valores.length; i++) {
 			System.out.print("informe valor: ");
 			valores[i] = sc.nextInt();
 		}
 		sc.close();
 		int maxVal = max(valores);
-		for (int i=0; i<15; i++) {
+		for (int i=0; i<valores.length; i++) {
 			if (valores[i]==maxVal) {
-				System.out.print(maxVal + " está na posição" + i);
+				System.out.println(maxVal + " está na posição" + i);
+			}
+		}
+	}
+
+//	public static void exercicio05() {
+//		int[] valores1 = new int[8];
+//		int[] valores2 = new int[8];
+//		int[] indices  = new int[8];
+//		Scanner sc = new Scanner(System.in);
+//		for (int i=0; i<valores1.length; i++) {
+//			System.out.print("informe valor: ");
+//			valores1[i] = sc.nextInt();
+//		}
+//		sc.close();
+//		int maxVal = imax(valores1);
+//		for (int i=0; i<valores1.length; i++) {
+//			if (valores1[i]==maxVal) {
+//				System.out.println(maxVal + " está na posição" + i);
+//			}
+//		}
+//	}
+
+	public static void exercicio06() {
+		int[] valores = new int[10];
+		Scanner sc = new Scanner(System.in);
+		for (int i=0; i<valores.length; i++) {
+			System.out.print("informe valor: ");
+			valores[i] = sc.nextInt();
+		}
+		sc.close();
+		float media = soma(valores) / valores.length;
+		for (int i=0; i<valores.length; i++) {
+			if (valores[i]>media) {
+				System.out.println(valores[i] + " está acima da média " + media);
 			}
 		}
 	}
