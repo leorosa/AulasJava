@@ -8,9 +8,9 @@ public class Vetores {
 //		exercicio02();
 //		exercicio03();
 //		exercicio04();
-		exercicio05();
+//		exercicio05();
 //		exercicio06();
-//		jogoDaVelha();
+		jogoDaVelha();
 	}
 	
 	public static void exemplo() {
@@ -218,49 +218,73 @@ public class Vetores {
 
 	public static void jogoDaVelha() {
 		Scanner sc = new Scanner(System.in);
-		int[][] valores = {{0,0,0} , {0,0,0} , {0,0,0}};
+		char[][] status = {{' ',' ',' '} , {' ',' ',' '} , {' ',' ',' '}};
+		char[] jogadores = {'X','O'};
 		int x = 0;
 		int y = 0;
-		while (! testeFim(valores)) {
-			imprimeStatus(valores);
+		int jogador = 0;
+		while (true) {
+			imprimeStatus(status);
 			while (true) {
-				System.out.println("jogador 1, indique posição x e y: ");
+				System.out.println("jogador " + (jogador+1) + ", indique posição x e y: ");
 				x = sc.nextInt();
 				y = sc.nextInt();
-				if (testePosicao(valores, x, y)) {
-					
+				if (testePosicao(status, x, y)) {
+					status[x][y] = jogadores[jogador];
 					break;
+				} else {
+					System.out.println("posição inválida.");
 				}
 			}
-			if (testeJogador(valores, 1)) {
-				System.out.println("jogador 1 venceu");
+			if (testeJogador(status, jogadores[jogador])) {
+				System.out.println("jogador " + (jogador+1) + " venceu");
+				break;
+			} else if (testeFim(status)) {
+				System.out.println("fim do jogo (sem vencedor).");
 				break;
 			}
-			System.out.println("jogador 2, indique posição x e y: ");
-			x = sc.nextInt();
-			y = sc.nextInt();
+			jogador = (jogador+1) % 2; // alterna entre 0 e 1
+//			imprimeStatus(status);
+//			while (true) {
+//				System.out.println("jogador 2, indique posição x e y: ");
+//				x = sc.nextInt();
+//				y = sc.nextInt();
+//				if (testePosicao(status, x, y)) {
+//					status[x][y] = jogadores[1];
+//					break;
+//				}
+//			}
+//			if (testeJogador(status, jogadores[1])) {
+//				System.out.println("jogador 2 venceu");
+//				break;
+//			} else if (testeFim(status)) {
+//				System.out.println("fim do jogo (sem vencedor).");
+//				break;
+//			}
 		}
+		sc.close();
+		imprimeStatus(status);
 	}
 
-	public static boolean testePosicao(int[][] valores, int i, int j) {
-		if (valores[i][j]==0) { return true; } // posição válida/livre
+	public static boolean testePosicao(char[][] status, int i, int j) {
+		if (status[i][j]==' ') { return true; } // posição válida/livre
 		else {return false; }
 	}
 
-	public static boolean testeJogador(int[][] valores, int jogador) {
+	public static boolean testeJogador(char[][] status, char jogador) {
 		for(int i=0;i<=2;i++) {
-			if (valores[i][0]==jogador && valores[i][1]==jogador && valores[i][2]==jogador) { return true; }
-			if (valores[0][i]==jogador && valores[1][i]==jogador && valores[2][i]==jogador) { return true; }
-			if (valores[0][0]==jogador && valores[1][1]==jogador && valores[2][2]==jogador) { return true; }
-			if (valores[0][2]==jogador && valores[1][1]==jogador && valores[2][0]==jogador) { return true; }
+			if (status[i][0]==jogador && status[i][1]==jogador && status[i][2]==jogador) { return true; }
+			if (status[0][i]==jogador && status[1][i]==jogador && status[2][i]==jogador) { return true; }
+			if (status[0][0]==jogador && status[1][1]==jogador && status[2][2]==jogador) { return true; }
+			if (status[0][2]==jogador && status[1][1]==jogador && status[2][0]==jogador) { return true; }
 		}
 		return false;
 	}
 
-	public static boolean testeFim(int[][] valores) {
+	public static boolean testeFim(char[][] status) {
 		for(int i=0;i<=2;i++) {
 			for(int j=0;j<=2;j++) {
-				if (valores[i][j]==0) {
+				if (status[i][j]==' ') {
 					return false;
 				}
 			}
@@ -268,12 +292,12 @@ public class Vetores {
 		return true;
 	}
 
-	public static void imprimeStatus(int[][] valores) {
+	public static void imprimeStatus(char[][] status) {
 		for(int i=0;i<=2;i++) {
-			for(int j=0;j<=2;j++) {
-				System.out.print(valores[i][j]);
+			System.out.println(" " + status[i][0] + " | " + status[i][1] + " | " + status[i][2]);
+			if (i<2) {
+				System.out.println("---+---+---");
 			}
-			System.out.println("");
 		}
 	}
 }
