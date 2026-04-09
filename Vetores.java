@@ -229,8 +229,8 @@ public class Vetores {
 				System.out.println("jogador " + (jogador+1) + ", indique posição x e y: ");
 				x = sc.nextInt();
 				y = sc.nextInt();
-				if (testePosicao(status, x, y)) {
-					status[x][y] = jogadores[jogador];
+				if (testePosicao(status, y, x)) {
+					status[y][x] = jogadores[jogador];
 					break;
 				} else {
 					System.out.println("posição inválida.");
@@ -244,23 +244,6 @@ public class Vetores {
 				break;
 			}
 			jogador = (jogador+1) % 2; // alterna entre 0 e 1
-//			imprimeStatus(status);
-//			while (true) {
-//				System.out.println("jogador 2, indique posição x e y: ");
-//				x = sc.nextInt();
-//				y = sc.nextInt();
-//				if (testePosicao(status, x, y)) {
-//					status[x][y] = jogadores[1];
-//					break;
-//				}
-//			}
-//			if (testeJogador(status, jogadores[1])) {
-//				System.out.println("jogador 2 venceu");
-//				break;
-//			} else if (testeFim(status)) {
-//				System.out.println("fim do jogo (sem vencedor).");
-//				break;
-//			}
 		}
 		sc.close();
 		imprimeStatus(status);
