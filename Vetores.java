@@ -6,7 +6,10 @@ public class Vetores {
 //		exercicio01();
 //		exemplosFuncao();
 //		exercicio02();
-		jogoDaVelha();
+		exercicio03();
+//		exercicio04();
+//		exercicio05();
+//		jogoDaVelha();
 	}
 	
 	public static void exemplo() {
@@ -89,8 +92,8 @@ public class Vetores {
 //Crie um array de 10 números.
 //Solicite ao usuário que informe dados.
 //Verifique quais números digitados são pares e quais são ímpares.
-		Scanner sc = new Scanner(System.in);
 		int[] valores = new int[10];
+		Scanner sc = new Scanner(System.in);
 		for (int i=0; i<valores.length; i++) {
 			System.out.print("informe valor: ");
 			valores[i] = sc.nextInt();
@@ -101,11 +104,31 @@ public class Vetores {
 				System.out.println(v + " é par.");
 			} else {
 				System.out.println(v + " é ímpar.");
-
 			}
 		}
 	}
-
+	
+	public static void exercicio03() {
+		int[] valores = new int[10];
+		int val;
+		Scanner sc = new Scanner(System.in);
+		int i=0;
+		while (i<10) {
+			System.out.print("informe valor: ");
+			val = sc.nextInt();
+			if (val>=1 && val <=10) {
+				valores[i] = val;
+				i++;
+			} else {
+				System.out.println("valor inválido.");
+			}
+		}
+		sc.close();
+		for (int j=9; j>=0; j--) {
+			System.out.println(valores[j]);
+		}
+	}
+	
 	public static void jogoDaVelha() {
 		Scanner sc = new Scanner(System.in);
 		int[][] valores = {{0,0,0} , {0,0,0} , {0,0,0}};
@@ -121,6 +144,7 @@ public class Vetores {
 					
 					break;
 				}
+			}
 			if (testeJogador(valores, 1)) {
 				System.out.println("jogador 1 venceu");
 				break;
