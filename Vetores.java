@@ -6,8 +6,8 @@ public class Vetores {
 //		exercicio01();
 //		exemplosFuncao();
 //		exercicio02();
-		exercicio03();
-//		exercicio04();
+//		exercicio03();
+		exercicio04();
 //		exercicio05();
 //		jogoDaVelha();
 	}
@@ -128,7 +128,23 @@ public class Vetores {
 			System.out.println(valores[j]);
 		}
 	}
-	
+
+	public static void exercicio04() {
+		int[] valores = new int[15];
+		Scanner sc = new Scanner(System.in);
+		for (int i=0; i<15; i++) {
+			System.out.print("informe valor: ");
+			valores[i] = sc.nextInt();
+		}
+		sc.close();
+		int maxVal = max(valores);
+		for (int i=0; i<15; i++) {
+			if (valores[i]==maxVal) {
+				System.out.print(maxVal + " está na posição" + i);
+			}
+		}
+	}
+
 	public static void jogoDaVelha() {
 		Scanner sc = new Scanner(System.in);
 		int[][] valores = {{0,0,0} , {0,0,0} , {0,0,0}};
