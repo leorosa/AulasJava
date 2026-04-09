@@ -174,6 +174,17 @@ public class Vetores {
 		}
 	}
 
+//algoritmo para ordenar valores
+//for (int i=0; i<8; i++) {
+//	for (int j=i+1; j<num.length; j++) {
+//		if (mun[i]>num[j]) {
+//			int temp = num[i];
+//			num[i] = num[j];
+//			num[j] = temp;
+//		}
+//	}
+//}
+
 	public static void exercicio05() {
 		int[] valores = new int[8];
 		int[] ordenado = new int[valores.length];
