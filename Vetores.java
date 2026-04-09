@@ -8,9 +8,9 @@ public class Vetores {
 //		exercicio02();
 //		exercicio03();
 //		exercicio04();
-		exercicio05();
+//		exercicio05();
 //		exercicio06();
-//		jogoDaVelha();
+		jogoDaVelha();
 	}
 	
 	public static void exemplo() {
@@ -220,21 +220,22 @@ public class Vetores {
 		int x = 0;
 		int y = 0;
 		int jogador = 0;
+		imprimeStatus(status);
 		while (true) {
-			imprimeStatus(status);
 			while (true) {
-				System.out.println("jogador " + (jogador+1) + ", indique posição x e y: ");
+				System.out.println(jogadores[jogador] + ", indique posição x e y: ");
 				x = sc.nextInt();
 				y = sc.nextInt();
-				if (testePosicao(status, y, x)) {
-					status[y][x] = jogadores[jogador];
+				if (testePosicao(status, x, y)) {
+					status[x][y] = jogadores[jogador];
 					break;
 				} else {
 					System.out.println("posição inválida.");
 				}
 			}
+			imprimeStatus(status);
 			if (testeJogador(status, jogadores[jogador])) {
-				System.out.println("jogador " + (jogador+1) + " venceu");
+				System.out.println(jogadores[jogador] + " venceu");
 				break;
 			} else if (testeFim(status)) {
 				System.out.println("fim do jogo (sem vencedor).");
@@ -243,7 +244,6 @@ public class Vetores {
 			jogador = (jogador+1) % 2; // alterna entre 0 e 1
 		}
 		sc.close();
-		imprimeStatus(status);
 	}
 
 	public static boolean testePosicao(char[][] status, int i, int j) {
@@ -273,8 +273,10 @@ public class Vetores {
 	}
 
 	public static void imprimeStatus(char[][] status) {
+		System.out.print("\033[H\033[2J");	// clear console
+		System.out.flush();
 		for(int i=0;i<=2;i++) {
-			System.out.println(" " + status[i][0] + " | " + status[i][1] + " | " + status[i][2]);
+			System.out.println(" " + status[0][i] + " | " + status[1][i] + " | " + status[2][i]);
 			if (i<2) {
 				System.out.println("---+---+---");
 			}
