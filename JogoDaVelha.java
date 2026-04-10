@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class JogoDaVelha {
-    public static char[][] status = {{' ',' ',' '} , {' ',' ',' '} , {' ',' ',' '}};
-    public static char[][] rotulos = {{'¹','²','³'} , {'⁴','⁵','⁶'} , {'⁷','⁸','⁹'}};
+	public static char[][] status = {{' ',' ',' '} , {' ',' ',' '} , {' ',' ',' '}};
+	public static char[][] rotulos = {{'¹','²','³'} , {'⁴','⁵','⁶'} , {'⁷','⁸','⁹'}};
 	public static char[] jogadores = {'X','O'};
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -33,13 +33,13 @@ public class JogoDaVelha {
 	}
 
 	public static boolean testePosicao(int pos, int jogador) {
-	    int x = pos/3;
-	    int y = pos%3;
-	    if (0<=pos && pos<=9 && status[x][y]!='X' && status[x][y]!='O') {
+		int x = pos/3;
+		int y = pos%3;
+		if (0<=pos && pos<=9 && status[x][y]!=jogadores[0] && status[x][y]!=jogadores[1]) {
 			status[x][y] = jogadores[jogador];
 			rotulos[x][y] = ' ';
 			return true; // posição válida/livre
-	    } else { return false; }
+		} else { return false; }
 	}
 
 	public static boolean testeJogador(int jogador) {
