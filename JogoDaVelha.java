@@ -8,22 +8,27 @@ public class JogoDaVelha {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Random gerador = new Random();
+//		Random gerador = new Random();
 		int indiceJogador = 0;
+		int automatico = 0; // -1 desabilita
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("jogador " + simbolos[indiceJogador] + ", entre com uma posição: ");
 			while (true) {
 				int pos;
 // jogador entra com posição
-				if (indiceJogador==0) {
-					pos = sc.nextInt();
-				} else {
-					pos = gerador.nextInt(8);
+				if (indiceJogador==automatico) {
+//					pos = gerador.nextInt(8);
+					pos = jogada(indiceJogador);
 					System.out.println("");
+				} else {
+					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
-				if (testaPosicao(pos, indiceJogador)) {
+				if (testaPosicao(pos)) {
+					int x = pos%3;
+					int y = pos/3;
+					tabuleiro[y][x] = simbolos[indiceJogador];
 					break;
 				} else {
 					System.out.print("posição inválida; tente novamente: ");
@@ -47,7 +52,7 @@ public class JogoDaVelha {
 		}
 		sc.close();
 	}
-	
+
 	public static void imprimeTabuleiro() {
 		System.out.println("");
 		for (int i=0; i<tabuleiro.length; i++) {
@@ -57,20 +62,19 @@ public class JogoDaVelha {
 		}
 	}
 
-	public static boolean testaPosicao(int pos, int indiceJogador) {
+	public static boolean testaPosicao(int pos) {
 		if (pos<0 || pos>8) {
 			return false;
 		}
 		int x = pos%3;
 		int y = pos/3;
 		if (tabuleiro[y][x]!=simbolos[0] && tabuleiro[y][x]!=simbolos[1]) {
-			tabuleiro[y][x] = simbolos[indiceJogador];
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public static boolean testeVitoria(char simboloJogador) {
 		for (int i=0; i<tabuleiro.length; i++) {
 			if (tabuleiro[i][0]==simboloJogador && tabuleiro[i][1]==simboloJogador && tabuleiro[i][2]==simboloJogador) { return true; }
@@ -90,5 +94,32 @@ public class JogoDaVelha {
 			}
 		}
 		return true;
+	}
+
+	public static int jogada(int indiceJogador) {
+		int pos = 0;
+		for (int i=0; i<tabuleiro.length; i++) {
+			for (int j=0; j<tabuleiro.length; j++) {
+				if (tabuleiro[i][j]!=simbolos[0] && tabuleiro[i][j]!=simbolos[1]) {
+					char tempSimbolo = tabuleiro[i][j];
+					tabuleiro[i][j] = simbolos[indiceJogador];
+					pos = i*3+j;
+					if (testeVitoria(simbolos[indiceJogador])) { // retornar posição vitoriosa
+						tabuleiro[i][j] = ' ';
+						return pos;
+					}
+					tabuleiro[i][j] = tempSimbolo;
+				}
+			}
+		}
+// senão, ocupar posições privilegiadas
+		if (testaPosicao(4)) {        return 4;
+		} else if (testaPosicao(0)) { return 0;
+		} else if (testaPosicao(2)) { return 2;
+		} else if (testaPosicao(6)) { return 6;
+		} else if (testaPosicao(8)) { return 8;
+// senão, ocupar posição aleatória
+		} else { return pos;
+		}
 	}
 }
