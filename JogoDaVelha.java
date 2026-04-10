@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class JogoDaVelha {
 
-	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} };
+	public static char[][] tabuleiro = { {' ', ' ', ' '} , {' ', ' ', ' '} , {' ', ' ', ' '} };
+	public static char[][] posicoes = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} };
 	// {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
 	public static char[] jogadores = { 'X', 'O' };
 
@@ -45,7 +46,7 @@ public class JogoDaVelha {
 	public static void imprimeTabuleiro() {
 		System.out.println("");
 		for (int i=0; i<tabuleiro.length; i++) {
-			System.out.println(" " + tabuleiro[i][0] + " │ " + tabuleiro[i][1] + " │ " + tabuleiro[i][2]);
+			System.out.println(" " + tabuleiro[i][0] + posicoes[i][0] + "│ " + tabuleiro[i][1] + posicoes[i][1] + "│ " + tabuleiro[i][2] + posicoes[i][2]);
 			if (i==2) { break; }
 			System.out.println("───┼───┼───");
 		}
@@ -59,6 +60,7 @@ public class JogoDaVelha {
 		int y = pos/3;
 		if (tabuleiro[y][x] != jogadores[0] && tabuleiro[y][x] != jogadores[1]) {
 			tabuleiro[y][x] = jogadores[indiceJogador];
+			posicoes[y][x] = ' ';
 			return true;
 		} else {
 			return false;
