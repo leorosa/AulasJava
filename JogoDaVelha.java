@@ -15,9 +15,8 @@ public class JogoDaVelha {
 				pos = sc.nextInt() - 1; // 1a. posição = 0
 				if (testePosicao(pos, jogador)) {
 					break;
-				} else {
-					System.out.println("posição inválida.");
 				}
+				System.out.println("posição inválida.");
 			}
 			imprimeStatus();
 			if (testeJogador(jogador)) {
@@ -39,7 +38,8 @@ public class JogoDaVelha {
 			status[x][y] = jogadores[jogador];
 			rotulos[x][y] = ' ';
 			return true; // posição válida/livre
-		} else { return false; }
+		}
+		return false;
 	}
 
 	public static boolean testeJogador(int jogador) {
@@ -56,7 +56,7 @@ public class JogoDaVelha {
 	public static boolean testeFim() {
 		for(int i=0;i<=2;i++) {
 			for(int j=0;j<=2;j++) {
-				if (status[i][j]!='X' && status[i][j]!='O') {
+				if (status[i][j]!=jogadores[0] && status[i][j]!=jogadores[1]) {
 					return false;
 				}
 			}
