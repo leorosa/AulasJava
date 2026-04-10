@@ -10,7 +10,7 @@ public class JogoDaVelha {
 		Scanner sc = new Scanner(System.in);
 //		Random gerador = new Random();
 		int indiceJogador = 0;
-		int automatico = 0; // -1 desabilita
+		int automatico = 0; // indice do jogador automático (0 ou 1); ex. -1 desabilita
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("jogador " + simbolos[indiceJogador] + ", entre com uma posição: ");
@@ -47,8 +47,8 @@ public class JogoDaVelha {
 			}
 // trocar de jogador
 //			if (jogador==0) { jogador = 1; } else { jogador = 0; }
-//			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
-			indiceJogador = (indiceJogador==1)?0:1;
+//			indiceJogador = (indiceJogador==1)?0:1;
+			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
 	}
@@ -113,12 +113,12 @@ public class JogoDaVelha {
 			}
 		}
 // senão, ocupar posições privilegiadas
-		if (testaPosicao(4)) {        return 4;
-		} else if (testaPosicao(0)) { return 0;
+		if (testaPosicao(4)) {        return 4; // centro
+		} else if (testaPosicao(0)) { return 0; // cantos
 		} else if (testaPosicao(2)) { return 2;
 		} else if (testaPosicao(6)) { return 6;
 		} else if (testaPosicao(8)) { return 8;
-// senão, ocupar posição aleatória
+// senão, ocupar última posição livre
 		} else { return pos;
 		}
 	}
