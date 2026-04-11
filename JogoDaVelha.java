@@ -13,19 +13,19 @@ public class JogoDaVelha {
 		int automatico = 0; // indice do jogador automático (0 ou 1); ex. -1 desabilita
 		imprimeTabuleiro();
 		while (true) {
-			System.out.print("jogador " + simbolos[indiceJogador] + ", entre com uma posição: ");
+			System.out.print("entre com uma posição para " + simbolos[indiceJogador] + ": ");
 			while (true) {
 				int pos;
 // entrada de posições
 				if (indiceJogador==automatico) {  // computador joga
-//                  pos = gerador.nextInt(8);
-                    pos = jogada(indiceJogador);
+//					pos = gerador.nextInt(8);
+					pos = jogada(indiceJogador);
 					System.out.println("");
 				} else {  // jogador informa posição
 					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
-				if (testaPosicao(pos)) {
+				if (testePosicao(pos)) {
 					int i = pos/3;
 					int j = pos%3;
 					tabuleiro[i][j] = simbolos[indiceJogador];
@@ -62,7 +62,7 @@ public class JogoDaVelha {
 		}
 	}
 
-	public static boolean testaPosicao(int pos) {
+	public static boolean testePosicao(int pos) {
 		if (pos<0 || pos>8) {
 			return false;
 		}
@@ -86,39 +86,53 @@ public class JogoDaVelha {
 	}
 
 	public static boolean tabuleiroCheio() {
-		for (int i=0; i<tabuleiro.length; i++) {
-			for (int j=0; j<tabuleiro.length; j++) {
-				if (tabuleiro[i][j]!=simbolos[0] && tabuleiro[i][j]!=simbolos[1]) {
-					return false;
-				}
+		for (int pos=0; pos<9; pos++) {
+			if (testePosicao(pos)) { // ainda há posições vagas
+				return false;
 			}
 		}
 		return true;
 	}
 
 	public static int jogada(int indiceJogador) {
-		int pos = 0;
-		for (int i=0; i<tabuleiro.length; i++) {
-			for (int j=0; j<tabuleiro.length; j++) {
-				if (tabuleiro[i][j]!=simbolos[0] && tabuleiro[i][j]!=simbolos[1]) {
-					char tempSimbolo = tabuleiro[i][j];
-					tabuleiro[i][j] = simbolos[indiceJogador];
-					pos = i*3+j;
-					if (testeVitoria(simbolos[indiceJogador])) { // retornar posição vitoriosa
-						tabuleiro[i][j] = ' ';
-						return pos;
-					}
-					tabuleiro[i][j] = tempSimbolo;
+		int posVago = 0;
+		int posDerrota = -1;
+		for (int pos=0; pos<9; pos++) {
+			if (testePosicao(pos)) {
+				posVago = pos;
+				int i = pos/3;
+				int j = pos%3;
+				char tempSimbolo = tabuleiro[i][j];
+				tabuleiro[i][j] = simbolos[indiceJogador];
+				if (testeVitoria(simbolos[indiceJogador])) { // retornar posição vitoriosa
+					tabuleiro[i][j] = ' ';
+					return pos;
+				}
+				indiceJogador = (indiceJogador+1)%2; // testar posição inimiga
+				tabuleiro[i][j] = simbolos[indiceJogador];
+				if (testeVitoria(simbolos[indiceJogador])) { // evitar derrota
+					posDerrota = pos; // continuar no laço para checar se éainda  possível vencer
+				}
+				tabuleiro[i][j] = tempSimbolo;
+			}
+		}
+		if (posDerrota>0) { return posDerrota; }
+// senão, ocupar posições privilegiadas
+		if (testePosicao(4)) {        return 4; // centro
+//		} else if (testePosicao(0)) { return 0; // cantos
+//		} else if (testePosicao(2)) { return 2;
+//		} else if (testePosicao(6)) { return 6;
+//		} else if (testePosicao(8)) { return 8;
+		} else { // cantos aleatórios
+			int[] cantos = {0, 2, 6, 8};
+			Random gerador = new Random();
+			int canto = gerador.nextInt(3);
+			for (int i=0; i<cantos.length; i++) {
+				if (testePosicao(cantos[(canto+i)%4])) {
+					return cantos[(canto+i)%4];
 				}
 			}
 		}
-// senão, ocupar posições privilegiadas
-		if (testaPosicao(4)) {        return 4; // centro
-		} else if (testaPosicao(0)) { return 0; // cantos
-		} else if (testaPosicao(2)) { return 2;
-		} else if (testaPosicao(6)) { return 6;
-		} else if (testaPosicao(8)) { return 8;
-		}
-		return pos; // senão, ocupar última posição livre
+		return posVago; // senão, ocupar última posição livre
 	}
 }
