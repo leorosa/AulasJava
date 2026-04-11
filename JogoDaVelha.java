@@ -83,9 +83,10 @@ public class JogoDaVelha {
 		int j = pos%3;
 		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; } // linha
 		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; } // coluna
-		if (pos%2==0) { // se for centro ou um dos cantos, também testar diagonais
+		if (pos%4==0) { // se posição está na diagonal principal
 			if (tabuleiro[(i+1)%3][(j+1)%3]==simboloJogador && tabuleiro[(i+2)%3][(j+2)%3]==simboloJogador) { return true; } // 0,0 / 1,1 / 2,2 / 3(=0),3(=0)
-			if (tabuleiro[(i+1)%3][(i+2)%3]==simboloJogador && tabuleiro[(i+2)%3][(j+4)%3]==simboloJogador) { return true; } // 0,2 / 1,4(=1) / 2,6(=3=0)
+		} else if (pos%2==0) { // senão, pode pertencer à diagonal secundária
+			if (tabuleiro[(i+1)%3][(j+2)%3]==simboloJogador && tabuleiro[(i+2)%3][(j+4)%3]==simboloJogador) { return true; } // 0,2 / 1,4(=1) / 2,6(=3=0) / 3(=0),8(=5=2)
 		}
 		return false;
 	}
@@ -124,7 +125,7 @@ public class JogoDaVelha {
 			int canto = gerador.nextInt(4);
 			for (int i=0; i<cantos.length; i++) {
 				pos = cantos[(canto+i)%4];
-				if (testePosicaoLivre(pos)) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria()' acima
+				if (testePosicaoLivre(pos) && testePosicaoLivre((pos+6)%12)) { // testar também se oponente está no canto oposto (2+6=8, 8+6=14%12=2 ,  0+6=6, 6+6=12%12=0)
 					return pos;
 				}
 			}
