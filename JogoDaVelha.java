@@ -6,7 +6,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'C', 'H', ''X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador
+	public static char[] simbolos = { 'C', 'H', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
