@@ -8,7 +8,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -16,7 +16,7 @@ public class JogoDaVelha {
 		String log = "";
 		imprimeTabuleiro();
 		while (true) {
-			System.out.print("entre com uma posição para " + simbolos[indiceJogador] + ": ");
+			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
 			while (true) {
 // entrada de posições
 				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador joga
@@ -84,8 +84,8 @@ public class JogoDaVelha {
 		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; } // linha
 		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; } // coluna
 		if (pos%2==0) { // se for centro ou um dos cantos, também testar diagonais
-			if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
-			if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
+			if (tabuleiro[(i+1)%3][(j+1)%3]==simboloJogador && tabuleiro[(i+2)%3][(j+2)%3]==simboloJogador) { return true; } // 0,0 / 1,1 / 2,2 / 3(=0),3(=0)
+			if (tabuleiro[(i+1)%3][(i+2)%3]==simboloJogador && tabuleiro[(i+2)%3][(j+4)%3]==simboloJogador) { return true; } // 0,2 / 1,4(=1) / 2,6(=3=0)
 		}
 		return false;
 	}
