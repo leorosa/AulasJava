@@ -6,7 +6,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'C', 'c', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'A', 'a', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -18,8 +18,8 @@ public class JogoDaVelha {
 // entrada de posições
 				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c' ) {  // computador joga
 					pos = jogada(indiceJogador);
-				} else if (simbolos[indiceJogador]=='A') {  // jogada aleatória
-					pos = gerador.nextInt(8);
+				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a' ) {  // jogada aleatória
+					pos = gerador.nextInt(9);
 				} else {                             // jogador informa posição
 					pos = sc.nextInt();
 				}
@@ -120,7 +120,7 @@ public class JogoDaVelha {
 		if (testePosicao(4)) { return 4; // centro
 		} else { // cantos aleatórios
 			int[] cantos = {0, 2, 6, 8};
-			int canto = gerador.nextInt(3);
+			int canto = gerador.nextInt(4);
 			for (int i=0; i<cantos.length; i++) {
 				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria()' acima
 					return cantos[(canto+i)%4];
