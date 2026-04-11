@@ -16,11 +16,11 @@ public class JogoDaVelha {
 			while (true) {
 				int pos;
 // entrada de posições
-				if (simbolos[indiceJogador]=='C') { // computador joga
+				if (simbolos[indiceJogador]=='C') {  // computador joga
 //					pos = gerador.nextInt(8);
 					pos = jogada(indiceJogador);
 					System.out.println("");
-				} else {                            // jogador informa posição
+				} else {                             // jogador informa posição
 					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
@@ -96,6 +96,7 @@ public class JogoDaVelha {
 	public static int jogada(int indiceJogador) {
 		int posVago = 0;
 		int posDerrota = -1;
+		int indiceOponente = (indiceJogador+1)%2;
 // procurar posições para vencer (ou para não perder) o jogo
 		for (int pos=0; pos<9; pos++) {
 			if (testePosicao(pos)) {
@@ -108,9 +109,8 @@ public class JogoDaVelha {
 					tabuleiro[i][j] = ' '; // desocupar posição
 					return pos;
 				}
-				indiceJogador = (indiceJogador+1)%2; // testar posição inimiga
-				tabuleiro[i][j] = simbolos[indiceJogador];
-				if (testeVitoria(simbolos[indiceJogador])) { // evitar derrota
+				tabuleiro[i][j] = simbolos[indiceOponente];
+				if (testeVitoria(simbolos[indiceOponente])) { // evitar derrota
 					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
 				tabuleiro[i][j] = tempSimbolo; // desocupar posição
@@ -118,13 +118,12 @@ public class JogoDaVelha {
 		}
 		if (posDerrota>=0) { return posDerrota; }
 // senão, ocupar posições privilegiadas
-		if (testePosicao(4)) {
-			return 4; // centro
-		} else {      // cantos aleatórios
+		if (testePosicao(4)) {        return 4; // centro
+		} else { // cantos aleatórios
 			int[] cantos = {0, 2, 6, 8};
 			int canto = gerador.nextInt(3);
 			for (int i=0; i<cantos.length; i++) {
-				if (testePosicao(cantos[(canto+i)%4])) {
+				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto?
 					return cantos[(canto+i)%4];
 				}
 			}
