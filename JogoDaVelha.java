@@ -27,7 +27,7 @@ public class JogoDaVelha {
 					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
-				if (testePosicao(pos)) {
+				if (testePosicaoLivre(pos)) {
 					int i = pos/3;
 					int j = pos%3;
 					tabuleiro[i][j] = simbolos[indiceJogador];
@@ -52,7 +52,7 @@ public class JogoDaVelha {
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
-		System.out.println("(registro de jogadas: " + log +")");
+		System.out.println("(jogadas: " + log +")");
 	}
 
 	public static void imprimeTabuleiro() {
@@ -65,7 +65,7 @@ public class JogoDaVelha {
 		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 	}
 
-	public static boolean testePosicao(int pos) {
+	public static boolean testePosicaoLivre(int pos) {
 		if (pos<0 || pos>8) {
 			return false;
 		}
@@ -84,15 +84,15 @@ public class JogoDaVelha {
 		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; } // linha
 		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; } // coluna
 		if (pos%2==0) { // se for centro ou um dos cantos, também testar diagonais
-	        if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
-    		if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
+			if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
+			if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
 		}
 		return false;
 	}
 
 	public static boolean tabuleiroCheio() {
 		for (int pos=0; pos<9; pos++) {
-			if (testePosicao(pos)) { // ainda há posições vagas
+			if (testePosicaoLivre(pos)) { // ainda há posições vagas
 				return false;
 			}
 		}
@@ -106,7 +106,7 @@ public class JogoDaVelha {
 		int indiceOponente = (indiceJogador+1)%2;
 // procurar posições para vencer (ou para não perder) o jogo
 		for (pos=0; pos<9; pos++) {
-			if (testePosicao(pos)) {
+			if (testePosicaoLivre(pos)) {
 				posVago = pos;
 				if (testeVitoria(pos, simbolos[indiceJogador])) { // retornar posição vitoriosa
 					return pos;
@@ -118,13 +118,13 @@ public class JogoDaVelha {
 		}
 		if (posDerrota>=0) { return posDerrota; }
 // senão, ocupar posições privilegiadas
-		if (testePosicao(4)) { return 4; // centro
+		if (testePosicaoLivre(4)) { return 4; // centro
 		} else { // cantos aleatórios (não é necessário...)
 			int[] cantos = {0, 2, 6, 8};
 			int canto = gerador.nextInt(4);
 			for (int i=0; i<cantos.length; i++) {
 				pos = cantos[(canto+i)%4];
-				if (testePosicao(pos)) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria()' acima
+				if (testePosicaoLivre(pos)) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria()' acima
 					return pos;
 				}
 			}
