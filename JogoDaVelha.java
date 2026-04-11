@@ -8,7 +8,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'C', 'c', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -125,8 +125,10 @@ public class JogoDaVelha {
 			int canto = gerador.nextInt(4);
 			for (int i=0; i<cantos.length; i++) {
 				pos = cantos[(canto+i)%4];
-				if (testePosicaoLivre(pos) && testePosicaoLivre((pos+6)%12)) { // testar também se oponente está no canto oposto (2+6=8, 8+6=14%12=2 ,  0+6=6, 6+6=12%12=0)
-					return pos;
+				if (testePosicaoLivre(pos) { // testar também se o canto oposto está livre (senão=oponente)
+					if testePosicaoLivre((18-pos)%10)) { // (18-2=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2)
+						return pos;
+					}
 				}
 			}
 		}
