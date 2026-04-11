@@ -16,19 +16,19 @@ public class JogoDaVelha {
 			System.out.print("jogador " + simbolos[indiceJogador] + ", entre com uma posição: ");
 			while (true) {
 				int pos;
-// jogador entra com posição
-				if (indiceJogador==automatico) {
-//					pos = gerador.nextInt(8);
-					pos = jogada(indiceJogador);
+// entrada de posições
+				if (indiceJogador==automatico) {  // computador joga
+//                  pos = gerador.nextInt(8);
+                    pos = jogada(indiceJogador);
 					System.out.println("");
-				} else {
+				} else {  // jogador informa posição
 					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
 				if (testaPosicao(pos)) {
-					int x = pos%3;
-					int y = pos/3;
-					tabuleiro[y][x] = simbolos[indiceJogador];
+					int i = pos/3;
+					int j = pos%3;
+					tabuleiro[i][j] = simbolos[indiceJogador];
 					break;
 				} else {
 					System.out.print("posição inválida; tente novamente: ");
@@ -66,9 +66,9 @@ public class JogoDaVelha {
 		if (pos<0 || pos>8) {
 			return false;
 		}
-		int x = pos%3;
-		int y = pos/3;
-		if (tabuleiro[y][x]!=simbolos[0] && tabuleiro[y][x]!=simbolos[1]) {
+		int i = pos/3;
+		int j = pos%3;
+		if (tabuleiro[i][j]!=simbolos[0] && tabuleiro[i][j]!=simbolos[1]) {
 			return true;
 		} else {
 			return false;
@@ -76,9 +76,9 @@ public class JogoDaVelha {
 	}
 
 	public static boolean testeVitoria(char simboloJogador) {
-		for (int i=0; i<tabuleiro.length; i++) {
-			if (tabuleiro[i][0]==simboloJogador && tabuleiro[i][1]==simboloJogador && tabuleiro[i][2]==simboloJogador) { return true; }
-			if (tabuleiro[0][i]==simboloJogador && tabuleiro[1][i]==simboloJogador && tabuleiro[2][i]==simboloJogador) { return true; }
+		for (int k=0; k<tabuleiro.length; k++) {
+			if (tabuleiro[k][0]==simboloJogador && tabuleiro[k][1]==simboloJogador && tabuleiro[k][2]==simboloJogador) { return true; }
+			if (tabuleiro[0][k]==simboloJogador && tabuleiro[1][k]==simboloJogador && tabuleiro[2][k]==simboloJogador) { return true; }
 		}
 		if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
 		if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
@@ -118,8 +118,7 @@ public class JogoDaVelha {
 		} else if (testaPosicao(2)) { return 2;
 		} else if (testaPosicao(6)) { return 6;
 		} else if (testaPosicao(8)) { return 8;
-// senão, ocupar última posição livre
-		} else { return pos;
 		}
+		return pos; // senão, ocupar última posição livre
 	}
 }
