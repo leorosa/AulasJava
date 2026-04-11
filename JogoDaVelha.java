@@ -10,11 +10,11 @@ public class JogoDaVelha {
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
+		int pos = -1;
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("entre com uma posição para " + simbolos[indiceJogador] + ": ");
 			while (true) {
-				int pos;
 // entrada de posições
 				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador joga
 					pos = jogada(indiceJogador);
@@ -35,7 +35,7 @@ public class JogoDaVelha {
 			}
 			imprimeTabuleiro();
 // testar se jogador venceu; se sim, encerrar o jogo
-			if (testeVitoria(simbolos[indiceJogador])) {
+			if (testeVitoria(pos, simbolos[indiceJogador])) {
 				System.out.println("jogador " + simbolos[indiceJogador] + " venceu.");
 				break; // sai do jogo
 			}
@@ -73,13 +73,15 @@ public class JogoDaVelha {
 		}
 	}
 
-	public static boolean testeVitoria(char simboloJogador) {
-		for (int k=0; k<tabuleiro.length; k++) {
-			if (tabuleiro[k][0]==simboloJogador && tabuleiro[k][1]==simboloJogador && tabuleiro[k][2]==simboloJogador) { return true; }
-			if (tabuleiro[0][k]==simboloJogador && tabuleiro[1][k]==simboloJogador && tabuleiro[2][k]==simboloJogador) { return true; }
+	public static boolean testeVitoria(int pos, char simboloJogador) { // testa apenas posição
+		int i = pos/3;
+		int j = pos%3;
+		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; }
+		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; }
+		if (pos==4) {
+			if (tabuleiro[0][0]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
+			if (tabuleiro[0][2]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
 		}
-		if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
-		if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
 		return false;
 	}
 
@@ -93,27 +95,20 @@ public class JogoDaVelha {
 	}
 
 	public static int jogada(int indiceJogador) {
-		int pos;
-		int posVago = 0;
+		int pos = -1;
+		int posVago = -1;
 		int posDerrota = -1;
 		int indiceOponente = (indiceJogador+1)%2;
 // procurar posições para vencer (ou para não perder) o jogo
 		for (pos=0; pos<9; pos++) {
 			if (testePosicao(pos)) {
 				posVago = pos;
-				int i = pos/3;
-				int j = pos%3;
-				char tempSimbolo = tabuleiro[i][j];
-				tabuleiro[i][j] = simbolos[indiceJogador];
-				if (testeVitoria(simbolos[indiceJogador])) { // retornar posição vitoriosa
-					tabuleiro[i][j] = ' '; // desocupar posição
+				if (testeVitoria(pos, simbolos[indiceJogador])) { // retornar posição vitoriosa
 					return pos;
 				}
-				tabuleiro[i][j] = simbolos[indiceOponente];
-				if (testeVitoria(simbolos[indiceOponente])) { // evitar derrota
+				if (testeVitoria(pos, simbolos[indiceOponente])) { // evitar derrota
 					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
-				tabuleiro[i][j] = tempSimbolo; // desocupar posição
 			}
 		}
 		if (posDerrota>=0) { return posDerrota; }
