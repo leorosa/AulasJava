@@ -3,12 +3,12 @@ import java.util.Random;
 
 public class JogoDaVelha {
 
+    public static Scanner sc = new Scanner(System.in);
+    public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
 	public static char[] simbolos = { 'X', 'O' }; // representação visual dos jogadores
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-//		Random gerador = new Random();
 		int indiceJogador = 0;
 		int automatico = 0; // indice do jogador automático (0 ou 1); ex. -1 desabilita
 		imprimeTabuleiro();
@@ -97,6 +97,7 @@ public class JogoDaVelha {
 	public static int jogada(int indiceJogador) {
 		int posVago = 0;
 		int posDerrota = -1;
+// procurar posições para vencer (ou para não perder) o jogo
 		for (int pos=0; pos<9; pos++) {
 			if (testePosicao(pos)) {
 				posVago = pos;
@@ -105,18 +106,18 @@ public class JogoDaVelha {
 				char tempSimbolo = tabuleiro[i][j];
 				tabuleiro[i][j] = simbolos[indiceJogador];
 				if (testeVitoria(simbolos[indiceJogador])) { // retornar posição vitoriosa
-					tabuleiro[i][j] = ' ';
+					tabuleiro[i][j] = ' '; // desocupar posição
 					return pos;
 				}
 				indiceJogador = (indiceJogador+1)%2; // testar posição inimiga
 				tabuleiro[i][j] = simbolos[indiceJogador];
 				if (testeVitoria(simbolos[indiceJogador])) { // evitar derrota
-					posDerrota = pos; // continuar no laço para checar se éainda  possível vencer
+					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
-				tabuleiro[i][j] = tempSimbolo;
+				tabuleiro[i][j] = tempSimbolo; // desocupar posição
 			}
 		}
-		if (posDerrota>0) { return posDerrota; }
+		if (posDerrota>=0) { return posDerrota; }
 // senão, ocupar posições privilegiadas
 		if (testePosicao(4)) {        return 4; // centro
 //		} else if (testePosicao(0)) { return 0; // cantos
@@ -125,7 +126,6 @@ public class JogoDaVelha {
 //		} else if (testePosicao(8)) { return 8;
 		} else { // cantos aleatórios
 			int[] cantos = {0, 2, 6, 8};
-			Random gerador = new Random();
 			int canto = gerador.nextInt(3);
 			for (int i=0; i<cantos.length; i++) {
 				if (testePosicao(cantos[(canto+i)%4])) {
