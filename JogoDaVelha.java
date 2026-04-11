@@ -51,12 +51,13 @@ public class JogoDaVelha {
 	}
 
 	public static void imprimeTabuleiro() {
-		System.out.println(""); // linha em branco para facilitar visualização
+		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro (e necessária para jogadas automáticas)
 		for (int i=0; i<tabuleiro.length; i++) {
 			System.out.println("         " + tabuleiro[i][0] + " │ " + tabuleiro[i][1] + " │ " + tabuleiro[i][2]);
 			if (i==2) { break; }
 			System.out.println("        ───┼───┼───");
 		}
+		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 	}
 
 	public static boolean testePosicao(int pos) {
@@ -121,7 +122,7 @@ public class JogoDaVelha {
 			int[] cantos = {0, 2, 6, 8};
 			int canto = gerador.nextInt(3);
 			for (int i=0; i<cantos.length; i++) {
-				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria' acima
+				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria()' acima
 					return cantos[(canto+i)%4];
 				}
 			}
