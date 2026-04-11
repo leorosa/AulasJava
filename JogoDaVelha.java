@@ -1,3 +1,5 @@
+// 2026-04-10 e 11
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -6,11 +8,12 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'C', 'c', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
 		int pos = -1;
+		String log = "";
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("entre com uma posição para " + simbolos[indiceJogador] + ": ");
@@ -33,6 +36,7 @@ public class JogoDaVelha {
 					System.out.print("posição inválida; tente novamente: ");
 				}
 			}
+			log += pos;
 			imprimeTabuleiro();
 // testar se jogador venceu; se sim, encerrar o jogo
 			if (testeVitoria(pos, simbolos[indiceJogador])) {
@@ -48,6 +52,7 @@ public class JogoDaVelha {
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
+		System.out.println("(registro de jogadas: " + log +")");
 	}
 
 	public static void imprimeTabuleiro() {
@@ -76,11 +81,11 @@ public class JogoDaVelha {
 	public static boolean testeVitoria(int pos, char simboloJogador) { // testa apenas posição
 		int i = pos/3;
 		int j = pos%3;
-		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; }
-		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; }
-		if (pos==4) {
-			if (tabuleiro[0][0]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
-			if (tabuleiro[0][2]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
+		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; } // linha
+		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; } // coluna
+		if (pos%2==0) { // se for centro ou um dos cantos, também testar diagonais
+	        if (tabuleiro[0][0]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][2]==simboloJogador) { return true; }
+    		if (tabuleiro[0][2]==simboloJogador && tabuleiro[1][1]==simboloJogador && tabuleiro[2][0]==simboloJogador) { return true; }
 		}
 		return false;
 	}
