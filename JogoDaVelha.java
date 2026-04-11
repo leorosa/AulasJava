@@ -17,9 +17,9 @@ public class JogoDaVelha {
 				int pos;
 // entrada de posições
 				if (simbolos[indiceJogador]=='C') {  // computador joga
-//					pos = gerador.nextInt(8);
 					pos = jogada(indiceJogador);
-					System.out.println("");
+				} else if (simbolos[indiceJogador]=='A') {  // jogada aleatória
+					pos = gerador.nextInt(8);
 				} else {                             // jogador informa posição
 					pos = sc.nextInt();
 				}
@@ -45,19 +45,17 @@ public class JogoDaVelha {
 				break;
 			}
 // trocar de jogador
-//			if (jogador==0) { jogador = 1; } else { jogador = 0; }
-//			indiceJogador = (indiceJogador==1)?0:1;
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
 	}
 
 	public static void imprimeTabuleiro() {
-		System.out.println("");
+		System.out.println(""); // linha em branco para facilitar visualização
 		for (int i=0; i<tabuleiro.length; i++) {
-			System.out.println(" " + tabuleiro[i][0] + " │ " + tabuleiro[i][1] + " │ " + tabuleiro[i][2]);
+			System.out.println("         " + tabuleiro[i][0] + " │ " + tabuleiro[i][1] + " │ " + tabuleiro[i][2]);
 			if (i==2) { break; }
-			System.out.println("───┼───┼───");
+			System.out.println("        ───┼───┼───");
 		}
 	}
 
@@ -118,12 +116,12 @@ public class JogoDaVelha {
 		}
 		if (posDerrota>=0) { return posDerrota; }
 // senão, ocupar posições privilegiadas
-		if (testePosicao(4)) {        return 4; // centro
+		if (testePosicao(4)) { return 4; // centro
 		} else { // cantos aleatórios
 			int[] cantos = {0, 2, 6, 8};
 			int canto = gerador.nextInt(3);
 			for (int i=0; i<cantos.length; i++) {
-				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto?
+				if (testePosicao(cantos[(canto+i)%4])) { // testar também canto oposto? não, por que já foi testado nos 'testeVitoria' acima
 					return cantos[(canto+i)%4];
 				}
 			}
