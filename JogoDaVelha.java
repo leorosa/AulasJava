@@ -3,25 +3,24 @@ import java.util.Random;
 
 public class JogoDaVelha {
 
-    public static Scanner sc = new Scanner(System.in);
-    public static Random gerador = new Random();
+	public static Scanner sc = new Scanner(System.in);
+	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'X', 'O' }; // representação visual dos jogadores
+	public static char[] simbolos = { 'C', 'H', ''X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
-		int automatico = 0; // indice do jogador automático (0 ou 1); ex. -1 desabilita
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("entre com uma posição para " + simbolos[indiceJogador] + ": ");
 			while (true) {
 				int pos;
 // entrada de posições
-				if (indiceJogador==automatico) {  // computador joga
+				if (simbolos[indiceJogador]=='C') { // computador joga
 //					pos = gerador.nextInt(8);
 					pos = jogada(indiceJogador);
 					System.out.println("");
-				} else {  // jogador informa posição
+				} else {                            // jogador informa posição
 					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
@@ -119,12 +118,9 @@ public class JogoDaVelha {
 		}
 		if (posDerrota>=0) { return posDerrota; }
 // senão, ocupar posições privilegiadas
-		if (testePosicao(4)) {        return 4; // centro
-//		} else if (testePosicao(0)) { return 0; // cantos
-//		} else if (testePosicao(2)) { return 2;
-//		} else if (testePosicao(6)) { return 6;
-//		} else if (testePosicao(8)) { return 8;
-		} else { // cantos aleatórios
+		if (testePosicao(4)) {
+			return 4; // centro
+		} else {      // cantos aleatórios
 			int[] cantos = {0, 2, 6, 8};
 			int canto = gerador.nextInt(3);
 			for (int i=0; i<cantos.length; i++) {
