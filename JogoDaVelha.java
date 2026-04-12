@@ -8,7 +8,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
-	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static String log = "";
 
 	public static void main(String[] args) {
@@ -108,8 +108,8 @@ public class JogoDaVelha {
 		int posDerrota = -1;
 		char simboloJogador = simbolos[indiceJogador];
 		char simboloOponente = simbolos[(indiceJogador+1)%2];
-		int[] valorPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // array ao invés de matrix
-		int maxVal = -1;
+		int valorPos = -1;
+		int valorMax = -1;
 // procurar posições para vencer (ou para não perder) o jogo; salvar melhor posição livre
 		for (pos=0; pos<9; pos++) {
 			if (testePosicaoLivre(pos)) {
@@ -119,29 +119,33 @@ public class JogoDaVelha {
 				if (testeVitoria(pos, simboloOponente)) { // evitar derrota
 					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
-				valorPos[pos] = valorPosicao(pos, simboloJogador, simboloOponente);
-				if (valorPos[pos]>maxVal) { // apresentado em aula
-					maxVal = valorPos[pos] - gerador.nextInt(2); // toque de aleatoriedade...
-					posVago = pos; // posição com maior número de possibilidades de vitória 
-				}
+				if (simboloJogador=='C') {
+					valorPos = valorPosicao(pos, simboloJogador, simboloOponente);
+					if (valorPos>valorMax) { // como apresentado em aula
+						valorMax = valorPos - gerador.nextInt(2); // toque de aleatoriedade...
+						posVago = pos; // posição com maior número de possibilidades de vitória
+					}
+				} else { posVago = pos; }
 			}
 		}
 		if (posDerrota>=0) { return posDerrota; } // evitar derrota
 // senão, ocupar posições privilegiadas
-//		if (testePosicaoLivre(4)) { return 4; // centro
-//		} else { // cantos aleatórios (não é necessário...)
-//			int[] cantos = {0, 2, 6, 8};
-//			int canto = gerador.nextInt(4);
-//			for (int i=0; i<cantos.length; i++) {
-//				pos = cantos[(canto+i)%4];
-//				if (testePosicaoLivre(pos)) { // testar também se o canto oposto está livre (senão=oponente)
-//					posVago = pos; // preferir canto a qualquer outra posição vaga
-//					if (testePosicaoLivre((18-pos)%10)) { // (18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2)
-//						return pos;
-//					}
-//				}
-//			}
-//		}
+		if (simboloJogador=='c') {
+			if (testePosicaoLivre(4)) { return 4; // centro
+			} else { // cantos aleatórios (não é necessário...)
+				int[] cantos = {0, 2, 6, 8};
+				int canto = gerador.nextInt(4);
+				for (int i=0; i<cantos.length; i++) {
+					pos = cantos[(canto+i)%4];
+					if (testePosicaoLivre(pos)) { // testar também se o canto oposto está livre (senão=oponente)
+						posVago = pos; // preferir canto a qualquer outra posição vaga
+						if (testePosicaoLivre((18-pos)%10)) { // (18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2)
+							return pos;
+						}
+					}
+				}
+			}
+		}
 		return posVago; // senão, ocupar última (melhor) posição livre
 	}
 
