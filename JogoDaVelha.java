@@ -103,32 +103,32 @@ public class JogoDaVelha {
 
 	public static int jogada(int indiceJogador) {
 		int pos = -1;
-		int posVago = -1;
+//		int posVago = -1;
 		int posDerrota = -1;
-		int indiceOponente = (indiceJogador+1)%2;
-        int[] valorPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // array ao invés de matrix
-        int maxVal = 0;
-        int posMax = -1;
+		char simboloJogador = simbolos[indiceJogador];
+		char simboloOponente = simbolos[(indiceJogador+1)%2];
+		int[] valorPos = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // array ao invés de matrix
+		int maxVal = -1;
+		int posMax = -1;
 // procurar posições para vencer (ou para não perder) o jogo
 		for (pos=0; pos<9; pos++) {
 			if (testePosicaoLivre(pos)) {
-				posVago = pos;
-				if (testeVitoria(pos, simbolos[indiceJogador])) { // retornar posição vitoriosa
+//				posVago = pos;
+				if (testeVitoria(pos, simboloJogador)) { // retornar posição vitoriosa imediatamente
 					return pos;
 				}
-				if (testeVitoria(pos, simbolos[indiceOponente])) { // evitar derrota
+				if (testeVitoria(pos, simboloOponente)) { // evitar derrota
 					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
-				valorPos[pos] = valorPosicao(pos, simbolos[indiceOponente]);
-				if (valorPos[pos]>maxVal) {
-					maxVal = valorPos[pos];
+				valorPos[pos] = valorPosicao(pos, simboloOponente);
+				if (valorPos[pos]>maxVal) { // apresentado em aula
+					maxVal = valorPos[pos] - gerador.nextInt(2); // toque de aleatoriedade...
 					posMax = pos; // posição com maior número de possibilidades de vitória 
 				}
 			}
 		}
-		if (posDerrota>=0) { return posDerrota; }
-		if (posMax>=0) { return posMax; }
-/////
+		if (posDerrota>=0) { return posDerrota; } // evitar derrota
+		return posMax; // ocupar melhor posição
 // senão, ocupar posições privilegiadas
 //		if (testePosicaoLivre(4)) { return 4; // centro
 //		} else { // cantos aleatórios (não é necessário...)
@@ -137,14 +137,14 @@ public class JogoDaVelha {
 //			for (int i=0; i<cantos.length; i++) {
 //				pos = cantos[(canto+i)%4];
 //				if (testePosicaoLivre(pos)) { // testar também se o canto oposto está livre (senão=oponente)
-//				    posVago = pos; // preferir canto a qualquer outra posição vaga
+//					posVago = pos; // preferir canto a qualquer outra posição vaga
 //					if (testePosicaoLivre((18-pos)%10)) { // (18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2)
 //						return pos;
 //					}
 //				}
 //			}
 //		}
-		return posVago; // senão, ocupar última posição livre
+//		return posVago; // senão, ocupar última posição livre
 	}
 
 	public static int valorPosicao(int pos, char simboloOponente) { // retorna número de vitórias possíveis
