@@ -145,18 +145,16 @@ public class JogoDaVelha {
 		return 0;
 	}
 
-	public static int valorPosicao1(int pos, char simboloJogador, char simboloOponente) { // heurística para dar peso a posições no tabuleiro p/ favorecer vitória
+	public static int valorPosicao1(int pos, char simboloJogador, char simboloOponente) { // heurística de 'pesos' em posições no tabuleiro p/ favorecer vitória
 		int i = pos/3;
 		int j = pos%3;
-		int io = pos>4?0:2; // linha do canto oposto
-		int jo = 2*((pos+1)%3); // coluna do canto oposto
 		int valorPos = 0;
 		if (pos==4) valorPos +=1; // priorizar centro
 		if (tabuleiro[i][(j+1)%3]!=simboloOponente && tabuleiro[i][(j+2)%3]!=simboloOponente) { valorPos+=1; } // linha
 		if (tabuleiro[(i+1)%3][j]!=simboloOponente && tabuleiro[(i+2)%3][j]!=simboloOponente) { valorPos+=1; } // coluna
-		if (valorPos>0 && pos%2==0) // priorizar centro e cantos em linhas e colunas livres
-			if (pos==4 || tabuleiro[io][jo]!=simboloOponente) // desde que canto oposto não esteja ocupado pelo oponente
-				valorPos*=2;
+		if (valorPos>0 && pos%2==0) { // priorizar centro e cantos em linhas e colunas livres
+			if (pos==4 || tabuleiro[pos>4?0:2][2*((pos+1)%3)]!=simboloOponente) { valorPos*=2; } // desde que canto oposto não esteja ocupado pelo oponente
+		}
 		if (pos%4==0) { // se posição está na diagonal principal
 			if (tabuleiro[(i+1)%3][(j+1)%3]!=simboloOponente && tabuleiro[(i+2)%3][(j+2)%3]!=simboloOponente) { valorPos+=1; }
 		}
