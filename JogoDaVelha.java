@@ -7,7 +7,7 @@ public class JogoDaVelha {
 
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
-	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // {'0', '1', '2'} , {'3', '4', '5'} , {'6', '7', '8'}};
+	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // '⁹'
 	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static String log = "";
 
@@ -19,9 +19,9 @@ public class JogoDaVelha {
 			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
 			while (true) {
 // entrada de posições
-				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador joga
+				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador informa posição
 					pos = jogada(indiceJogador);
-				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') {  // jogada aleatória
+				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') {  // posição aleatória
 					pos = gerador.nextInt(9);
 				} else {                             // jogador informa posição
 					pos = sc.nextInt();
@@ -120,36 +120,30 @@ public class JogoDaVelha {
 					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
 				}
 				if (simboloJogador=='C') {
-					valorPos = valorPosicao(pos, simboloJogador, simboloOponente);
-					if (valorPos>valorMax) { // como apresentado em aula
-						valorMax = valorPos - gerador.nextInt(2); // toque de aleatoriedade...
-						posVago = pos; // posição com maior número de possibilidades de vitória
-					}
-				} else { posVago = pos; }
-			}
-		}
-		if (posDerrota>=0) { return posDerrota; } // evitar derrota
-// senão, ocupar posições privilegiadas
-		if (simboloJogador=='c') {
-			if (testePosicaoLivre(4)) { return 4; // centro
-			} else { // cantos aleatórios (não é necessário...)
-				int[] cantos = {0, 2, 6, 8};
-				int canto = gerador.nextInt(4);
-				for (int i=0; i<cantos.length; i++) {
-					pos = cantos[(canto+i)%4];
-					if (testePosicaoLivre(pos)) { // testar também se o canto oposto está livre (senão=oponente)
-						posVago = pos; // preferir canto a qualquer outra posição vaga
-						if (testePosicaoLivre((18-pos)%10)) { // (18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2)
-							return pos;
-						}
-					}
+					valorPos = valorPosicao1(pos, simboloJogador, simboloOponente);
+				} else {
+					valorPos = valorPosicao0(pos);
+				}
+				if (valorPos>valorMax) { // no mesmo loop, como apresentado em aula
+					valorMax = valorPos - gerador.nextInt(2); // toque de aleatoriedade...
+					posVago = pos; // posição com maior número de possibilidades de vitória
 				}
 			}
 		}
-		return posVago; // senão, ocupar última (melhor) posição livre
+		if (posDerrota>=0) { return posDerrota; } // evitar derrota
+		return posVago; // senão, ocupar melhor posição livre
 	}
 
-	public static int valorPosicao(int pos, char simboloJogador, char simboloOponente) { // heurística para dar peso a posições no tabuleiro p/ favorecer vitória
+	public static int valorPosicao0(int pos) {
+		if (pos==4) { return 3; } // centro
+		if (pos%2==0) { // cantos
+			if (testePosicaoLivre((18-pos)%10)) { return 2; } // dar mais peso a canto com oposto vago -- oposto: 18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2
+			return 1;
+		}
+		return 0;
+	}
+
+	public static int valorPosicao1(int pos, char simboloJogador, char simboloOponente) { // heurística para dar peso a posições no tabuleiro p/ favorecer vitória
 		int i = pos/3;
 		int j = pos%3;
 		int valorPos = 0;
