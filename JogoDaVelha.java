@@ -8,7 +8,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // '⁹'
-	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static String log = "";
 
 	public static void main(String[] args) {
@@ -21,8 +21,10 @@ public class JogoDaVelha {
 // entrada de posições
 				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador informa posição
 					pos = jogada(indiceJogador);
+					System.out.println(pos);
 				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') {  // posição aleatória
 					pos = gerador.nextInt(9);
+					System.out.println(pos);
 				} else {                             // jogador informa posição
 					pos = sc.nextInt();
 				}
@@ -57,7 +59,7 @@ public class JogoDaVelha {
 	}
 
 	public static void imprimeTabuleiro() {
-		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro (e necessária para jogadas automáticas)
+		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 		for (int i=0; i<tabuleiro.length; i++) {
 			System.out.println("         " + tabuleiro[i][0] + " │ " + tabuleiro[i][1] + " │ " + tabuleiro[i][2]);
 			if (i==2) { break; }
@@ -146,23 +148,15 @@ public class JogoDaVelha {
 	public static int valorPosicao1(int pos, char simboloJogador, char simboloOponente) { // heurística para dar peso a posições no tabuleiro p/ favorecer vitória
 		int i = pos/3;
 		int j = pos%3;
+		int io = pos>4?0:2; // linha do canto oposto
+		int jo = 2*((pos+1)%3); // coluna do canto oposto
 		int valorPos = 0;
-		if (tabuleiro[i][(j+1)%3]!=simboloOponente && tabuleiro[i][(j+2)%3]!=simboloOponente) { // linha
-			valorPos+=1; 
-			if (pos%2==0) { valorPos+=1; } // priorizar centro e cantos em linha livre
-			if (pos==0&& tabuleiro[2][2]==simboloOponente) { valorPos-=1; } // descontar cantos com opostos ocupados pelo oponente
-			if (pos==2&& tabuleiro[2][0]==simboloOponente) { valorPos-=1; }
-			if (pos==6&& tabuleiro[0][2]==simboloOponente) { valorPos-=1; }
-			if (pos==8&& tabuleiro[0][0]==simboloOponente) { valorPos-=1; }
-		}
-		if (tabuleiro[(i+1)%3][j]!=simboloOponente && tabuleiro[(i+2)%3][j]!=simboloOponente) { // coluna
-			valorPos+=1;
-			if (pos%2==0) { valorPos+=1; } // priorizar centro e cantos em coluna livre
-			if (pos==0&& tabuleiro[2][2]==simboloOponente) { valorPos-=1; }
-			if (pos==2&& tabuleiro[2][0]==simboloOponente) { valorPos-=1; }
-			if (pos==6&& tabuleiro[0][2]==simboloOponente) { valorPos-=1; }
-			if (pos==8&& tabuleiro[0][0]==simboloOponente) { valorPos-=1; }
-		}
+		if (pos==4) valorPos +=1; // priorizar centro
+		if (tabuleiro[i][(j+1)%3]!=simboloOponente && tabuleiro[i][(j+2)%3]!=simboloOponente) { valorPos+=1; } // linha
+		if (tabuleiro[(i+1)%3][j]!=simboloOponente && tabuleiro[(i+2)%3][j]!=simboloOponente) { valorPos+=1; } // coluna
+		if (valorPos>0 && pos%2==0) // priorizar centro e cantos em linhas e colunas livres
+			if (pos==4 || tabuleiro[io][jo]!=simboloOponente) // desde que canto oposto não esteja ocupado pelo oponente
+				valorPos*=2;
 		if (pos%4==0) { // se posição está na diagonal principal
 			if (tabuleiro[(i+1)%3][(j+1)%3]!=simboloOponente && tabuleiro[(i+2)%3][(j+2)%3]!=simboloOponente) { valorPos+=1; }
 		}
