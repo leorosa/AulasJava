@@ -10,7 +10,7 @@ function variaveis() {
 
 function ola() {
     console.log('ola')
-    variaveis()
 }
 
 ola()
+variaveis()
