@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Colecoes {
 
 	public static void main(String[] args) {
-		lista();
+//		lista();
+		listaLinkada();
 	}
 	
 	public static void lista() {
@@ -27,4 +29,10 @@ public class Colecoes {
 		System.out.println(carros.toString());
 	}
 
+	public static void listaLinkada() {
+		LinkedList<String> carros = new LinkedList<String>(); // OO: instanciando objeto 'carros', e acessando seus métodos...
+		carros.add("Fuke");
+		carros.addFirst("TL");
+		System.out.println(carros.toString());
+	}
 }
