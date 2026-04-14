@@ -8,9 +8,9 @@ function variaveis() {
     console.log(altura)
 }
 
-function ola() {
-    console.log('ola')
+function ola(nome) {
+    console.log('olá ' + nome)
 }
 
-ola()
+ola('x')
 variaveis()
