@@ -25,4 +25,45 @@ function exercicio04() {
     console.log('o preço do produto é R$'+preco)
 }
 
-exercicio04()
+// Import the readline module
+const readline = require('readline');
+
+// Create an interface for reading input and writing output
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+function exercicio05() {
+// Ask the user for input
+    rl.question('informe seu nome: ', (name) => {
+        console.log('olá ' + name);
+// Close the interface
+    rl.close();
+  });
+}
+
+function exercicio06() {
+    rl.question('informe a sua idade: ', (idade) => {
+        console.log( 'você terá ' + (Number(idade) + 10) + ' anos daqui a uma década.');
+    rl.close();
+    });
+}
+
+function exercicio07() {
+    rl.question('informe um número: ', (num1) => {
+        rl.question('informe outro número: ', (num2) => {
+            console.log( (Number(num1)+Number(num2)) );
+            rl.close();
+        });    
+    });
+}
+
+function exercicio08() {
+    rl.question('informe um número: ', (numero) => {
+        console.log('o dobro desse número é ' + (2*Number(numero)) );
+    rl.close();
+    });
+}
+
+exercicio08()
