@@ -1,4 +1,4 @@
-// 2026-04-10 e 11
+// 2026-04-10 - 14
 
 import java.util.Scanner;
 import java.util.Random;
@@ -8,7 +8,7 @@ public class JogoDaVelha {
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // '⁹'
-	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static char[] simbolosVitoria = { '<', '>' };
 	public static String log = "";
 
@@ -16,19 +16,30 @@ public class JogoDaVelha {
 		int indiceJogador = 0;
 		int pos = -1;
 		char status = '=';
+		String replay = "";
+		if (args.length>0) {
+			simbolos[0] = args[0].charAt(0);
+			simbolos[1] = args[0].charAt(1);
+			replay = args[0].substring(3);
+		}
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
 			while (true) {
 // entrada de posições
-				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') {  // computador informa posição
+				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') { // computador informa posição
 					pos = jogada(indiceJogador);
 					System.out.println(pos);
-				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') {  // posição aleatória
-					pos = gerador.nextInt(9);
-					System.out.println(pos);
-				} else {                             // jogador informa posição
-					pos = sc.nextInt();
+				} else {
+					if (log.length()<replay.length()) { // posição pré-registrada
+						pos = replay.charAt(log.length())-'0';
+						System.out.println(pos);
+					} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') { // posição aleatória
+						pos = gerador.nextInt(9);
+						System.out.println(pos);
+					} else {                             // jogador informa posição
+						pos = sc.nextInt();
+					}
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
 				if (testePosicaoLivre(pos)) {
@@ -38,6 +49,7 @@ public class JogoDaVelha {
 					break;
 				} else {
 					System.out.print("posição inválida; tente novamente: ");
+					replay = ""; // prosseguir com jogo normal
 				}
 			}
 			log += pos;
