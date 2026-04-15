@@ -9,11 +9,13 @@ public class JogoDaVelha {
 	public static Random gerador = new Random();
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // '⁹'
 	public static char[] simbolos = { 'C', 'A', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
+	public static char[] simbolosVitoria = { '<', '>' };
 	public static String log = "";
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
 		int pos = -1;
+		char status = '=';
 		imprimeTabuleiro();
 		while (true) {
 			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
@@ -42,7 +44,8 @@ public class JogoDaVelha {
 			imprimeTabuleiro();
 // testar se jogador venceu; se sim, encerrar o jogo
 			if (testeVitoria(pos, simbolos[indiceJogador])) {
-				System.out.println("jogador " + simbolos[indiceJogador] + " venceu.");
+				System.out.println("jogador " + simbolos[indiceJogador] + " venceu em " + (log.length()-log.length()/2) + " lances.");
+				status = simbolosVitoria[indiceJogador];
 				break; // sai do jogo
 			}
 // testar se ainda há posições livres; se não, encerrar o jogo
@@ -55,7 +58,7 @@ public class JogoDaVelha {
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
-		System.out.println("(jogadas: " + log +")");
+		System.out.println("" + simbolos[0] + simbolos[1] + status + log);
 	}
 
 	public static void imprimeTabuleiro() {
