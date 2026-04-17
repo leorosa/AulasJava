@@ -27,19 +27,17 @@ public class JogoDaVelha {
 			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
 			while (true) {
 // entrada de posições
-				if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') { // computador informa posição
+				if (log.length()<replay.length()) { // posição pré-registrada
+					pos = replay.charAt(log.length())-'0';
+					System.out.println(pos);
+				} else if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') { // computador informa posição
 					pos = jogada(indiceJogador);
 					System.out.println(pos);
-				} else {
-					if (log.length()<replay.length()) { // posição pré-registrada
-						pos = replay.charAt(log.length())-'0';
-						System.out.println(pos);
-					} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') { // posição aleatória
-						pos = gerador.nextInt(9);
-						System.out.println(pos);
-					} else {                             // jogador informa posição
-						pos = sc.nextInt();
-					}
+				} else if (simbolos[indiceJogador]=='A' || simbolos[indiceJogador]=='a') { // posição aleatória
+					pos = gerador.nextInt(9);
+					System.out.println(pos);
+				} else {                             // jogador informa posição
+					pos = sc.nextInt();
 				}
 // testa se posição é válida; se for, salvar posição; senão, pedir novamente
 				if (testePosicaoLivre(pos)) {
