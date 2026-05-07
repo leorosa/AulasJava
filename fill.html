@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.container {
+    display: flex; /* Enables flex layout */
+    width: 100%;
+    border: 2px solid #333;
+}
+
+.fixed {
+    width: 200px; /* Fixed width element */
+    background-color: lightcoral;
+}
+
+.fill {
+    flex: 1; /* Takes up remaining horizontal space */
+    background-color: lightblue;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="fixed">Fixed Width</div>
+    <div class="fill">Fills Remaining Space</div>
+</div>
+
+</body>
+</html>
