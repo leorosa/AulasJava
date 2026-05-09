@@ -1,4 +1,4 @@
-// 2026-04-10 - 14
+// 2026-04-10 - 05-09
 
 import java.util.Scanner;
 import java.util.Random;
@@ -11,6 +11,7 @@ public class JogoDaVelha {
 	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static char[] simbolosVitoria = { '<', '>' };
 	public static String log = "";
+	public static boolean DEBUG = true;
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -18,9 +19,11 @@ public class JogoDaVelha {
 		char status = '=';
 		String replay = "";
 		if (args.length>0) {
-			simbolos[0] = args[0].charAt(0);
-			simbolos[1] = args[0].charAt(1);
-			replay = args[0].substring(3);
+			if (args[0].length()>2) {
+				simbolos[0] = args[0].charAt(0);
+				simbolos[1] = args[0].charAt(1);
+				replay = args[0].substring(3);
+			}
 		}
 		imprimeTabuleiro();
 		while (true) {
@@ -108,19 +111,9 @@ public class JogoDaVelha {
 		return false;
 	}
 
-//	public static boolean tabuleiroCheio() {
-//		for (int pos=0; pos<9; pos++) {
-//			if (testePosicaoLivre(pos)) { // ainda há posições vagas
-//				return false;
-//			}
-//		}
-//		return true;
-//	}
-
 	public static int jogada(int indiceJogador) {
 		int pos = -1;
 		int posVago = -1;
-		int posDerrota = -1;
 		char simboloJogador = simbolos[indiceJogador];
 		char simboloOponente = simbolos[(indiceJogador+1)%2];
 		int valorPos = -1;
@@ -130,14 +123,18 @@ public class JogoDaVelha {
 			if (testePosicaoLivre(pos)) {
 				if (testeVitoria(pos, simboloJogador)) { // retornar posição vitoriosa imediatamente
 					return pos;
-				}
-				if (testeVitoria(pos, simboloOponente)) { // evitar derrota
-					posDerrota = pos; // salvar posição mas continuar no laço para checar se ainda é possível vencer
-				}
-				if (simboloJogador=='C') {
-					valorPos = valorPosicao1(pos, simboloJogador, simboloOponente);
+				} else if (testeVitoria(pos, simboloOponente)) { // evitar derrota
+					valorPos = 13;
+				} else if (testeGancho(pos, simboloOponente)) {
+				    valorPos = 11;
+				} else if (testeGancho(pos, simboloJogador)) {
+				    valorPos = 9;
+				} else if (testeGanchoFuturo(pos, simboloJogador)) {
+				    valorPos = 7;
+				} else if (testeGanchoFuturo(pos, simboloOponente)) {
+				    valorPos = 5;
 				} else {
-					valorPos = valorPosicao0(pos);
+					valorPos = valorPosicao(pos);
 				}
 				if (valorPos>valorMax) { // no mesmo loop, como apresentado em aula
 					valorMax = valorPos - gerador.nextInt(2); // toque de aleatoriedade...
@@ -145,11 +142,22 @@ public class JogoDaVelha {
 				}
 			}
 		}
-		if (posDerrota>=0) { return posDerrota; } // evitar derrota
+		if (DEBUG) {
+			if (valorMax>11)
+				System.out.println("[evitar derrota] ");
+			else if (valorMax>9)
+				System.out.println("[evitar gancho] ");
+			else if (valorMax>7)
+				System.out.println("[criar gancho] ");
+			else if (valorMax>5)
+				System.out.println("[criar gancho futuro] ");
+			else if (valorMax>3)
+				System.out.println("[evitar gancho futuro] ");
+		}
 		return posVago; // senão, ocupar melhor posição livre
 	}
 
-	public static int valorPosicao0(int pos) {
+	public static int valorPosicao(int pos) {
 		if (pos==4) { return 3; } // centro
 		if (pos%2==0) { // cantos
 			if (testePosicaoLivre((18-pos)%10)) { return 2; } // dar mais peso a canto com oposto vago -- oposto: 18-0=18%10=8, 18-8=10%10=0 , 18-2=16%10=6, 18-6=12%10=2
@@ -157,23 +165,40 @@ public class JogoDaVelha {
 		}
 		return 0;
 	}
-
-	public static int valorPosicao1(int pos, char simboloJogador, char simboloOponente) { // heurística de 'pesos' em posições no tabuleiro p/ favorecer vitória
+	
+	public static boolean testeGancho(int pos, char simboloJogador) {
 		int i = pos/3;
 		int j = pos%3;
-		int valorPos = 0;
-		if (pos==4) valorPos +=1; // priorizar centro
-		if (tabuleiro[i][(j+1)%3]!=simboloOponente && tabuleiro[i][(j+2)%3]!=simboloOponente) { valorPos+=1; } // linha
-		if (tabuleiro[(i+1)%3][j]!=simboloOponente && tabuleiro[(i+2)%3][j]!=simboloOponente) { valorPos+=1; } // coluna
-		if (valorPos>0 && pos%2==0) { // priorizar centro e cantos em linhas e colunas livres
-			if (pos==4 || tabuleiro[pos>4?0:2][2*((pos+1)%3)]!=simboloOponente) { valorPos*=2; } // desde que canto oposto não esteja ocupado pelo oponente
+		int gancho = 0;
+		char curSimbolo = tabuleiro[i][j];
+		tabuleiro[i][j] = simboloJogador;
+		for (int pos2=0; pos2<9; pos2++) {
+			if (testePosicaoLivre(pos2)) {
+				if (testeVitoria(pos2, simboloJogador)) {
+					gancho++;
+				}
+			}
 		}
-		if (pos%4==0) { // se posição está na diagonal principal
-			if (tabuleiro[(i+1)%3][(j+1)%3]!=simboloOponente && tabuleiro[(i+2)%3][(j+2)%3]!=simboloOponente) { valorPos+=1; }
-		}
-		if (pos==2 || pos==4 || pos==6) { // diagonal secundária
-			if (tabuleiro[(i+1)%3][(j+2)%3]!=simboloOponente && tabuleiro[(i+2)%3][(j+4)%3]!=simboloOponente) { valorPos+=1; }
-		}
-		return valorPos;
+		tabuleiro[i][j] = curSimbolo;
+		return gancho>1?true:false;
 	}
+
+	public static boolean testeGanchoFuturo(int pos, char simboloJogador) {
+		int i = pos/3;
+		int j = pos%3;
+		int gancho = 0;
+		char curSimbolo = tabuleiro[i][j];
+		tabuleiro[i][j] = simboloJogador;
+		for (int pos2=0; pos2<9; pos2++) {
+			if (testePosicaoLivre(pos2)) {
+				if (testeGancho(pos2, simboloJogador)) {
+					gancho++;
+					break;
+				}
+			}
+		}
+		tabuleiro[i][j] = curSimbolo;
+		return gancho>1?true:false;
+	}
+	
 }
