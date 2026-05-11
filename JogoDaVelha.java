@@ -10,8 +10,22 @@ public class JogoDaVelha {
 	public static char[][] tabuleiro = { {'⁰', '¹', '²'} , {'³', '⁴', '⁵'} , {'⁶', '⁷', '⁸'} }; // '⁹'
 	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static char[] simbolosVitoria = { '<', '>' };
-	public static String log = "";
+	public static String logJogo = "";
 	public static boolean DEBUG = true;
+	public static boolean MOVE = true;
+
+	public static int idxI(int pos) { return ((pos)/3)%3; }
+	public static int idxJ(int pos) { return (pos)%3; }
+	public static int ij2pos(int i, int j) { return 3*(i)+j; }
+	public static int flipH(int pos) { return ij2pos(idxI(pos) , 2-idxJ(pos)); }
+	public static int flipV(int pos) { return ij2pos(2-idxI(pos) , idxJ(pos)); }
+	public static int flipHV(int pos) { return flipH(flipV(pos)); }
+	public static int shiftH(int pos) { return ij2pos(idxI(pos) , 1+idxJ(pos); }
+	public static int shiftV(int pos) { return ij2pos((1+idxI(pos) , idxJ(pos)); }
+	public static int rotAW(int pos) { return ij2pos(1-(idxJ(pos)-1),(1+(idxI(pos)-1))); }
+	public static int rotCW(int pos) { return ij2pos(1+(idxJ(pos)-1),(1-(idxI(pos)-1))); }
+	public static boolean isCenter(int pos) { return (pos)==4?true:false; }
+	public static boolean isVertex(int pos) { return ((pos)%2==0)&&(pos)!=4?true:false; }
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -30,8 +44,8 @@ public class JogoDaVelha {
 			System.out.print("entre com uma posição para '" + simbolos[indiceJogador] + "': ");
 			while (true) {
 // entrada de posições
-				if (log.length()<replay.length()) { // posição pré-registrada
-					pos = replay.charAt(log.length())-'0';
+				if (logJogo.length()<replay.length()) { // posição pré-registrada
+					pos = replay.charAt(logJogo.length())-'0';
 					System.out.println(pos);
 				} else if (simbolos[indiceJogador]=='C' || simbolos[indiceJogador]=='c') { // computador informa posição
 					pos = jogada(indiceJogador);
@@ -53,25 +67,30 @@ public class JogoDaVelha {
 					replay = ""; // prosseguir com jogo normal
 				}
 			}
-			log += pos;
+			logJogo += (char) ('0' + pos);
 			imprimeTabuleiro();
 // testar se jogador venceu; se sim, encerrar o jogo
 			if (testeVitoria(pos, simbolos[indiceJogador])) {
-				System.out.println("jogador " + simbolos[indiceJogador] + " venceu em " + (log.length()-log.length()/2) + " lances.");
+				System.out.println("jogador " + simbolos[indiceJogador] + " venceu em " + (logJogo.length()-logJogo.length()/2) + " lances.");
 				status = simbolosVitoria[indiceJogador];
 				break; // sai do jogo
 			}
 // testar se ainda há posições livres; se não, encerrar o jogo
 //			if (tabuleiroCheio()) {
-			if (log.length()==9) {
+			if (logJogo.length()==9) {
 				System.out.println("fim do jogo, sem vencedores.");
 				break;
+			}
+// mover tabuleiro // e checar vitória novamente SE aplicar shiftV ou shiftH
+			if (MOVE) {
+				pos = moveTabuleiro(pos);
+				imprimeTabuleiro();
 			}
 // trocar de jogador
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
-		System.out.println("" + simbolos[0] + simbolos[1] + status + log);
+		System.out.println("" + simbolos[0] + simbolos[1] + status + logJogo);
 	}
 
 	public static void imprimeTabuleiro() {
@@ -88,8 +107,8 @@ public class JogoDaVelha {
 		if (pos<0 || pos>8) {
 			return false;
 		}
-		int i = pos/3;
-		int j = pos%3;
+		int i = idxI(pos);
+		int j = idxJ(pos);
 		if (tabuleiro[i][j]!=simbolos[0] && tabuleiro[i][j]!=simbolos[1]) {
 			return true;
 		} else {
@@ -98,8 +117,8 @@ public class JogoDaVelha {
 	}
 
 	public static boolean testeVitoria(int pos, char simboloJogador) { // testa apenas posição
-		int i = pos/3;
-		int j = pos%3;
+		int i = idxI(pos);
+		int j = idxJ(pos);
 		if (tabuleiro[i][(j+1)%3]==simboloJogador && tabuleiro[i][(j+2)%3]==simboloJogador) { return true; } // linha
 		if (tabuleiro[(i+1)%3][j]==simboloJogador && tabuleiro[(i+2)%3][j]==simboloJogador) { return true; } // coluna
 		if (pos%4==0) { // se posição está na diagonal principal
@@ -144,15 +163,15 @@ public class JogoDaVelha {
 		}
 		if (DEBUG) {
 			if (valorMax>11)
-				System.out.println("[evitar derrota] ");
+				System.out.print("[evitar derrota] ");
 			else if (valorMax>9)
-				System.out.println("[evitar gancho] ");
+				System.out.print("[evitar gancho] ");
 			else if (valorMax>7)
-				System.out.println("[criar gancho] ");
+				System.out.print("[criar gancho] ");
 			else if (valorMax>5)
-				System.out.println("[criar gancho futuro] ");
+				System.out.print("[criar gancho futuro] ");
 			else if (valorMax>3)
-				System.out.println("[evitar gancho futuro] ");
+				System.out.print("[evitar gancho futuro] ");
 		}
 		return posVago; // senão, ocupar melhor posição livre
 	}
@@ -167,8 +186,8 @@ public class JogoDaVelha {
 	}
 	
 	public static boolean testeGancho(int pos, char simboloJogador) {
-		int i = pos/3;
-		int j = pos%3;
+		int i = idxI(pos);
+		int j = idxJ(pos);
 		int gancho = 0;
 		char curSimbolo = tabuleiro[i][j];
 		tabuleiro[i][j] = simboloJogador;
@@ -184,8 +203,8 @@ public class JogoDaVelha {
 	}
 
 	public static boolean testeGanchoFuturo(int pos, char simboloJogador) {
-		int i = pos/3;
-		int j = pos%3;
+		int i = idxI(pos);
+		int j = idxJ(pos);
 		int gancho = 0;
 		char curSimbolo = tabuleiro[i][j];
 		tabuleiro[i][j] = simboloJogador;
@@ -200,5 +219,53 @@ public class JogoDaVelha {
 		tabuleiro[i][j] = curSimbolo;
 		return gancho>1?true:false;
 	}
-	
+
+	public static int move(int pos, int opcao) {
+		if (opcao==1) {
+			if (pos==0 && DEBUG) System.out.print("[flipH] ");
+			return flipH(pos);
+		} else if (opcao==2) {
+			if (pos==0 && DEBUG) System.out.print("[flipV] ");
+			return flipV(pos);
+		} else if (opcao==3) {
+			if (pos==0 && DEBUG) System.out.print("[rotAW] ");
+			return rotAW(pos);
+		} else if (opcao==4) {
+			if (pos==0 && DEBUG) System.out.print("[rotCW] ");
+			return rotCW(pos);
+		} else if (opcao==5) {
+			if (pos==0 && DEBUG) System.out.print("[shiftH] ");
+			return shiftH(pos);
+		} else if (opcao==6) {
+			if (pos==0 && DEBUG) System.out.print("[shiftV] ");
+			return shiftV(pos);
+		}
+		return pos;
+	}
+
+	public static int moveTabuleiro(int curPos) {
+		int opcao = gerador.nextInt(5); // 0 = sem alterar tabuleiro; evitar 'shift', que torna vitórias imprevisíveis...
+		if (opcao==0) return curPos;
+		char[][] novoTabuleiro = new char[3][3];
+		int movedPos = -1;
+		for (int i=0; i<3; i++)
+			for (int j=0; j<3; j++) {
+				int pos = ij2pos(i,j);
+				int novoPos = 0;
+				novoPos = move(pos, opcao);
+				int ni = idxI(novoPos);
+				int nj = idxJ(novoPos);
+				novoTabuleiro[ni][nj] = tabuleiro[i][j];
+				if (pos==curPos) movedPos = novoPos;
+			}
+		for (int i=0; i<3; i++)
+			for (int j=0; j<3; j++)
+				tabuleiro[i][j] = novoTabuleiro[i][j];
+		for (int k=0; k<logJogo.length(); k++) {
+			int pos = logJogo.charAt(k) - '0';
+			logJogo = logJogo.substring(0,k)+((char) ('0'+move(pos,opcao)))+logJogo.substring(k+1);
+		}
+		return movedPos;
+	}
+
 }
