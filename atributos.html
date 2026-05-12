@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .texto {
+            color: red;
+            fontsize: 18;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="atribuirCSS()">atribuir</button>
+    <p>Olá mundo</p>
+    <p>Holla mundo</p>
+
+    <button onclick="esconder()">esconder</button>
+    <div id="mundoInseto">
+        O mundo invisível dos insetos
+    </div>
+    <script>
+        function atribuirCSS() {
+            const myP = document.getElementsByTagName('p')[0]
+            myP.setAttribute('class', 'texto')
+
+            const outroP = document.getElementsByTagName('p')[1]
+            outroP.style.color = 'green'
+        }
+        function esconder() {
+            const myDiv = document.getElementById('mundoInseto')
+            const myBt = document.getElementsByTagName('button')[1]
+            if (myBt.innerHTML == 'esconder') {
+                myDiv.style.display = 'none'
+                myBt.innerHTML='mostrar'
+            } else {
+                myDiv.style.display = 'block'
+                myBt.innerHTML='esconder'
+            }
+        }
+    </script>
+</body>
+</html>
