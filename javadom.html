@@ -36,8 +36,10 @@
                 inputEmail.focus()
                 return
             }
-            const inputs = document.getElementsByTagName("form")[0].submit()
+// depois de ter os campos validados:
+            document.getElementsByTagName("form")[0].submit()
         }
+        document.getElementById("nome").focus()
 /*
         const inputNome = document.getElementById("nome")
         console.log(inputNome)
