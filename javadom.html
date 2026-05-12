@@ -8,9 +8,10 @@
 <body>
     <h1 id="hdr1">Cabeçalho</h1>
     <p id="data"></p>
-    <form id="frm1">
-        <input type="text" id="nome" value="Ana" />
-        <input type="text" id="email" value="ana@gmail.com" />
+    <form id="frm1" action="#">
+        <input type="text" id="nome" placeholder="Ana" />
+        <input type="text" id="email" placeholder="ana@gmail.com" />
+        <input type="button" value="gravar" onclick="validar()" />
     </form>
 
     <p class="demo">One</p>
@@ -22,6 +23,22 @@
     Click Me!</button>
 
     <script>
+        function validar() {
+            const inputNome = document.getElementById("nome")
+            if (inputNome.value==='') {
+                alert("O nome deve ser informado")
+                inputNome.focus()
+                return
+            }
+            const inputEmail = document.getElementById("email")
+            if (inputEmail.value==='') {
+                alert("O email deve ser informado")
+                inputEmail.focus()
+                return
+            }
+            const inputs = document.getElementsByTagName("form")[0].submit()
+        }
+/*
         const inputNome = document.getElementById("nome")
         console.log(inputNome)
         const inputEmail = document.getElementById("email")
@@ -51,7 +68,7 @@
             }
         }
         demo()
-
+*/
     </script>
 </body>
 </html>
