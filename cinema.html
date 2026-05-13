@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main {
+            display: flex
+        }
+        #cadeiras {
+            margin: 50px;
+            text-align: center;
+        }
+        #info {
+            margin: 50px;
+            text-align: center;
+        }
+        #tela {
+            width: 100%;
+            height: 20px;
+            color: white;
+            background: blue;
+        }
+        #tela2 {
+            transform: scaleY(0.3) rotate(-90deg) translate(0%,-120%);
+            font-size: 200pt;
+            font-weight: bold;
+            color: blue;
+            text-align: center;
+            height: 100PX;
+        }
+        hr { width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="main">
+    <div id="cadeiras">
+        <p>Cinépolis</p>
+        <p>sadsa</p>
+        <button>dfdasfsad</button>
+        <p>dfsfd</p>
+        <hr>
+        <p>Selecione seus assentos</p>
+        <!--div id="tela">TELA</div-->
+        <div id="tela2">)</div>
+    </div>
+    <div id="info">
+        <p>figura</p>
+        <p>O Gênio do Crime</p>
+        <p>10 -</p>
+        <p>Nacional - Acessibilidade - Sala Tradicional</p>
+        <hr />
+        <p>Cinépolis Blumenau Norte (SC) - 5</p>
+        <p>13:10 Thursday, May 14, 2026</p>
+        <button>CONSULTE OUTRO HORÁRIO</button>
+        <p id="selecao"></p>
+        <hr />
+    </div>
+    </div>
+    <script>
+        selecao = []
+        function criarCadeiras() {
+            fileiras = ['A','B','C','D','E','F','G','H','I','J']
+            for (f=0; f<fileiras.length; f++) {
+                div = document.createElement('div')
+                div.style.display = 'flex'
+                document.getElementById('cadeiras').appendChild(div)
+                label = document.createElement('label')
+                label.innerHTML = fileiras[f]
+                label.style.width = '25px'
+                label.style.marginTop = '7pt'
+                label.style.textAlign = 'center'
+                div.appendChild(label)
+                for (n=1; n<10; n++) {
+                    const nome = fileiras[f]+n
+                    bt = document.createElement('button')
+                    bt.innerHTML = n
+                    bt.style.margin = '1pt'
+                    bt.style.marginTop = '5pt'
+                    bt.setAttribute('id', nome)
+                    bt.setAttribute('onclick', 'selecionarCadeira("'+nome+'")')
+                    div.appendChild(bt)
+                }
+                label = document.createElement('label')
+                label.innerHTML = fileiras[f]
+                label.style.width = '25px';
+                label.style.marginTop = '7pt'
+                label.style.textAlign = 'center'
+                div.appendChild(label)
+            }
+        }
+        criarCadeiras()
+        function selecionarCadeira(nome) {
+            console.log(nome)
+            bt = document.getElementById(nome)
+            //console.log(bt)
+            bt.setAttribute('onclick', 'liberarCadeira("'+nome+'")')
+            bt.style.background = 'green'
+            // adicionar numero
+            selecao.push(nome)
+            setInfo()
+        }
+        function liberarCadeira(nome) {
+            //console.log(nome)
+            bt = document.getElementById(nome)
+            //console.log(bt)
+           // nome.setAttribute('onclick', 'selecionarCadeira('+nome+')')
+            bt.style.background = ''
+            // remover numero
+            idx = selecao.indexOf(nome)
+            selecao.splice(idx, 1)
+            setInfo()
+        }
+         function setInfo() {
+            info = document.getElementById("selecao")
+            info.innerHTML = ''+selecao.length+' x ASSENTOS\t\t' + selecao.join(', ')
+        }
+   </script>
+</body>
+</html>
