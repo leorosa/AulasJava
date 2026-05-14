@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+<body>
+    <h2>Cadastro de Clientes</h2>
+    <div style="display:block;flex-direction: column;">
+    <form onsubmit="inserePessoa()">
+        <label for="nome">Nome</label>
+        <br>
+        <input type="text" id="nome" />
+        <br>
+        <label for="email">Email</label>
+        <br>
+        <input type="text" id="email" />
+        <br>
+        <label for="telefone">Telefone</label>
+        <br>
+        <input type="text" id="telefone" />
+        <br>
+        <button onclick="inserePessoa()">Submit</button>
+    </form>
+    </div>
+    <h3>Lista de Clientes</h3>
+    <div id="lista"></div>
+<script>
+    pessoas = []
+    function inserePessoa() {
+        nome = document.getElementById('nome').value
+        email = document.getElementById('email').value
+        telefone = document.getElementById('telefone').value
+//      obj = {nome: nome, email: email, telefone: telefone}
+//      console.log(obj)
+        pessoas.push({nome: nome, email: email, telefone: telefone})
+        div = document.getElementById('lista')
+        div.innerHTML = ''
+        for (n=0; n<pessoas.length; n++) {
+            div.innerHTML += pessoas[n].nome
+            div.innerHTML += pessoas[n].email
+            div.innerHTML += pessoas[n].telefone
+            div.innerHTML += '<br>'
+        }
+        console.log(pessoas)
+    }
+</script>
+</body>
+</html>
