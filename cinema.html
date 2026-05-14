@@ -105,6 +105,10 @@
             //console.log(bt)
             bt.setAttribute('onclick', 'liberarCadeira("'+nome+'")')
             bt.style.background = 'green'
+            bt.style.border = 'solid'
+            bt.style.borderColor = 'green'
+            bt.style.borderRadius = '2px'
+            bt.style.borderWidth = '2px'
             // adicionar numero
             selecao.push(nome)
             setInfo()
@@ -115,6 +119,9 @@
             //console.log(bt)
             bt.setAttribute('onclick', 'selecionarCadeira("'+nome+'")')
             bt.style.background = ''
+            bt.style.border = ''
+            bt.style.borderColor = ''
+            bt.style.borderRadius = ''
             // remover numero
             idx = selecao.indexOf(nome)
             selecao.splice(idx, 1)
