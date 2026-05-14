@@ -125,9 +125,9 @@
             if (selecao.length==0) {
                 info.innerHTML = ''
             } else if (selecao.length==1) {
-                info.innerHTML = ''+selecao.length+' x ASSENTO\t\t' + selecao[0]
+                info.innerHTML = '<div style="display:flex;width=100%"><div style="width: 200px;"><b>'+selecao.length+' x</b> assento</div><div style="flex: 0.95; text-align: right;">' + selecao[0] + '</div></div>'
             } else {
-                info.innerHTML = ''+selecao.length+' x ASSENTOS\t\t' + selecao.join(', ')
+                info.innerHTML = '<div style="display:flex;width=100%"><div style="width: 200px;"><b>'+selecao.length+' x</b> assentos</div><div style="flex: 0.95; text-align: right;">'  + selecao.join(', ') + '</div></div>'
             }
         }
    </script>
