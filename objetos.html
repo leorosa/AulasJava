@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+    const carro = {
+        placa: 'mdx-1234',
+        marca: 'volkswagen',
+        modelo: 'fusca',
+        display: function() {
+            return `Placa: ${this.placa} Marca: ${this.marca} Modelo: ${this.modelo}`
+        }
+    }
+    console.log(carro)
+    console.log(carro.display())
+
+    const dados = []
+    dados.push('Milho')
+    dados.push(10)
+    dados.push({nome:'Maria'})
+    dados.push({nome:'Ana', email:'ana@gmail.com'})
+    console.log(dados)
+
+    var produto = {descricao: 'milho'}
+    console.log(produto)
+    produto = {preco: 25, estoque: 10}
+    console.log(produto)
+
+    var item_venda = {
+        produto: produto,
+        preco: 10.0,
+        quantidade: 12,
+        subtotal: function() {
+            return this.produto.preco * this.quantidade
+        }
+    }
+    console.log(item_venda.subtotal())
+</script>
+</head>
+<body>
+    
+</body>
+</html>
