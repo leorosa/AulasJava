@@ -113,7 +113,7 @@
             //console.log(nome)
             bt = document.getElementById(nome)
             //console.log(bt)
-           // nome.setAttribute('onclick', 'selecionarCadeira('+nome+')')
+            bt.setAttribute('onclick', 'selecionarCadeira("'+nome+'")')
             bt.style.background = ''
             // remover numero
             idx = selecao.indexOf(nome)
@@ -122,7 +122,13 @@
         }
          function setInfo() {
             info = document.getElementById("selecao")
-            info.innerHTML = ''+selecao.length+' x ASSENTOS\t\t' + selecao.join(', ')
+            if (selecao.length==0) {
+                info.innerHTML = ''
+            } else if (selecao.length==1) {
+                info.innerHTML = ''+selecao.length+' x ASSENTO\t\t' + selecao[0]
+            } else {
+                info.innerHTML = ''+selecao.length+' x ASSENTOS\t\t' + selecao.join(', ')
+            }
         }
    </script>
 </body>
