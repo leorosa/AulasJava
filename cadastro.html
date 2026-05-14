@@ -5,29 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-
-</head>
-<body>
-    <h2>Cadastro de Clientes</h2>
-    <div style="display:block;flex-direction: column;">
-    <form onsubmit="inserePessoa()">
-        <label for="nome">Nome</label>
-        <br>
-        <input type="text" id="nome" />
-        <br>
-        <label for="email">Email</label>
-        <br>
-        <input type="text" id="email" />
-        <br>
-        <label for="telefone">Telefone</label>
-        <br>
-        <input type="text" id="telefone" />
-        <br>
-        <button onclick="inserePessoa()">Submit</button>
-    </form>
-    </div>
-    <h3>Lista de Clientes</h3>
-    <div id="lista"></div>
+<style>
+    #main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    form, #clientes {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        margin: 20px;
+        margin-left: 30%;
+        justify-content: center;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 8px 4px rgba(0,0,0,0.2);
+        padding: 5px;
+    }
+    button {
+        width: 100px;
+    }
+</style>
 <script>
     pessoas = []
     function inserePessoa() {
@@ -39,14 +38,14 @@
         console.log(pessoas)
         var tabela = '<table>'
         tabela += '<tr>'
-        tabela += '<th>num</th>'
+//      tabela += '<th></th>'
         tabela += '<th>nome</th>'
         tabela += '<th>email</th>'
         tabela += '<th>telefone</th>'
         tabela += '</tr>'
         for (n=0; n<pessoas.length; n++) {
             tabela += '<tr>'
-            tabela += '<td>'+n+'</td>'
+//          tabela += '<td>'+n+'</td>'
             tabela += '<td>'+pessoas[n].nome+'</td>'
             tabela += '<td>'+pessoas[n].email+'</td>'
             tabela += '<td>'+pessoas[n].telefone+'</td>'
@@ -57,5 +56,33 @@
         div.innerHTML = tabela
     }
 </script>
+</head>
+
+<body>
+<div id="main">
+    <div id="cadastro">
+    <form onsubmit="inserePessoa()">
+        <h2>Cadastro de Clientes</h2>
+        <label for="nome">Nome</label>
+        <br>
+        <input type="text" id="nome" />
+        <br>
+        <label for="email">Email</label>
+        <br>
+        <input type="email" id="email" />
+        <br>
+        <label for="telefone">Telefone</label>
+        <br>
+        <input type="number" id="telefone" />
+        <br>
+        <button onclick="inserePessoa()">Submit</button>
+    </form>
+
+    </div>
+    <div id="clientes">
+    <h3>Lista de Clientes</h3>
+    <div id="lista"></div>
+    </div>
+</div>
 </body>
 </html>
