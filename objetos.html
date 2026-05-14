@@ -23,13 +23,15 @@
     dados.push({nome:'Ana', email:'ana@gmail.com'})
     console.log(dados)
 
-    var produto = {descricao: 'milho'}
-    console.log(produto)
-    produto = {preco: 25, estoque: 10}
-    console.log(produto)
+    var produtos = {}
+    produtos.milho = { descricao: 'milho' }
+    console.log(produtos)
+    produtos.milho.preco = 25
+    produtos.milho.estoque = 10
+    console.log(produtos.milho)
 
     var item_venda = {
-        produto: produto,
+        produto: produtos.milho,
         preco: 10.0,
         quantidade: 12,
         subtotal: function() {
