@@ -5,8 +5,9 @@ import java.util.Random;
 
 public class JogoDaVelha {
 
-	public static int NGRID = 4;
-	public static int MAXPOS = NGRID*NGRID;
+	public static int NGRID = 3;
+	public static int ZGRID = 4;
+	public static int MAXPOS = NGRID*NGRID*ZGRID;
 	public static boolean HASCENTER = NGRID%2==0?false:true;
 	public static int CENTER = ij2pos(NGRID/2+1,NGRID/2+1);
 	public static float OFFSET = (float) (NGRID-1) / 2;
@@ -14,14 +15,15 @@ public class JogoDaVelha {
 	public static boolean MOVE = true;
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
-	public static char[][] tabuleiro = new char[NGRID][NGRID];
+	public static char[][][] tabuleiro = new char[NGRID][NGRID][ZGRID];
 	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static char[] simbolosVitoria = { '<', '>' };
 	public static String logJogo = "";
 
 	public static int idxI(int pos) { return pos%NGRID; }
 	public static int idxJ(int pos) { return (pos/NGRID)%NGRID; }
-	public static int ij2pos(int i, int j) { return NGRID*(j%NGRID)+i%NGRID; }
+	public static int idxK(int pos) { return (pos/NGRID/NGRID)%ZGRID; }
+	public static int ijk2pos(int i, int j) { return NGRID*NGRID*(k%ZGRID) + NGRID*(j%NGRID) + i%NGRID; }
 	public static boolean isCenter(int pos) { return HASCENTER?(pos==CENTER?true:false):false; }
 	public static boolean isVertex(int pos) { return pos==0 || pos==NGRID-1 || pos==NGRID*(NGRID-1) || pos==NGRID*NGRID-1; }
 	public static int flipH(int pos) { return ij2pos(NGRID-1-idxI(pos) , idxJ(pos)); }
@@ -36,9 +38,10 @@ public class JogoDaVelha {
 		int pos = -1;
 		char status = '=';
 		String replay = "";
-		for (int j=0; j<NGRID; j++)
-			for (int i=0; i<NGRID; i++)
-				tabuleiro[j][i] = ' ';
+		for (int k=0; k<ZGRID; k++)
+			for (int j=0; j<NGRID; j++)
+				for (int i=0; i<NGRID; i++)
+					tabuleiro[k][j][i] = ' ';
 		if (args.length>0 && args[0].length()>1) {
 			simbolos[0] = args[0].charAt(0);
 			simbolos[1] = args[0].charAt(1);
@@ -65,7 +68,8 @@ public class JogoDaVelha {
 				if (testePosicaoLivre(pos)) {
 					int i = idxI(pos);
 					int j = idxJ(pos);
-					tabuleiro[j][i] = simbolos[indiceJogador];
+					int k = idxK(pos);
+					tabuleiro[k][j][i] = simbolos[indiceJogador];
 					break;
 				} else {
 					System.out.print("posição inválida; tente novamente: ");
@@ -101,21 +105,25 @@ public class JogoDaVelha {
 	public static void imprimeTabuleiro() {
 		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 		for (int j=0; j<NGRID; j++) {
-			System.out.print("         ");
-			for (int i=0; i<NGRID; i++) {
-				if (tabuleiro[j][i]!=' ') System.out.print("  " + tabuleiro[j][i] + " ");
-				else System.out.printf("%3d ", ij2pos(i,j));
-				if (i<NGRID-1)
-					System.out.print("│");
+			for (int k=0; k<ZGRID; k++) {
+				System.out.print("         ");
+				for (int i=0; i<NGRID; i++) {
+					if (tabuleiro[k][j][i]!=' ') System.out.print("  " + tabuleiro[k][j][i] + " ");
+					else System.out.printf("%3d ", ijk2pos(i,j,k));
+					if (i<NGRID-1)
+						System.out.print("│");
+				}
+				if (k==ZGRID-1) System.out.println("");
 			}
-			System.out.print("\n         ");
 			if (j==NGRID-1) { break; }
-			for (int i=0; i<NGRID; i++) {
-				System.out.print("────");
-				if (i<NGRID-1)
-					System.out.printf("┼");
-			}
-			System.out.println("");
+			for (int k=0; k<ZGRID; k++) {
+				System.out.print("         ");
+				for (int i=0; i<NGRID; i++) {
+					System.out.print("────");
+					if (i<NGRID-1)
+						System.out.printf("┼");
+				}
+				if (k==ZGRID-1) System.out.println("");
 		}
 		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 	}
@@ -125,7 +133,8 @@ public class JogoDaVelha {
 			return false;
 		int i = idxI(pos);
 		int j = idxJ(pos);
-		if (tabuleiro[j][i]==' ')
+		int k = idxK(pos);
+		if (tabuleiro[k][j][i]==' ')
 			return true;
 		else
 			return false;
@@ -134,6 +143,7 @@ public class JogoDaVelha {
 	public static boolean testeVitoria(int pos, char simboloJogador) { // testa apenas posição
 		int i = idxI(pos);
 		int j = idxJ(pos);
+		int k = idxK(pos);
 		boolean vitoriaL = true;
 		boolean vitoriaC = true;
 		boolean vitoriaP = false;
@@ -142,11 +152,11 @@ public class JogoDaVelha {
 			vitoriaP = true;
 		if ((i+j)==(NGRID-1))
 			vitoriaS = true;
-		for (int k=1; k<NGRID; k++) {
-			if (tabuleiro[j][(i+k)%NGRID]!=simboloJogador) { vitoriaL = false; } // linha
-			if (tabuleiro[(j+k)%NGRID][i]!=simboloJogador) { vitoriaC = false; } // coluna
-			if (vitoriaP && tabuleiro[(j+k)%NGRID][(i+k)%NGRID]!=simboloJogador) { vitoriaP = false; }
-			if (vitoriaS && tabuleiro[(j+k)%NGRID][(NGRID+i-k)%NGRID]!=simboloJogador) { vitoriaS = false; }
+		for (int n=1; n<NGRID; n++) {
+			if (tabuleiro[k][j][(i+n)%NGRID]!=simboloJogador) { vitoriaL = false; } // linha
+			if (tabuleiro[k][(j+n)%NGRID][i]!=simboloJogador) { vitoriaC = false; } // coluna
+			if (vitoriaP && tabuleiro[(j+n)%NGRID][(i+n)%NGRID]!=simboloJogador) { vitoriaP = false; }
+			if (vitoriaS && tabuleiro[(j+n)%NGRID][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoriaS = false; }
 		}
 		return vitoriaL || vitoriaC || vitoriaP || vitoriaS;
 	}
@@ -216,9 +226,10 @@ public class JogoDaVelha {
 	public static boolean testeGancho(int pos, char simboloJogador) {
 		int i = idxI(pos);
 		int j = idxJ(pos);
+		int k = idxK(pos);
 		int gancho = 0;
-		char curSimbolo = tabuleiro[j][i];
-		tabuleiro[j][i] = simboloJogador;
+		char curSimbolo = tabuleiro[k][j][i];
+		tabuleiro[k][j][i] = simboloJogador;
 		for (int pos2=0; pos2<MAXPOS; pos2++) {
 			if (testePosicaoLivre(pos2)) {
 				if (testeVitoria(pos2, simboloJogador)) {
@@ -233,9 +244,10 @@ public class JogoDaVelha {
 	public static boolean testeGanchoFuturo(int pos, char simboloJogador) {
 		int i = idxI(pos);
 		int j = idxJ(pos);
+		int k = idxK(pos);
 		int gancho = 0;
-		char curSimbolo = tabuleiro[j][i];
-		tabuleiro[j][i] = simboloJogador;
+		char curSimbolo = tabuleiro[k][j][i];
+		tabuleiro[k][j][i] = simboloJogador;
 		for (int pos2=0; pos2<MAXPOS; pos2++) {
 			if (testePosicaoLivre(pos2)) {
 				if (testeGancho(pos2, simboloJogador)) {
@@ -274,24 +286,27 @@ public class JogoDaVelha {
 	public static int moveTabuleiro(int curPos) {
 		int opcao = gerador.nextInt(5); // 0 = sem alterar tabuleiro; evitar 'shift', que torna vitórias imprevisíveis...
 		if (opcao==0) return curPos;
-		char[][] novoTabuleiro = new char[NGRID][NGRID];
+		char[][][] novoTabuleiro = new char[NGRID][NGRID][ZGRID];
 		int movedPos = -1;
-		for (int j=0; j<NGRID; j++)
-			for (int i=0; i<NGRID; i++) {
-				int pos = ij2pos(i,j);
-				int novoPos = 0;
-				novoPos = move(pos, opcao);
-				int ni = idxI(novoPos);
-				int nj = idxJ(novoPos);
-				novoTabuleiro[nj][ni] = tabuleiro[j][i];
-				if (pos==curPos) movedPos = novoPos;
-			}
-		for (int j=0; j<NGRID; j++)
-			for (int i=0; i<NGRID; i++)
-				tabuleiro[j][i] = novoTabuleiro[j][i];
-		for (int k=0; k<logJogo.length(); k++) {
-			int pos = logJogo.charAt(k) - '0';
-			logJogo = logJogo.substring(0,k)+((char) ('0'+move(pos,opcao)))+logJogo.substring(k+1);
+		for (int k=0; k<ZGRID; k++)
+			for (int j=0; j<NGRID; j++)
+				for (int i=0; i<NGRID; i++) {
+					int pos = ijk2pos(i,j,k);
+					int novoPos = 0;
+					novoPos = move(pos, opcao);
+					int ni = idxI(novoPos);
+					int nj = idxJ(novoPos);
+					int nk = idxK(novoPos);
+					novoTabuleiro[nk][nj][ni] = tabuleiro[k][j][i];
+					if (pos==curPos) movedPos = novoPos;
+				}
+		for (int k=0; k<ZGRID; k++)
+			for (int j=0; j<NGRID; j++)
+				for (int i=0; i<NGRID; i++)
+					tabuleiro[k][j][i] = novoTabuleiro[k][j][i];
+		for (int l=0; l<logJogo.length(); l++) {
+			int pos = logJogo.charAt(l) - '0';
+			logJogo = logJogo.substring(0,l)+((char) ('0'+move(pos,opcao)))+logJogo.substring(l+1);
 		}
 		return movedPos;
 	}
