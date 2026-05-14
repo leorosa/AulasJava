@@ -9,13 +9,27 @@ public class JogoDaVelha {
 	public static int ZGRID = 4;
 	public static int MAXPOS = NGRID*NGRID*ZGRID;
 	public static boolean HASCENTER = NGRID%2==0?false:true;
-	public static int CENTER = ij2pos(NGRID/2+1,NGRID/2+1);
+	public static int CENTER = ijk2pos(NGRID/2+1,NGRID/2+1,ZGRID/2+1);
 	public static float OFFSET = (float) (NGRID-1) / 2;
 	public static boolean DEBUG = true;
-	public static boolean MOVE = true;
+	public static boolean MOVE = false;
+	public static int vitoriaI = 1; // linha
+	public static int vitoriaJ = 2; // coluna
+	public static int vitoriaK = 4; // altura
+	public static int vitoriaIJP = 8; // diagonal principal no plano IJ
+	public static int vitoriaIJS = 16; // diagonal secundária no plano IJ
+	public static int vitoriaIKP = 32; // diagonal principal no plano IK
+	public static int vitoriaIKS = 64; // diagonal secundária no plano IK
+	public static int vitoriaJKP = 128; // diagonal principal no plano JK
+	public static int vitoriaJKS = 256; // diagonal secundária no plano JK
+	public static int vitoriaA = 512; // diagonal +k+j+i
+	public static int vitoriaB = 1024; // diagonal +k-j+i
+	public static int vitoriaC = 2048; // diagonal +k-j-i
+	public static int vitoriaD = 4096; // diagonal +k+j-i
+
 	public static Scanner sc = new Scanner(System.in);
 	public static Random gerador = new Random();
-	public static char[][][] tabuleiro = new char[NGRID][NGRID][ZGRID];
+	public static char[][][] tabuleiro = new char[ZGRID][NGRID][NGRID];
 	public static char[] simbolos = { 'A', 'C', 'X', 'O' }; // representação visual dos jogadores; apenas os 2 primeiros são usados; 'C'=computador; 'A'=aleatório
 	public static char[] simbolosVitoria = { '<', '>' };
 	public static String logJogo = "";
@@ -23,15 +37,15 @@ public class JogoDaVelha {
 	public static int idxI(int pos) { return pos%NGRID; }
 	public static int idxJ(int pos) { return (pos/NGRID)%NGRID; }
 	public static int idxK(int pos) { return (pos/NGRID/NGRID)%ZGRID; }
-	public static int ijk2pos(int i, int j) { return NGRID*NGRID*(k%ZGRID) + NGRID*(j%NGRID) + i%NGRID; }
+	public static int ijk2pos(int i, int j, int k) { return NGRID*NGRID*(k%ZGRID) + NGRID*(j%NGRID) + i%NGRID; }
 	public static boolean isCenter(int pos) { return HASCENTER?(pos==CENTER?true:false):false; }
 	public static boolean isVertex(int pos) { return pos==0 || pos==NGRID-1 || pos==NGRID*(NGRID-1) || pos==NGRID*NGRID-1; }
-	public static int flipH(int pos) { return ij2pos(NGRID-1-idxI(pos) , idxJ(pos)); }
-	public static int flipV(int pos) { return ij2pos(idxI(pos) , NGRID-1-idxJ(pos)); }
-	public static int shiftH(int pos) { return ij2pos(1+idxI(pos) , idxJ(pos)); }
-	public static int shiftV(int pos) { return ij2pos(idxI(pos) , 1+idxJ(pos)); }
-	public static int rotAW(int pos) { return ij2pos((int) (OFFSET-(idxJ(pos)-OFFSET)) , (int) (OFFSET+(idxI(pos)-OFFSET))); }
-	public static int rotCW(int pos) { return ij2pos((int) (OFFSET+(idxJ(pos)-OFFSET)), (int) (OFFSET-(idxI(pos)-OFFSET))); }
+	public static int flipH(int pos) { return ijk2pos(NGRID-1-idxI(pos) , idxJ(pos) , idxK(pos)); }
+	public static int flipV(int pos) { return ijk2pos(idxI(pos) , NGRID-1-idxJ(pos) , idxK(pos)); }
+	public static int shiftH(int pos) { return ijk2pos(1+idxI(pos) , idxJ(pos) , idxK(pos)); }
+	public static int shiftV(int pos) { return ijk2pos(idxI(pos) , 1+idxJ(pos) , idxK(pos)); }
+	public static int rotAW(int pos) { return ijk2pos((int) (OFFSET-(idxJ(pos)-OFFSET)) , (int) (OFFSET+(idxI(pos)-OFFSET)) , idxK(pos)); }
+	public static int rotCW(int pos) { return ijk2pos((int) (OFFSET+(idxJ(pos)-OFFSET)), (int) (OFFSET-(idxI(pos)-OFFSET)) , idxK(pos)); }
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -45,7 +59,7 @@ public class JogoDaVelha {
 		if (args.length>0 && args[0].length()>1) {
 			simbolos[0] = args[0].charAt(0);
 			simbolos[1] = args[0].charAt(1);
-			replay = args[0].substring(3);
+			replay = args[0].substring(5);
 		}
 		imprimeTabuleiro();
 		while (true) {
@@ -79,7 +93,9 @@ public class JogoDaVelha {
 			logJogo += (char) ('0' + pos);
 			imprimeTabuleiro();
 // testar se jogador venceu; se sim, encerrar o jogo
-			if (testeVitoria(pos, simbolos[indiceJogador])) {
+			if (testeVitoria(pos, simbolos[indiceJogador])>0) {
+				mostraVitoria(pos, simbolos[indiceJogador]);
+				imprimeTabuleiro();
 				System.out.println("jogador " + simbolos[indiceJogador] + " venceu em " + (logJogo.length()-logJogo.length()/2) + " lances.");
 				status = simbolosVitoria[indiceJogador];
 				break; // sai do jogo
@@ -99,7 +115,7 @@ public class JogoDaVelha {
 			indiceJogador = (indiceJogador+1)%2;	// 0->1 ; 1->0
 		}
 		sc.close();
-		System.out.println("" + simbolos[0] + simbolos[1] + status + logJogo);
+		System.out.println("" + simbolos[0] + simbolos[1] + status + NGRID + ZGRID + logJogo);
 	}
 
 	public static void imprimeTabuleiro() {
@@ -124,6 +140,7 @@ public class JogoDaVelha {
 						System.out.printf("┼");
 				}
 				if (k==ZGRID-1) System.out.println("");
+			}
 		}
 		System.out.println(""); // linha em branco para facilitar visualização do tabuleiro
 	}
@@ -140,25 +157,114 @@ public class JogoDaVelha {
 			return false;
 	}
 
-	public static boolean testeVitoria(int pos, char simboloJogador) { // testa apenas posição
+	public static int testeVitoria(int pos, char simboloJogador) { // testa apenas posição
 		int i = idxI(pos);
 		int j = idxJ(pos);
 		int k = idxK(pos);
-		boolean vitoriaL = true;
-		boolean vitoriaC = true;
-		boolean vitoriaP = false;
-		boolean vitoriaS = false;
-		if (i==j)
-			vitoriaP = true;
-		if ((i+j)==(NGRID-1))
-			vitoriaS = true;
-		for (int n=1; n<NGRID; n++) {
-			if (tabuleiro[k][j][(i+n)%NGRID]!=simboloJogador) { vitoriaL = false; } // linha
-			if (tabuleiro[k][(j+n)%NGRID][i]!=simboloJogador) { vitoriaC = false; } // coluna
-			if (vitoriaP && tabuleiro[(j+n)%NGRID][(i+n)%NGRID]!=simboloJogador) { vitoriaP = false; }
-			if (vitoriaS && tabuleiro[(j+n)%NGRID][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoriaS = false; }
+		int vitoria = vitoriaI + vitoriaJ;
+		if (ZGRID>1) vitoria += vitoriaK;
+		if (ZGRID==NGRID) {
+			if (i==k) vitoria += vitoriaIKP;
+			if (i==NGRID-1-k) vitoria += vitoriaIKS;
+			if (j==k) vitoria += vitoriaJKP;
+			if (j==NGRID-1-k) vitoria += vitoriaJKS;
 		}
-		return vitoriaL || vitoriaC || vitoriaP || vitoriaS;
+		if (i==j) {
+			vitoria += vitoriaIJP;
+			if (ZGRID==NGRID) {
+				if (i==k) vitoria += vitoriaA;
+				if (i==NGRID-1-k) vitoria += vitoriaC;
+			}
+		}
+		if (i==NGRID-1-j) {
+			vitoria += vitoriaIJS;
+			if (ZGRID==NGRID) {
+				if (i==k) vitoria += vitoriaB;
+				if (i==NGRID-1-k) vitoria += vitoriaD;
+			}
+		}
+		for (int n=1; n<ZGRID; n++)
+			if ((vitoria&vitoriaK)>0 && tabuleiro[(k+n)%ZGRID][j][i]!=simboloJogador) { vitoria -= vitoriaK; } // altura
+		for (int n=1; n<NGRID; n++) {
+			if ((vitoria&vitoriaI)>0 && tabuleiro[k][j][(i+n)%NGRID]!=simboloJogador) { vitoria -= vitoriaI; } // linha
+			if ((vitoria&vitoriaJ)>0 && tabuleiro[k][(j+n)%NGRID][i]!=simboloJogador) { vitoria -= vitoriaJ; } // coluna
+			if ((vitoria&vitoriaIJP)>0 && tabuleiro[k][(j+n)%NGRID][(i+n)%NGRID]!=simboloJogador) { vitoria -= vitoriaIJP; }
+			if ((vitoria&vitoriaIJS)>0 && tabuleiro[k][(j+n)%NGRID][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoria -= vitoriaIJS; }
+			if ((vitoria&vitoriaIKP)>0 && tabuleiro[(k+n)%NGRID][j][(i+n)%NGRID]!=simboloJogador) { vitoria -= vitoriaIKP; }
+			if ((vitoria&vitoriaIKS)>0 && tabuleiro[(k+n)%NGRID][j][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoria -= vitoriaIKS; }
+			if ((vitoria&vitoriaJKP)>0 && tabuleiro[(k+n)%NGRID][(j+n)%NGRID][i]!=simboloJogador) { vitoria -= vitoriaJKP; }
+			if ((vitoria&vitoriaJKS)>0 && tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][i]!=simboloJogador) { vitoria -= vitoriaJKS; }
+			if ((vitoria&vitoriaA)>0 && tabuleiro[(k+n)%NGRID][(j+n)%NGRID][(i+n)%NGRID]!=simboloJogador) { vitoria -= vitoriaA; }
+			if ((vitoria&vitoriaB)>0 && tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][(i+n)%NGRID]!=simboloJogador) { vitoria -= vitoriaB; }
+			if ((vitoria&vitoriaC)>0 && tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoria -= vitoriaC; }
+			if ((vitoria&vitoriaD)>0 && tabuleiro[(k+n)%NGRID][(j+n)%NGRID][(NGRID+i-n)%NGRID]!=simboloJogador) { vitoria -= vitoriaD; }
+		}
+		return vitoria;
+	}
+
+	public static void mostraVitoria(int pos, char simboloJogador) {
+		int i = idxI(pos);
+		int j = idxJ(pos);
+		int k = idxK(pos);
+		int vitoria = testeVitoria(pos, simboloJogador);
+		for (int kk=0; kk<ZGRID; kk++)
+			for (int jj=0; jj<NGRID; jj++)
+				for (int ii=0; ii<NGRID; ii++)
+					tabuleiro[kk][jj][ii] = '.';  // NBSP gera erro
+		if ((vitoria&vitoriaI) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[k][j][(i+n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaJ) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[k][(j+n)%NGRID][i] = simboloJogador;
+		if ((vitoria&vitoriaK) > 0)
+			for (int n=0; n<ZGRID; n++)
+				tabuleiro[(k+n)%NGRID][j][i] = simboloJogador;
+		if ((vitoria&vitoriaIJP) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[k][(j+n)%NGRID][(i+n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaIJS) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[k][(j+n)%NGRID][(NGRID+i-n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaIKP) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][j][(i+n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaIKS) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][j][(NGRID+i-n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaJKP) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(j+n)%NGRID][i] = simboloJogador;
+		if ((vitoria&vitoriaJKS) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][i] = simboloJogador;
+		if ((vitoria&vitoriaA) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(j+n)%NGRID][(i+n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaB) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][(i+n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaC) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(NGRID+j-n)%NGRID][(NGRID+i-n)%NGRID] = simboloJogador;
+		if ((vitoria&vitoriaD) > 0)
+			for (int n=0; n<NGRID; n++)
+				tabuleiro[(k+n)%NGRID][(j+n)%NGRID][(NGRID+i-n)%NGRID] = simboloJogador;
+		if (DEBUG) {
+			if ((vitoria&vitoriaI) > 0) System.out.print("[vitoriaI] ");
+			if ((vitoria&vitoriaJ) > 0) System.out.print("[vitoriaJ] ");
+			if ((vitoria&vitoriaK) > 0) System.out.print("[vitoriaK] ");
+			if ((vitoria&vitoriaIJP) > 0) System.out.print("[vitoriaIJP] ");
+			if ((vitoria&vitoriaIJS) > 0) System.out.print("[vitoriaIJS] ");
+			if ((vitoria&vitoriaIKP) > 0) System.out.print("[vitoriaIKP] ");
+			if ((vitoria&vitoriaIKS) > 0) System.out.print("[vitoriaIKS] ");
+			if ((vitoria&vitoriaJKP) > 0) System.out.print("[vitoriaJKP] ");
+			if ((vitoria&vitoriaJKS) > 0) System.out.print("[vitoriaJKS] ");
+			if ((vitoria&vitoriaA) > 0) System.out.print("[vitoriaA] ");
+			if ((vitoria&vitoriaB) > 0) System.out.print("[vitoriaB] ");
+			if ((vitoria&vitoriaC) > 0) System.out.print("[vitoriaC] ");
+			if ((vitoria&vitoriaD) > 0) System.out.print("[vitoriaD] ");
+		}
 	}
 
 	public static int jogada(int indiceJogador) {
@@ -173,9 +279,9 @@ public class JogoDaVelha {
 			valorPos = -2;
 			if (testePosicaoLivre(pos)) {
 				valorPos = 0;
-				if (testeVitoria(pos, simboloJogador)) { // retornar posição vitoriosa imediatamente
+				if (testeVitoria(pos, simboloJogador)>0) { // retornar posição vitoriosa imediatamente
 					return pos;
-				} else if (testeVitoria(pos, simboloOponente)) { // evitar derrota
+				} else if (testeVitoria(pos, simboloOponente)>0) { // evitar derrota
 					valorPos = 18;
 				} else if (testeGancho(pos, simboloOponente)) {
 					valorPos = 16;
@@ -232,12 +338,12 @@ public class JogoDaVelha {
 		tabuleiro[k][j][i] = simboloJogador;
 		for (int pos2=0; pos2<MAXPOS; pos2++) {
 			if (testePosicaoLivre(pos2)) {
-				if (testeVitoria(pos2, simboloJogador)) {
+				if (testeVitoria(pos2, simboloJogador)>0) {
 					gancho++;
 				}
 			}
 		}
-		tabuleiro[j][i] = curSimbolo;
+		tabuleiro[k][j][i] = curSimbolo;
 		return gancho>1?true:false;
 	}
 
@@ -256,7 +362,7 @@ public class JogoDaVelha {
 				}
 			}
 		}
-		tabuleiro[j][i] = curSimbolo;
+		tabuleiro[k][j][i] = curSimbolo;
 		return gancho>1?true:false;
 	}
 
