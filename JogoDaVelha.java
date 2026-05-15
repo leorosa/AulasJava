@@ -12,7 +12,7 @@ public class JogoDaVelha {
 	public static int CENTER = ijk2pos(NGRID/2+1,NGRID/2+1,ZGRID/2+1);
 	public static float OFFSET = (float) (NGRID-1) / 2;
 	public static boolean DEBUG = true;
-	public static boolean MOVE = false;
+	public static boolean MOVE = true;
 	public static int vitoriaI = 1; // linha
 	public static int vitoriaJ = 2; // coluna
 	public static int vitoriaK = 4; // altura
@@ -40,12 +40,18 @@ public class JogoDaVelha {
 	public static int ijk2pos(int i, int j, int k) { return NGRID*NGRID*(k%ZGRID) + NGRID*(j%NGRID) + i%NGRID; }
 	public static boolean isCenter(int pos) { return HASCENTER?(pos==CENTER?true:false):false; }
 	public static boolean isVertex(int pos) { return pos==0 || pos==NGRID-1 || pos==NGRID*(NGRID-1) || pos==NGRID*NGRID-1; }
-	public static int flipH(int pos) { return ijk2pos(NGRID-1-idxI(pos) , idxJ(pos) , idxK(pos)); }
-	public static int flipV(int pos) { return ijk2pos(idxI(pos) , NGRID-1-idxJ(pos) , idxK(pos)); }
-	public static int shiftH(int pos) { return ijk2pos(1+idxI(pos) , idxJ(pos) , idxK(pos)); }
-	public static int shiftV(int pos) { return ijk2pos(idxI(pos) , 1+idxJ(pos) , idxK(pos)); }
-	public static int rotAW(int pos) { return ijk2pos((int) (OFFSET-(idxJ(pos)-OFFSET)) , (int) (OFFSET+(idxI(pos)-OFFSET)) , idxK(pos)); }
-	public static int rotCW(int pos) { return ijk2pos((int) (OFFSET+(idxJ(pos)-OFFSET)), (int) (OFFSET-(idxI(pos)-OFFSET)) , idxK(pos)); }
+	public static int flipI(int pos) { return ijk2pos((NGRID-1-idxI(pos))%NGRID , idxJ(pos) , idxK(pos)); }
+	public static int flipJ(int pos) { return ijk2pos(idxI(pos) , (NGRID-1-idxJ(pos))%NGRID , idxK(pos)); }
+	public static int flipK(int pos) { return ijk2pos(idxI(pos) , idxJ(pos) , (ZGRID-1-idxK(pos))%ZGRID); }
+	public static int shiftI(int pos) { return ijk2pos((1+idxI(pos))%NGRID , idxJ(pos) , idxK(pos)); }
+	public static int shiftJ(int pos) { return ijk2pos(idxI(pos) , (1+idxJ(pos))%NGRID , idxK(pos)); }
+	public static int shiftK(int pos) { return ijk2pos(idxI(pos) , idxJ(pos) , (1+idxK(pos))%ZGRID); }
+	public static int rotIJA(int pos) { return ijk2pos((int) (OFFSET-(idxJ(pos)-OFFSET)) , (int) (OFFSET+(idxI(pos)-OFFSET)) , idxK(pos)); }
+	public static int rotIJC(int pos) { return ijk2pos((int) (OFFSET+(idxJ(pos)-OFFSET)) , (int) (OFFSET-(idxI(pos)-OFFSET)) , idxK(pos)); }
+	public static int rotIKA(int pos) { return ijk2pos((int) (OFFSET-(idxK(pos)-OFFSET)) , idxJ(pos) , (int) (OFFSET+(idxI(pos)-OFFSET))); }
+	public static int rotIKC(int pos) { return ijk2pos((int) (OFFSET+(idxK(pos)-OFFSET)) , idxJ(pos) , (int) (OFFSET-(idxI(pos)-OFFSET))); }
+	public static int rotJKA(int pos) { return ijk2pos(idxI(pos) , (int) (OFFSET-(idxK(pos)-OFFSET)) , (int) (OFFSET+(idxJ(pos)-OFFSET))); }
+	public static int rotJKC(int pos) { return ijk2pos(idxI(pos) , (int) (OFFSET+(idxK(pos)-OFFSET)) , (int) (OFFSET-(idxJ(pos)-OFFSET))); }
 
 	public static void main(String[] args) {
 		int indiceJogador = 0;
@@ -287,11 +293,11 @@ public class JogoDaVelha {
 					valorPos = 16;
 				} else if (testeGancho(pos, simboloJogador)) {
 					valorPos = 14;
-				} else if (testeGanchoFuturo(pos, simboloJogador)) {
-					valorPos = 12;
-				} else if (testeGanchoFuturo(pos, simboloOponente)) {
-					valorPos = 10;
 				} else if (isCenter(pos)) {
+					valorPos = 12;
+				} else if (testeGanchoFuturo(pos, simboloJogador)) {
+					valorPos = 10;
+				} else if (testeGanchoFuturo(pos, simboloOponente)) {
 					valorPos = 8;
 				} else if (testeGancho(pos, ' ')) { // priorizar linha/coluna/diagonal livre 
 					valorPos = 4;
@@ -313,11 +319,11 @@ public class JogoDaVelha {
 			else if (valorMax>12)
 				System.out.print("[criar gancho] ");
 			else if (valorMax>10)
-				System.out.print("[criar gancho futuro] ");
-			else if (valorMax>8)
-				System.out.print("[evitar gancho futuro] ");
-			else if (valorMax>6)
 				System.out.print("[centro] ");
+			else if (valorMax>8)
+				System.out.print("[criar gancho futuro] ");
+			else if (valorMax>6)
+				System.out.print("[evitar gancho futuro] ");
 			else if (valorMax>4)
 				System.out.print("[canto em l/c/d livre] ");
 			else if (valorMax>2)
@@ -368,31 +374,50 @@ public class JogoDaVelha {
 
 	public static int move(int pos, int opcao) {
 		if (opcao==1) {
-			if (pos==0 && DEBUG) System.out.print("[flipH] ");
-			return flipH(pos);
+			if (pos==0 && DEBUG) System.out.print("[flipI] ");
+			return flipI(pos);
 		} else if (opcao==2) {
-			if (pos==0 && DEBUG) System.out.print("[flipV] ");
-			return flipV(pos);
+			if (pos==0 && DEBUG) System.out.print("[flipJ] ");
+			return flipJ(pos);
 		} else if (opcao==3) {
-			if (pos==0 && DEBUG) System.out.print("[rotAW] ");
-			return rotAW(pos);
+			if (pos==0 && DEBUG) System.out.print("[rotIJA] ");
+			return rotIJA(pos);
 		} else if (opcao==4) {
-			if (pos==0 && DEBUG) System.out.print("[rotCW] ");
-			return rotCW(pos);
+			if (pos==0 && DEBUG) System.out.print("[rotIJC] ");
+			return rotIJC(pos);
 		} else if (opcao==5) {
-			if (pos==0 && DEBUG) System.out.print("[shiftH] ");
-			return shiftH(pos);
+			if (pos==0 && DEBUG) System.out.print("[flipK] ");
+			return flipK(pos);
 		} else if (opcao==6) {
-			if (pos==0 && DEBUG) System.out.print("[shiftV] ");
-			return shiftV(pos);
+			if (pos==0 && DEBUG) System.out.print("[rotIKA] ");
+			return rotIKA(pos);
+		} else if (opcao==7) {
+			if (pos==0 && DEBUG) System.out.print("[rotIKC] ");
+			return rotIKC(pos);
+		} else if (opcao==8) {
+			if (pos==0 && DEBUG) System.out.print("[rotJKA] ");
+			return rotJKA(pos);
+		} else if (opcao==9) {
+			if (pos==0 && DEBUG) System.out.print("[rotJKC] ");
+			return rotJKC(pos);
+		} else if (opcao==10) {
+			if (pos==0 && DEBUG) System.out.print("[shiftI] ");
+			return shiftI(pos);
+		} else if (opcao==11) {
+			if (pos==0 && DEBUG) System.out.print("[shiftJ] ");
+			return shiftJ(pos);
+		} else if (opcao==12) {
+			if (pos==0 && DEBUG) System.out.print("[shiftK] ");
+			return shiftK(pos);
 		}
 		return pos;
 	}
 
 	public static int moveTabuleiro(int curPos) {
 		int opcao = gerador.nextInt(5); // 0 = sem alterar tabuleiro; evitar 'shift', que torna vitórias imprevisíveis...
+		if (ZGRID==NGRID) opcao = gerador.nextInt(10);
 		if (opcao==0) return curPos;
-		char[][][] novoTabuleiro = new char[NGRID][NGRID][ZGRID];
+		char[][][] novoTabuleiro = new char[ZGRID][NGRID][NGRID];
 		int movedPos = -1;
 		for (int k=0; k<ZGRID; k++)
 			for (int j=0; j<NGRID; j++)
