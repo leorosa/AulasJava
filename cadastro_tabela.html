@@ -18,7 +18,7 @@
     }
 </style>
 <script>
-    function geraTabela() {
+    function atualizaTabela() {
         if (typeof(Storage) !== "undefined") {
             pessoas = JSON.parse(localStorage.getItem("pessoas")) // Retrieve
         } else {
@@ -26,30 +26,34 @@
             return
         }
         console.log(pessoas)
-        var tabela = '<table>'
-        tabela += '<tr>'
-        tabela += '<th>Nome</th>'
-        tabela += '<th>E-mail</th>'
-        tabela += '<th>Telefone</th>'
-        tabela += '</tr>'
+        const tbody = document.querySelector("#tabelaClientes tbody")
+        tbody.innerHTML = ''
         for (n=0; n<pessoas.length; n++) {
-            tabela += '<tr>'
-            tabela += '<td>'+pessoas[n].nome+'</td>'
-            tabela += '<td>'+pessoas[n].email+'</td>'
-            tabela += '<td>'+pessoas[n].telefone+'</td>'
-            tabela += '</tr>'
+            const linha = document.createElement('tr')
+            linha.innerHTML = ''
+            linha.innerHTML += '<td>'+pessoas[n].nome+'</td>'
+            linha.innerHTML += '<td>'+pessoas[n].email+'</td>'
+            linha.innerHTML += '<td>'+pessoas[n].telefone+'</td>'
+            tbody.appendChild(linha)
         }
-        tabela += '</table>'
-        div = document.getElementById('lista')
-        div.innerHTML = tabela
     }
 </script>
 </head>
 
 <body>
 <h3>Lista de Clientes</h3>
-<div id="lista"></div>
-</div>
-<script>geraTabela()</script>
+<table id="tabelaClientes">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Clientes serão inseridos aqui -->
+    </tbody>
+</table>
+<script>atualizaTabela()</script>
 </body>
 </html>
