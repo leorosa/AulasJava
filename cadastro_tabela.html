@@ -28,14 +28,12 @@
         console.log(pessoas)
         var tabela = '<table>'
         tabela += '<tr>'
-        tabela += '<th>#</th>'
-        tabela += '<th>nome</th>'
-        tabela += '<th>email</th>'
-        tabela += '<th>telefone</th>'
+        tabela += '<th>Nome</th>'
+        tabela += '<th>E-mail</th>'
+        tabela += '<th>Telefone</th>'
         tabela += '</tr>'
         for (n=0; n<pessoas.length; n++) {
             tabela += '<tr>'
-            tabela += '<td>'+(n+1)+'</td>'
             tabela += '<td>'+pessoas[n].nome+'</td>'
             tabela += '<td>'+pessoas[n].email+'</td>'
             tabela += '<td>'+pessoas[n].telefone+'</td>'
