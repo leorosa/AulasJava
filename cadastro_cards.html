@@ -30,6 +30,8 @@
             border: none;
             border-radius: 5px;
             margin: 5px;
+            margin-left: 30px;
+            margin-right: 30px;
         }
         input {
             width: 100%;
@@ -53,7 +55,6 @@
             location.reload();
         }
         function editarRegistro(n, nome, email, telefone, bedit, bdel) {
-            console.log(telefone)
             nome.disabled = ""
             email.disabled = ""
             telefone.disabled = ""
@@ -70,7 +71,7 @@
             pessoas[n].email = email.value
             pessoas[n].telefone = telefone.value
             localStorage.setItem("pessoas", JSON.stringify(pessoas))
-            cancelaRegistro(n, nome, email, telefone, bedit, bdel);
+            cancelaEdicao(n, nome, email, telefone, bedit, bdel);
             location.reload();
         }
         function cancelaEdicao(n, nome, email, telefone, bedit, bdel) {
@@ -83,7 +84,8 @@
             bdel.onclick = function() { removeRegistro(n); }
         }
         const div = document.getElementById("cartoes")
-        for (let n=0; n<pessoas.length; n++) {
+//      for (let n=0; n<pessoas.length; n++) {
+        pessoas.forEach((pessoa,n) => {
             const cdiv = document.createElement('div')
             cdiv.className = "cartao"
             const nome = document.createElement('input')
@@ -93,7 +95,7 @@
             nome.style.fontSize = "18pt"
             nome.style.fontWeight = "bold"
             nome.disabled = "true"
-            nome.value = pessoas[n].nome
+            nome.value = pessoa.nome
             cdiv.appendChild(nome)
             const elabel = document.createElement('label')
             elabel.innerHTML = "<br><b>E-mail:</b>"
@@ -102,7 +104,7 @@
             email.type = "text"
             email.style.border = "none"
             email.disabled = "true"
-            email.value = pessoas[n].email
+            email.value = pessoa.email
             cdiv.appendChild(email)
             const etelefone = document.createElement('label')
             etelefone.innerHTML = "<br><b>Telefone:</b>"
@@ -111,9 +113,10 @@
             telefone.type = "text"
             telefone.style.border = "none"
             telefone.disabled = "true"
-            telefone.value = pessoas[n].telefone
+            telefone.value = pessoa.telefone
             cdiv.appendChild(telefone)
             const bdiv = document.createElement('div')
+            bdiv.style.display = "flex"
             bdiv.style.justifyContent = "space-between"
             const bedit = document.createElement('button')
             bedit.innerHTML = 'editar'
@@ -126,7 +129,7 @@
             bdiv.appendChild(bdel)
             cdiv.appendChild(bdiv)
             div.appendChild(cdiv)
-        }
+        })
     }
 </script>
 </body>
