@@ -85,12 +85,18 @@
             nome.disabled = "true"
             nome.value = pessoas[n].nome
             cdiv.appendChild(nome)
+            const elabel = document.createElement('label')
+            elabel.innerHTML = "<br><b>E-mail:</b>"
+            cdiv.append(elabel)
             const email = document.createElement('input')
             email.type = "text"
             email.style.border = "none"
             email.disabled = "true"
             email.value = pessoas[n].email
             cdiv.appendChild(email)
+            const etelefone = document.createElement('label')
+            etelefone.innerHTML = "<br><br><b>Telefone:</b>"
+            cdiv.append(etelefone)
             const telefone = document.createElement('input')
             telefone.type = "text"
             telefone.style.border = "none"
