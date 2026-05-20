@@ -42,9 +42,15 @@
     if (typeof(Storage) === "undefined") {
         document.getElementById('p').innerHTML = "no Web storage support!"
     } else {
+        function removeRegistro(n) {
+            console.log(n)
+//                pessoas.splice(n, 1)
+//                localStorage.setItem("pessoas", JSON.stringify(pessoas))
+//                location.reload();
+        }
         pessoas = JSON.parse(localStorage.getItem("pessoas")) // Retrieve
         const div = document.getElementById("cartoes")
-        for (n=0; n<pessoas.length; n++) {
+        for (let n=0; n<pessoas.length; n++) {
             const cdiv = document.createElement('div')
             cdiv.className = "cartao"
             const nome = document.createElement('p')
@@ -62,11 +68,8 @@
             const bdiv = document.createElement('div')
             const bdel = document.createElement('button')
             bdel.innerHTML = 'remover'
-            bdel.addEventListener("click", function(n) {
-                pessoas.splice(n, 1)
-                localStorage.setItem("pessoas", JSON.stringify(pessoas))
-                location.reload();
-            })
+//          bdel.addEventListener("click", function() { removeRegistro(null,n); }, false)
+            bdel.onclick = function() { removeRegistro(n); }
             bdiv.appendChild(bdel)
             cdiv.appendChild(bdiv)
             div.appendChild(cdiv)
