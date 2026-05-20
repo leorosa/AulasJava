@@ -30,8 +30,6 @@
             border: none;
             border-radius: 5px;
             margin: 5px;
-            margin-left: 30px;
-            margin-right: 30px;
             padding: 10px;
         }
         input {
@@ -98,24 +96,28 @@
             nome.disabled = "true"
             nome.value = pessoa.nome
             cdiv.appendChild(nome)
+            const epar = document.createElement('p')
             const elabel = document.createElement('label')
-            elabel.innerHTML = "<br><b>E-mail:</b>"
-            cdiv.append(elabel)
+            elabel.innerHTML = "<b>E-mail:</b>"
+            epar.append(elabel)
             const email = document.createElement('input')
             email.type = "text"
             email.style.border = "none"
             email.disabled = "true"
             email.value = pessoa.email
-            cdiv.appendChild(email)
-            const etelefone = document.createElement('label')
-            etelefone.innerHTML = "<br><b>Telefone:</b>"
-            cdiv.append(etelefone)
+            epar.appendChild(email)
+            cdiv.appendChild(epar)
+            const tpar = document.createElement('p')
+            const tlabel = document.createElement('label')
+            tlabel.innerHTML = "<b>Telefone:</b>"
+            tpar.append(tlabel)
             const telefone = document.createElement('input')
             telefone.type = "text"
             telefone.style.border = "none"
             telefone.disabled = "true"
             telefone.value = pessoa.telefone
-            cdiv.appendChild(telefone)
+            tpar.appendChild(telefone)
+            cdiv.appendChild(tpar)
             const bdiv = document.createElement('div')
             bdiv.style.display = "flex"
             bdiv.style.justifyContent = "space-between"
@@ -126,8 +128,10 @@
             bdel.innerHTML = 'remover'
             bdel.style.backgroundColor = 'red'
             bdel.onclick = function() { removeRegistro(n); }
+            bdiv.appendChild(document.createElement('span'))
             bdiv.appendChild(bedit)
             bdiv.appendChild(bdel)
+            bdiv.appendChild(document.createElement('span'))
             cdiv.appendChild(bdiv)
             div.appendChild(cdiv)
         })
