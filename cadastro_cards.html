@@ -14,10 +14,11 @@
             width: 200px;
             margin: 10px;
             padding: 5px;
+            background-color: white;
 /*            border-style: solid;
             border-width: 1px; */
             border-radius: 5px;
-            box-shadow: 0px 0px 10px black;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
         .cartao:hover {
             transform: translate(-2px, -2px);
@@ -61,6 +62,11 @@
             const bdiv = document.createElement('div')
             const bdel = document.createElement('button')
             bdel.innerHTML = 'remover'
+            bdel.addEventListener("click", function(n) {
+                pessoas.splice(n, 1)
+                localStorage.setItem("pessoas", JSON.stringify(pessoas))
+                location.reload();
+            })
             bdiv.appendChild(bdel)
             cdiv.appendChild(bdiv)
             div.appendChild(cdiv)
