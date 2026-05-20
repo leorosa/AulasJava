@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #cartoes {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .cartao {
+            width: 200px;
+            margin: 10px;
+            padding: 5px;
+/*            border-style: solid;
+            border-width: 1px; */
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px black;
+        }
+        .cartao:hover {
+            transform: translate(-2px, -2px);
+            transition: 0.3s ease;
+        }
+        button {
+            background-color: rgb(0, 132, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Clientes Cadastrados</h3>
+<div id="cartoes"></div>
+<p id="alertas"></p>
+
+<script>
+    if (typeof(Storage) === "undefined") {
+        document.getElementById('p').innerHTML = "no Web storage support!"
+    } else {
+        pessoas = JSON.parse(localStorage.getItem("pessoas")) // Retrieve
+        const div = document.getElementById("cartoes")
+        for (n=0; n<pessoas.length; n++) {
+            const cdiv = document.createElement('div')
+            cdiv.className = "cartao"
+            const nome = document.createElement('p')
+            nome.style.color = "blue"
+            nome.style.fontSize = "18pt"
+            nome.style.fontWeight = "bold"
+            nome.innerHTML = pessoas[n].nome
+            cdiv.appendChild(nome)
+            const email = document.createElement('p')
+            email.innerHTML = "<b>E-mail:</b><br>"+pessoas[n].email
+            cdiv.appendChild(email)
+            const telefone = document.createElement('p')
+            telefone.innerHTML = "<b>Telefone:</b><br>"+pessoas[n].telefone
+            cdiv.appendChild(telefone)
+            const bdiv = document.createElement('div')
+            const bdel = document.createElement('button')
+            bdel.innerHTML = 'remover'
+            bdiv.appendChild(bdel)
+            cdiv.appendChild(bdiv)
+            div.appendChild(cdiv)
+        }
+    }
+</script>
+</body>
+</html>
