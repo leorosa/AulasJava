@@ -29,6 +29,7 @@
             color: white;
             border: none;
             border-radius: 5px;
+            margin: 5px;
         }
     </style>
 </head>
@@ -42,35 +43,69 @@
     if (typeof(Storage) === "undefined") {
         document.getElementById('p').innerHTML = "no Web storage support!"
     } else {
-        function removeRegistro(n) {
-            console.log(n)
-//                pessoas.splice(n, 1)
-//                localStorage.setItem("pessoas", JSON.stringify(pessoas))
-//                location.reload();
-        }
         pessoas = JSON.parse(localStorage.getItem("pessoas")) // Retrieve
+        function removeRegistro(n) {
+            pessoas.splice(n, 1)
+            localStorage.setItem("pessoas", JSON.stringify(pessoas))
+            location.reload();
+        }
+        function editarRegistro(n,nome,email,telefone,bedit) {
+            console.log(telefone)
+            nome.disabled = ""
+            email.disabled = ""
+            telefone.disabled = ""
+            nome.style.border = ""
+            email.style.border = ""
+            telefone.style.border = ""
+            bedit.innerHTML = "atualizar"
+            bedit.onclick = function() { atualizaRegistro(n, nome, email, telefone, bedit); }
+        }
+        function atualizaRegistro(n, nome, email, telefone, bedit) {
+            nome.style.border = "none"
+            email.style.border = "none"
+            telefone.style.border = "none"
+            pessoas[n].nome = nome.value
+            pessoas[n].email = email.value
+            pessoas[n].telefone = telefone.value
+            localStorage.setItem("pessoas", JSON.stringify(pessoas))
+            bedit.onclick = function() { editarRegistro(n, nome, email, telefone, bedit); }
+            bedit.innerHTML = "editar"
+            location.reload();
+        }
         const div = document.getElementById("cartoes")
         for (let n=0; n<pessoas.length; n++) {
             const cdiv = document.createElement('div')
             cdiv.className = "cartao"
-            const nome = document.createElement('p')
+            const nome = document.createElement('input')
+            nome.type = "text"
+            nome.style.border = "none"
             nome.style.color = "blue"
             nome.style.fontSize = "18pt"
             nome.style.fontWeight = "bold"
-            nome.innerHTML = pessoas[n].nome
+            nome.disabled = "true"
+            nome.value = pessoas[n].nome
             cdiv.appendChild(nome)
-            const email = document.createElement('p')
-            email.innerHTML = "<b>E-mail:</b><br>"+pessoas[n].email
+            const email = document.createElement('input')
+            email.type = "text"
+            email.style.border = "none"
+            email.disabled = "true"
+            email.value = pessoas[n].email
             cdiv.appendChild(email)
-            const telefone = document.createElement('p')
-            telefone.innerHTML = "<b>Telefone:</b><br>"+pessoas[n].telefone
+            const telefone = document.createElement('input')
+            telefone.type = "text"
+            telefone.style.border = "none"
+            telefone.disabled = "true"
+            telefone.value = pessoas[n].telefone
             cdiv.appendChild(telefone)
             const bdiv = document.createElement('div')
             const bdel = document.createElement('button')
             bdel.innerHTML = 'remover'
-//          bdel.addEventListener("click", function() { removeRegistro(null,n); }, false)
             bdel.onclick = function() { removeRegistro(n); }
             bdiv.appendChild(bdel)
+            const bedit = document.createElement('button')
+            bedit.innerHTML = 'editar'
+            bedit.onclick = function() { editarRegistro(n, nome, email, telefone, bedit); }
+            bdiv.appendChild(bedit)
             cdiv.appendChild(bdiv)
             div.appendChild(cdiv)
         }
