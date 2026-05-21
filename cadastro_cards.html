@@ -6,6 +6,9 @@
     <title>Document</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
         #cartoes {
             display: flex;
             flex-wrap: wrap;
@@ -34,6 +37,10 @@
         }
         input {
             width: 100%;
+            background-color: white;
+            border-color: white;
+            border-style: solid;
+            border-width: 0.1px;
         }
     </style>
 </head>
@@ -57,9 +64,9 @@
             nome.disabled = ""
             email.disabled = ""
             telefone.disabled = ""
-            nome.style.border = ""
-            email.style.border = ""
-            telefone.style.border = ""
+            nome.style.borderColor = "black"
+            email.style.borderColor = "black"
+            telefone.style.borderColor = "black"
             bedit.innerHTML = "atualizar"
             bedit.onclick = function() { atualizaRegistro(n, nome, email, telefone, bedit, bdel); }
             bdel.innerHTML = "cancelar"
@@ -74,9 +81,12 @@
             location.reload();
         }
         function cancelaEdicao(n, nome, email, telefone, bedit, bdel) {
-            nome.style.border = "none"
-            email.style.border = "none"
-            telefone.style.border = "none"
+            nome.style.borderColor = "white"
+            email.style.borderColor = "white"
+            telefone.style.borderColor = "white"
+            nome.disabled = true
+            email.disabled = true
+            telefone.disabled = true
             bedit.innerHTML = "editar"
             bedit.onclick = function() { editarRegistro(n, nome, email, telefone, bedit, bdel); }
             bdel.innerHTML = "remover"
@@ -89,7 +99,7 @@
             cdiv.className = "cartao"
             const nome = document.createElement('input')
             nome.type = "text"
-            nome.style.border = "none"
+            //nome.style.border = "none"
             nome.style.color = "blue"
             nome.style.fontSize = "18pt"
             nome.style.fontWeight = "bold"
@@ -102,7 +112,8 @@
             epar.append(elabel)
             const email = document.createElement('input')
             email.type = "text"
-            email.style.border = "none"
+//            email.style.border = "none"
+            //email.style.borderColor = "white"
             email.disabled = "true"
             email.value = pessoa.email
             epar.appendChild(email)
@@ -113,7 +124,7 @@
             tpar.append(tlabel)
             const telefone = document.createElement('input')
             telefone.type = "text"
-            telefone.style.border = "none"
+            //telefone.style.border = "none"
             telefone.disabled = "true"
             telefone.value = pessoa.telefone
             tpar.appendChild(telefone)
@@ -130,6 +141,7 @@
             bdel.onclick = function() { removeRegistro(n); }
             bdiv.appendChild(document.createElement('span'))
             bdiv.appendChild(bedit)
+            bdiv.appendChild(document.createElement('span'))
             bdiv.appendChild(bdel)
             bdiv.appendChild(document.createElement('span'))
             cdiv.appendChild(bdiv)
