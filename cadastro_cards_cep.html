@@ -58,35 +58,63 @@
             localStorage.setItem("pessoas", JSON.stringify(pessoas))
             location.reload();
         }
-        function editarRegistro(n, nome, email, telefone, bedit, bdel) {
+        function editarRegistro(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
+            const bedit = document.getElementById('bedit'+n)
+            const bdel = document.getElementById('bdel'+n)
             nome.disabled = ""
             email.disabled = ""
             telefone.disabled = ""
+            cep.disabled = ""
             nome.style.borderColor = "black"
             email.style.borderColor = "black"
             telefone.style.borderColor = "black"
+            cep.style.borderColor = "black"
             bedit.innerHTML = "atualizar"
-            bedit.onclick = function() { atualizaRegistro(n, nome, email, telefone, bedit, bdel); }
+            bedit.onclick = function() { atualizaRegistro(n); }
             bdel.innerHTML = "cancelar"
-            bdel.onclick = function() { cancelaEdicao(n, nome, email, telefone, bedit, bdel); }
+            bdel.onclick = function() { cancelaEdicao(n); }
         }
-        function atualizaRegistro(n, nome, email, telefone, bedit, bdel) {
+        function atualizaRegistro(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
             pessoas[n].nome = nome.value
             pessoas[n].email = email.value
             pessoas[n].telefone = telefone.value
-            localStorage.setItem("pessoas", JSON.stringify(pessoas))
-            cancelaEdicao(n, nome, email, telefone, bedit, bdel);
-            location.reload();
+            pessoas[n].cep = cep.value
+            fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
+            .then( (dados) => dados.json() )
+            .then( (resposta) => {
+                pessoas[n].endereco = resposta
+                document.getElementById('detalhes'+n).innerHTML = `<b>rua:</b> ${pessoas[n].endereco.logradouro} ${pessoas[n].endereco.complemento}`
+                document.getElementById('detalhes'+n).innerHTML += `<br> ${pessoas[n].endereco.localidade}, ${pessoas[n].endereco.uf}`
+            } , () => {
+                document.getElementById('detalhes'+n).innerHTML = "CEP inválido"
+            })
+            cancelaEdicao(n)
         }
-        function cancelaEdicao(n, nome, email, telefone, bedit, bdel) {
+        function cancelaEdicao(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
+            const bedit = document.getElementById('bedit'+n)
+            const bdel = document.getElementById('bdel'+n)
             nome.style.borderColor = "white"
             email.style.borderColor = "white"
             telefone.style.borderColor = "white"
+            cep.style.borderColor = "white"
             nome.disabled = true
             email.disabled = true
             telefone.disabled = true
+            cep.disabled = true
             bedit.innerHTML = "editar"
-            bedit.onclick = function() { editarRegistro(n, nome, email, telefone, bedit, bdel); }
+            bedit.onclick = function() { editarRegistro(n); }
             bdel.innerHTML = "remover"
             bdel.onclick = function() { removeRegistro(n); }
         }
