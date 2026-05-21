@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang='pt'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Document</title>
 
     <style>
@@ -86,18 +86,23 @@
             pessoas[n].nome = nome.value
             pessoas[n].email = email.value
             pessoas[n].telefone = telefone.value
-            pessoas[n].cep = cep.value
-            fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
-            .then( (dados) => dados.json() )
-            .then( (resposta) => {
-                pessoas[n].endereco = resposta
+            if(pessoas[n].cep != cep.value) {
+                pessoas[n].cep = cep.value
+                fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
+                .then( (dados) => dados.json() )
+                .then( (resposta) => {
+                    pessoas[n].endereco = resposta
+                    localStorage.setItem('pessoas', JSON.stringify(pessoas))
+                    document.getElementById('detalhes'+n).innerHTML = `<b>rua:</b> ${pessoas[n].endereco.logradouro} ${pessoas[n].endereco.complemento}`
+                    document.getElementById('detalhes'+n).innerHTML += `<br> ${pessoas[n].endereco.localidade}, ${pessoas[n].endereco.uf}`
+                    cancelaEdicao(n)
+                } , () => {
+                    document.getElementById('detalhes'+n).innerHTML = 'CEP inválido'
+                })
+            } else {
                 localStorage.setItem('pessoas', JSON.stringify(pessoas))
-                document.getElementById('detalhes'+n).innerHTML = `<b>rua:</b> ${pessoas[n].endereco.logradouro} ${pessoas[n].endereco.complemento}`
-                document.getElementById('detalhes'+n).innerHTML += `<br> ${pessoas[n].endereco.localidade}, ${pessoas[n].endereco.uf}`
-            } , () => {
-                document.getElementById('detalhes'+n).innerHTML = "CEP inválido"
-            })
-            cancelaEdicao(n)
+                cancelaEdicao(n)
+            }
         }
         function cancelaEdicao(n) {
             const nome = document.getElementById('nome'+n)
@@ -130,7 +135,7 @@
             }
 
         }
-        const div = document.getElementById("cartoes")
+        const div = document.getElementById('cartoes')
         pessoas.forEach((pessoa,n) => {
             const cdiv = document.createElement('div')
             cdiv.className = 'cartao'
@@ -156,7 +161,7 @@
             cdiv.appendChild(epar)
             const tpar = document.createElement('p')
             const tlabel = document.createElement('label')
-            tlabel.innerHTML = '<b>Telefone:</b>''
+            tlabel.innerHTML = '<b>Telefone:</b>'
             tpar.append(tlabel)
             const telefone = document.createElement('input')
             telefone.id = 'telefone'+n
@@ -195,8 +200,8 @@
             }
 //
             const bdiv = document.createElement('div')
-            bdiv.style.display = "flex"
-            bdiv.style.justifyContent = "space-between"
+            bdiv.style.display = 'flex'
+            bdiv.style.justifyContent = 'space-between'
             const bedit = document.createElement('button')
             bedit.id = 'bedit'+n
             bedit.innerHTML = 'editar'
