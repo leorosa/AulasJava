@@ -91,6 +91,7 @@
             .then( (dados) => dados.json() )
             .then( (resposta) => {
                 pessoas[n].endereco = resposta
+                localStorage.setItem('pessoas', JSON.stringify(pessoas))
                 document.getElementById('detalhes'+n).innerHTML = `<b>rua:</b> ${pessoas[n].endereco.logradouro} ${pessoas[n].endereco.complemento}`
                 document.getElementById('detalhes'+n).innerHTML += `<br> ${pessoas[n].endereco.localidade}, ${pessoas[n].endereco.uf}`
             } , () => {
@@ -144,7 +145,7 @@
             cdiv.appendChild(nome)
             const epar = document.createElement('p')
             const elabel = document.createElement('label')
-            elabel.innerHTML = "<b>E-mail:</b>"
+            elabel.innerHTML = '<b>E-mail:</b>'
             epar.append(elabel)
             const email = document.createElement('input')
             email.id = 'email'+n
@@ -155,7 +156,7 @@
             cdiv.appendChild(epar)
             const tpar = document.createElement('p')
             const tlabel = document.createElement('label')
-            tlabel.innerHTML = "<b>Telefone:</b>"
+            tlabel.innerHTML = '<b>Telefone:</b>''
             tpar.append(tlabel)
             const telefone = document.createElement('input')
             telefone.id = 'telefone'+n
@@ -167,7 +168,7 @@
 // ENDERECO
             const cpar = document.createElement('p')
             const clabel = document.createElement('label')
-            clabel.innerHTML = "<b>CEP:</b>"
+            clabel.innerHTML = '<b>CEP:</b>'
             cpar.append(clabel)
             const cep = document.createElement('input')
             cep.id = 'cep'+n
@@ -192,7 +193,7 @@
                 detalhes.innerHTML += `<br> ${pessoa.endereco.localidade}, ${pessoa.endereco.uf}`
                 cdiv.appendChild(detalhes)
             }
-
+//
             const bdiv = document.createElement('div')
             bdiv.style.display = "flex"
             bdiv.style.justifyContent = "space-between"
