@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #cadastro {
+        width: 40%;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.1);
+        padding: 15px;
+    }
+/*  #alertas {
+        display: none;
+    } */
+    button {
+        width: 100px;
+        background-color: rgb(0, 132, 255);
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+    }
+    input {
+        width: 100%;
+        border-width: 1px;
+        border-color: rgba(0,0,0,0.5);
+    }
+</style>
+<script>
+    var pessoas = localStorage.getItem("pessoas")
+    if(pessoas===undefined || pessoas===null) {
+        pessoas = []
+    } else {
+        pessoas = JSON.parse(pessoas)
+    }
+    function validarInput(id) {
+        if(document.getElementById(id).value==='') {
+            document.getElementById("alertas").innerHTML = "preencha o "+id
+            document.getElementById(id).focus()
+            return false
+        }
+        return true
+    }
+    function inserePessoa(event) {
+        event.preventDefault();
+        const nome = document.getElementById('nome').value
+        const email = document.getElementById('email').value
+        const telefone = document.getElementById('telefone').value
+        const cep = document.getElementById('cep').value
+        if (!validarInput('nome')) { return }
+        if (!validarInput('email')) { return }
+        if (!validarInput('telefone')) { return }
+        pessoa = {nome: nome, email: email, telefone: telefone, cep: cep,  endereco: ''}
+        fetch(`http://viacep.com.br/ws/${cep}/json/`)
+            .then( (dados) => dados.json() )
+            .then( (resposta) => {
+                pessoa.endereco = resposta
+                pessoas.push(pessoa)
+                document.getElementById("alertas").innerHTML = "registro gravado com sucesso"
+                document.getElementById('formulario').reset()
+                document.getElementById('nome').focus()
+                localStorage.setItem("pessoas", JSON.stringify(pessoas))
+            } , () => {
+                document.getElementById("alertas").innerHTML = "CEP inválido"
+            })
+    }
+    function abrirTabela() {
+        window.open('cadastro_tabela.html', '_blank');
+    }
+    function limparTabela() {
+        document.getElementById('formulario').reset()
+        localStorage.clear();
+    }
+</script>
+</head>
+
+<body>
+<h2>Cadastro de Clientes</h2>
+<div id="cadastro">
+    <form id="formulario">
+        <label for="nome">Nome</label>
+        <br>
+        <input type="text" id="nome" />
+        <br>
+        <label for="email">E-mail</label>
+        <br>
+        <input type="email" id="email" />
+        <br>
+        <label for="telefone">Telefone</label>
+        <br>
+        <input type="number" id="telefone" />
+        <br>
+        <label for="cep">CEP</label>
+        <br>
+        <input type="number" id="cep" />
+        <br>        <button type="submit">Cadastrar</button>
+        <button type="button" onclick="abrirTabela()">Abrir</button>
+        <button type="button" onclick="limparTabela()">Limpar</button>
+    </form>
+</div>
+<p id="alertas"></p>
+
+<script>
+    const form = document.getElementById("cadastro")
+    form.addEventListener("submit", function(event) {inserePessoa(event)})
+</script>
+
+</body>
+</html>
