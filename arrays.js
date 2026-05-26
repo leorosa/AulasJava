@@ -13,5 +13,6 @@ while (true) {
 }
 frutas.splice(1,0,'abacaxi') // usa splice para inserir 'abacaxi' na posição 1 (remove 0 items)
 frutas.splice(0,1) // remove 1 item a partir do elemento 0
+console.log(frutas.includes('maçã')) // checar se array contém elemento
 
 console.log(frutas)
