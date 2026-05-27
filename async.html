@@ -9,8 +9,8 @@
     <script>
         function lerCeps() {
             fetch(`http://viace.com.br/ws/89012-170/json/`)
-                .then(dados => dados.json())
-                .then(resposta => { console.log(resposta) })
+                .then(dados => dados.json()) // arrow functions com 1 argumento e 1 linha(=retorno)
+                .then(resposta => console.log(resposta))
                 .catch(error => console.log(error.message))
             console.log('ola')
         }
