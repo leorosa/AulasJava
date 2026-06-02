@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <MER>
 	<Informacoes>
-		<Posicao Left="104" Top="0"/>
-		<TotalItens Valor="31"/>
-		<Tipo Valor="LÓGICO"/>
+		<Posicao Left="0" Top="78"/>
+		<TotalItens Valor="34"/>
+		<Tipo Valor="LÃ“GICO"/>
 		<Versao Valor="2.0.0"/>
 		<Autor Valor=""/>
 		<Observacao Valor=""/>
@@ -27,190 +27,9 @@
     </Template>
 	</Informacoes>
 	<Tabelas>
-    <Tabela nome="produtos" id="1">
-      <Left Valor="182"/>
-      <Top Valor="71"/>
-      <Width Valor="134"/>
-      <Height Valor="118"/>
-      <Fonte default="-1"/>
-      <Dicionario></Dicionario>
-      <Nula Valor="0"/>
-      <Observacao></Observacao>
-      <Futuro></Futuro>
-      <Anexos/>
-      <Color Valor="12639424"/>
-      <Complemento Valor=""/>
-      <cOrdem Valor="0"/>
-      <Campos>
-        <Campo nome="idProduto" id="6">
-          <Left Valor="182"/>
-          <Top Valor="90"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="-1"/>
-          <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-        <Campo nome="nome" id="17">
-          <Left Valor="182"/>
-          <Top Valor="108"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="0"/>
-          <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-        <Campo nome="preco" id="7">
-          <Left Valor="182"/>
-          <Top Valor="126"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="0"/>
-          <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-        <Campo nome="idFornecedor" id="9">
-          <Left Valor="182"/>
-          <Top Valor="144"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="0"/>
-          <IsFKey Valor="-1"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-        <Campo nome="idCategoria" id="22">
-          <Left Valor="182"/>
-          <Top Valor="162"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="0"/>
-          <IsFKey Valor="-1"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-      </Campos>
-    </Tabela>
-    <Tabela nome="fornecedor" id="2">
-      <Left Valor="467"/>
-      <Top Valor="97"/>
-      <Width Valor="134"/>
-      <Height Valor="66"/>
-      <Fonte default="-1"/>
-      <Dicionario></Dicionario>
-      <Nula Valor="0"/>
-      <Observacao></Observacao>
-      <Futuro></Futuro>
-      <Anexos/>
-      <Color Valor="12639424"/>
-      <Complemento Valor=""/>
-      <cOrdem Valor="0"/>
-      <Campos>
-        <Campo nome="idFornecedor" id="8">
-          <Left Valor="467"/>
-          <Top Valor="116"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="-1"/>
-          <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-        <Campo nome="nome" id="26">
-          <Left Valor="467"/>
-          <Top Valor="134"/>
-          <Width Valor="132"/>
-          <Height Valor="19"/>
-          <Fonte default="-1"/>
-          <Dicionario></Dicionario>
-          <Nula Valor="-1"/>
-          <Observacao></Observacao>
-          <Futuro></Futuro>
-          <Anexos/>
-          <ApenasSeparador Valor="0"/>
-          <IsKey Valor="0"/>
-          <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
-          <TabOrigem Valor="0"/>
-          <CampoOrigem Valor="0"/>
-          <Complemento Valor=""/>
-          <OnUpdate Valor="0"/>
-          <OnDelete Valor="0"/>
-        </Campo>
-      </Campos>
-    </Tabela>
-    <Tabela nome="estoque" id="10">
-      <Left Valor="354"/>
-      <Top Valor="211"/>
+    <Tabela nome="medicos" id="3">
+      <Left Valor="141"/>
+      <Top Valor="468"/>
       <Width Valor="134"/>
       <Height Valor="100"/>
       <Fonte default="-1"/>
@@ -223,9 +42,9 @@
       <Complemento Valor=""/>
       <cOrdem Valor="0"/>
       <Campos>
-        <Campo nome="idEstoque" id="11">
-          <Left Valor="354"/>
-          <Top Valor="230"/>
+        <Campo nome="idMedico" id="7">
+          <Left Valor="141"/>
+          <Top Valor="487"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -237,16 +56,16 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="-1"/>
           <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="NÃºmero(4)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
           <OnUpdate Valor="0"/>
           <OnDelete Valor="0"/>
         </Campo>
-        <Campo nome="quantidade" id="18">
-          <Left Valor="354"/>
-          <Top Valor="248"/>
+        <Campo nome="nome" id="13">
+          <Left Valor="141"/>
+          <Top Valor="505"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -258,16 +77,16 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="0"/>
           <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="Char(25)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
           <OnUpdate Valor="0"/>
           <OnDelete Valor="0"/>
         </Campo>
-        <Campo nome="lote" id="16">
-          <Left Valor="354"/>
-          <Top Valor="266"/>
+        <Campo nome="telefone" id="14">
+          <Left Valor="141"/>
+          <Top Valor="523"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -279,16 +98,96 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="0"/>
           <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="NÃºmero(4)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
           <OnUpdate Valor="0"/>
           <OnDelete Valor="0"/>
         </Campo>
-        <Campo nome="idProduto" id="15">
-          <Left Valor="354"/>
-          <Top Valor="284"/>
+        <Campo nome="crm" id="15">
+          <Left Valor="141"/>
+          <Top Valor="541"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+      </Campos>
+    </Tabela>
+    <Tabela nome="pagamentos" id="4">
+      <Left Valor="389"/>
+      <Top Valor="280"/>
+      <Width Valor="134"/>
+      <Height Valor="82"/>
+      <Fonte default="-1"/>
+      <Dicionario></Dicionario>
+      <Nula Valor="0"/>
+      <Observacao></Observacao>
+      <Futuro></Futuro>
+      <Anexos/>
+      <Color Valor="12639424"/>
+      <Complemento Valor=""/>
+      <cOrdem Valor="0"/>
+      <Campos>
+        <Campo nome="idPagamento" id="8">
+          <Left Valor="389"/>
+          <Top Valor="299"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="-1"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="valor" id="50">
+          <Left Valor="389"/>
+          <Top Valor="317"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="idConsulta" id="28">
+          <Left Valor="389"/>
+          <Top Valor="335"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -300,7 +199,7 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="0"/>
           <IsFKey Valor="-1"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="NÃºmero(4)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
@@ -309,11 +208,11 @@
         </Campo>
       </Campos>
     </Tabela>
-    <Tabela nome="categoria" id="19">
-      <Left Valor="159"/>
-      <Top Valor="352"/>
+    <Tabela nome="pacientes" id="1">
+      <Left Valor="141"/>
+      <Top Valor="77"/>
       <Width Valor="134"/>
-      <Height Valor="66"/>
+      <Height Valor="100"/>
       <Fonte default="-1"/>
       <Dicionario></Dicionario>
       <Nula Valor="0"/>
@@ -324,9 +223,9 @@
       <Complemento Valor=""/>
       <cOrdem Valor="0"/>
       <Campos>
-        <Campo nome="idCategoria" id="20">
-          <Left Valor="159"/>
-          <Top Valor="371"/>
+        <Campo nome="idPaciente" id="5">
+          <Left Valor="141"/>
+          <Top Valor="96"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -338,16 +237,16 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="-1"/>
           <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="NÃºmero(4)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
           <OnUpdate Valor="0"/>
           <OnDelete Valor="0"/>
         </Campo>
-        <Campo nome="nome" id="21">
-          <Left Valor="159"/>
-          <Top Valor="389"/>
+        <Campo nome="nome" id="9">
+          <Left Valor="141"/>
+          <Top Valor="114"/>
           <Width Valor="132"/>
           <Height Valor="19"/>
           <Fonte default="-1"/>
@@ -359,7 +258,171 @@
           <ApenasSeparador Valor="0"/>
           <IsKey Valor="0"/>
           <IsFKey Valor="0"/>
-          <Tipo Valor="Número(4)"/>
+          <Tipo Valor="Char(25)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="idade" id="10">
+          <Left Valor="141"/>
+          <Top Valor="132"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="telefone" id="16">
+          <Left Valor="141"/>
+          <Top Valor="150"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+      </Campos>
+    </Tabela>
+    <Tabela nome="consultas" id="2">
+      <Left Valor="141"/>
+      <Top Valor="254"/>
+      <Width Valor="134"/>
+      <Height Valor="136"/>
+      <Fonte default="-1"/>
+      <Dicionario></Dicionario>
+      <Nula Valor="0"/>
+      <Observacao></Observacao>
+      <Futuro></Futuro>
+      <Anexos/>
+      <Color Valor="12639424"/>
+      <Complemento Valor=""/>
+      <cOrdem Valor="0"/>
+      <Campos>
+        <Campo nome="idConsulta" id="6">
+          <Left Valor="141"/>
+          <Top Valor="273"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="-1"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="data" id="11">
+          <Left Valor="141"/>
+          <Top Valor="291"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="horario" id="29">
+          <Left Valor="141"/>
+          <Top Valor="309"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="0"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="idPaciente" id="17">
+          <Left Valor="141"/>
+          <Top Valor="327"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="-1"/>
+          <Tipo Valor="NÃºmero(4)"/>
+          <TabOrigem Valor="0"/>
+          <CampoOrigem Valor="0"/>
+          <Complemento Valor=""/>
+          <OnUpdate Valor="0"/>
+          <OnDelete Valor="0"/>
+        </Campo>
+        <Campo nome="idMedico" id="18">
+          <Left Valor="141"/>
+          <Top Valor="345"/>
+          <Width Valor="132"/>
+          <Height Valor="19"/>
+          <Fonte default="-1"/>
+          <Dicionario></Dicionario>
+          <Nula Valor="-1"/>
+          <Observacao></Observacao>
+          <Futuro></Futuro>
+          <Anexos/>
+          <ApenasSeparador Valor="0"/>
+          <IsKey Valor="0"/>
+          <IsFKey Valor="-1"/>
+          <Tipo Valor="NÃºmero(4)"/>
           <TabOrigem Valor="0"/>
           <CampoOrigem Valor="0"/>
           <Complemento Valor=""/>
@@ -370,9 +433,9 @@
     </Tabela>
   </Tabelas>
 	<LigacaoEntreTabelas>
-    <LigaTabela nome="Tabela_1_Tabela_2_1" id="3">
-      <Left Valor="375"/>
-      <Top Valor="123"/>
+    <LigaTabela nome="pacientes_consultas_1" id="19">
+      <Left Valor="201"/>
+      <Top Valor="205"/>
       <Width Valor="15"/>
       <Height Valor="15"/>
       <Fonte default="-1"/>
@@ -384,11 +447,11 @@
       <SetaDirecao Valor="0"/>
       <Ligacoes>
         <Ligacao Destino_ID="1">
-          <MostraCardinalidade Valor="-1" Card_id="4"/>
+          <MostraCardinalidade Valor="-1" Card_id="20"/>
           <Cardinalidades Cardinalidade="2">
-            <Cardinalidade nome="" id="4">
-              <Left Valor="316"/>
-              <Top Valor="115"/>
+            <Cardinalidade nome="" id="20">
+              <Left Valor="208"/>
+              <Top Valor="178"/>
               <Width Valor="40"/>
               <Height Valor="20"/>
               <Fonte default="-1"/>
@@ -410,11 +473,11 @@
           <Fraca Valor="0"/>
         </Ligacao>
         <Ligacao Destino_ID="2">
-          <MostraCardinalidade Valor="-1" Card_id="5"/>
-          <Cardinalidades Cardinalidade="2">
-            <Cardinalidade nome="" id="5">
-              <Left Valor="429"/>
-              <Top Valor="115"/>
+          <MostraCardinalidade Valor="-1" Card_id="21"/>
+          <Cardinalidades Cardinalidade="3">
+            <Cardinalidade nome="" id="21">
+              <Left Valor="208"/>
+              <Top Valor="239"/>
               <Width Valor="40"/>
               <Height Valor="20"/>
               <Fonte default="-1"/>
@@ -427,7 +490,7 @@
               <TamAuto Valor="-1"/>
               <Tipo Valor="0"/>
               <TextAlin Valor="0"/>
-              <Card Valor="2"/>
+              <Card Valor="3"/>
               <Fixa Valor="0"/>
               <Ligacoes/>
             </Cardinalidade>
@@ -437,9 +500,9 @@
         </Ligacao>
       </Ligacoes>
     </LigaTabela>
-    <LigaTabela nome="estoque_produtos_1" id="12">
-      <Left Valor="379"/>
-      <Top Valor="224"/>
+    <LigaTabela nome="medicos_consultas_1" id="22">
+      <Left Valor="201"/>
+      <Top Valor="404"/>
       <Width Valor="15"/>
       <Height Valor="15"/>
       <Fonte default="-1"/>
@@ -450,12 +513,12 @@
       <Anexos/>
       <SetaDirecao Valor="0"/>
       <Ligacoes>
-        <Ligacao Destino_ID="10">
-          <MostraCardinalidade Valor="-1" Card_id="13"/>
+        <Ligacao Destino_ID="3">
+          <MostraCardinalidade Valor="-1" Card_id="23"/>
           <Cardinalidades Cardinalidade="2">
-            <Cardinalidade nome="" id="13">
-              <Left Valor="488"/>
-              <Top Valor="246"/>
+            <Cardinalidade nome="" id="23">
+              <Left Valor="208"/>
+              <Top Valor="453"/>
               <Width Valor="40"/>
               <Height Valor="20"/>
               <Fonte default="-1"/>
@@ -476,53 +539,12 @@
           <Orientacao Valor="0"/>
           <Fraca Valor="0"/>
         </Ligacao>
-        <Ligacao Destino_ID="1">
-          <MostraCardinalidade Valor="-1" Card_id="14"/>
-          <Cardinalidades Cardinalidade="2">
-            <Cardinalidade nome="" id="14">
-              <Left Valor="270"/>
-              <Top Valor="190"/>
-              <Width Valor="40"/>
-              <Height Valor="20"/>
-              <Fonte default="-1"/>
-              <Dicionario></Dicionario>
-              <Nula Valor="0"/>
-              <Observacao></Observacao>
-              <Futuro></Futuro>
-              <Anexos/>
-              <Cor Valor="15780518"/>
-              <TamAuto Valor="-1"/>
-              <Tipo Valor="0"/>
-              <TextAlin Valor="0"/>
-              <Card Valor="2"/>
-              <Fixa Valor="0"/>
-              <Ligacoes/>
-            </Cardinalidade>
-          </Cardinalidades>
-          <Orientacao Valor="0"/>
-          <Fraca Valor="0"/>
-        </Ligacao>
-      </Ligacoes>
-    </LigaTabela>
-    <LigaTabela nome="produtos_categoria_1" id="23">
-      <Left Valor="219"/>
-      <Top Valor="261"/>
-      <Width Valor="15"/>
-      <Height Valor="15"/>
-      <Fonte default="-1"/>
-      <Dicionario></Dicionario>
-      <Nula Valor="0"/>
-      <Observacao></Observacao>
-      <Futuro></Futuro>
-      <Anexos/>
-      <SetaDirecao Valor="0"/>
-      <Ligacoes>
-        <Ligacao Destino_ID="1">
+        <Ligacao Destino_ID="2">
           <MostraCardinalidade Valor="-1" Card_id="24"/>
           <Cardinalidades Cardinalidade="2">
             <Cardinalidade nome="" id="24">
-              <Left Valor="226"/>
-              <Top Valor="190"/>
+              <Left Valor="208"/>
+              <Top Valor="391"/>
               <Width Valor="40"/>
               <Height Valor="20"/>
               <Fonte default="-1"/>
@@ -543,12 +565,53 @@
           <Orientacao Valor="0"/>
           <Fraca Valor="0"/>
         </Ligacao>
-        <Ligacao Destino_ID="19">
-          <MostraCardinalidade Valor="-1" Card_id="25"/>
+      </Ligacoes>
+    </LigaTabela>
+    <LigaTabela nome="consultas_pagamentos_1" id="25">
+      <Left Valor="325"/>
+      <Top Valor="314"/>
+      <Width Valor="15"/>
+      <Height Valor="15"/>
+      <Fonte default="-1"/>
+      <Dicionario></Dicionario>
+      <Nula Valor="0"/>
+      <Observacao></Observacao>
+      <Futuro></Futuro>
+      <Anexos/>
+      <SetaDirecao Valor="0"/>
+      <Ligacoes>
+        <Ligacao Destino_ID="2">
+          <MostraCardinalidade Valor="-1" Card_id="26"/>
           <Cardinalidades Cardinalidade="2">
-            <Cardinalidade nome="" id="25">
-              <Left Valor="226"/>
-              <Top Valor="337"/>
+            <Cardinalidade nome="" id="26">
+              <Left Valor="275"/>
+              <Top Valor="307"/>
+              <Width Valor="40"/>
+              <Height Valor="20"/>
+              <Fonte default="-1"/>
+              <Dicionario></Dicionario>
+              <Nula Valor="0"/>
+              <Observacao></Observacao>
+              <Futuro></Futuro>
+              <Anexos/>
+              <Cor Valor="15780518"/>
+              <TamAuto Valor="-1"/>
+              <Tipo Valor="0"/>
+              <TextAlin Valor="0"/>
+              <Card Valor="2"/>
+              <Fixa Valor="0"/>
+              <Ligacoes/>
+            </Cardinalidade>
+          </Cardinalidades>
+          <Orientacao Valor="0"/>
+          <Fraca Valor="0"/>
+        </Ligacao>
+        <Ligacao Destino_ID="4">
+          <MostraCardinalidade Valor="-1" Card_id="27"/>
+          <Cardinalidades Cardinalidade="2">
+            <Cardinalidade nome="" id="27">
+              <Left Valor="351"/>
+              <Top Valor="306"/>
               <Width Valor="40"/>
               <Height Valor="20"/>
               <Fonte default="-1"/>
