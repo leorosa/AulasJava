@@ -41,3 +41,7 @@ update tb_produtos set id_categoria=1 where descricao='milho';
 select tb_produtos.id, descricao as Descrição, preco as 'R$ unitário', nome
 	from tb_produtos, tb_categorias
     where tb_produtos.id_categoria = tb_categorias.id;
+
+select tb_produtos.id, descricao as Descrição, preco as 'R$ unitário', nome as 'Categoria'
+	from tb_produtos
+    inner join tb_categorias on tb_produtos.id_categoria = tb_categorias.id;
