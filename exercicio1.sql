@@ -57,8 +57,17 @@ update pedidos set nome_cliente = 'Maria' where id_pedido = 1;
 
 select id_pedido, nome_cliente, data_pedido from pedidos where id_pedido=1;
 
-select pedidos.id_pedido,nome_cliente,data_pedido , nome,quantidade,preco , quantidade*preco from pedidos, item_pedido, produtos
+select pedidos.id_pedido as ID, nome_cliente as Nome, data_pedido as Data, nome as Produto, quantidade, preco as 'Preço unitário (R$)', quantidade*preco as 'Subtotal (R$)'
+	from pedidos, item_pedido, produtos
 	where pedidos.id_pedido=1 and item_pedido.id_produto=produtos.id_produto;
-
 select sum(quantidade*preco) from item_pedido, produtos
 	where id_pedido=1 and item_pedido.id_produto=produtos.id_produto;
+
+select pedidos.id_pedido as ID, nome_cliente as Nome, data_pedido as Data, nome as Produto, quantidade, preco as 'Preço unitário (R$)', quantidade*preco as 'Subtotal (R$)'
+	from pedidos
+    inner join item_pedido on pedidos.id_pedido=1
+    inner join produtos	on item_pedido.id_produto=produtos.id_produto;
+select sum(quantidade*preco) as 'Total (R$)'
+	from pedidos
+    inner join item_pedido on pedidos.id_pedido=1
+    inner join produtos	on item_pedido.id_produto=produtos.id_produto;
