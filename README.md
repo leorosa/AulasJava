@@ -1,1 +1,1 @@
-Exercícios das aulas de diferentes tópicos separados nas 'branches' apropriadas.
+Exercícios das aulas do curso Entra21.
