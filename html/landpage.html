@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landpage</title>
+<style>
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+h1 {
+  color: #282897;
+  font-family: verdana;
+  font-size: 300%;
+  text-align: center;
+}
+h2 {
+  color: #282897;
+  background-color: lightsteelblue;
+  font-family: verdana;
+  font-size: 200%;
+}
+p {
+    text-indent: 50px; /* Indenta a primeira linha em 50px */
+    font-size: 14pt;
+    text-align: justify;
+}
+img { /* para recortar a única figura inserida */
+  width: 500px;
+  height: 120px;      /* Set the "cropped" height you want */
+  object-fit: cover;  /* Crops the image to fill the box without stretching */
+  object-position: center; /* Adjust which part of the photo is visible */
+}
+li, label {
+    font-size: 14pt;
+    text-align: justify;
+}
+button {
+    color: #282897;
+    background-color: lightsteelblue;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+.contato {
+    width: 100%;
+    padding: 10px;
+    border: 0px;
+    border-bottom: solid 1px black;
+    margin: 10px;
+    width: 100%;
+}
+.extra {
+    color: gray;
+    text-indent: 0px;
+}
+</style>
+</head>
+<body>
+
+<div id=topo></div>
+
+<h1><img src="https://static.vecteezy.com/system/resources/thumbnails/000/623/239/small_2x/auto_car-16.jpg" />
+    <br>Aplicativo para Estética Automotiva</h1>
+
+<h2>Menu</h2>
+<ul>
+<li><a href=#descricao>Descrição</a></li>
+<li><a href=#servicos>Serviços</a></li>
+<li><a href=#sobre>Sobre</a></li>
+<li><a href=#contato>Contato</a></li>
+</ul>
+
+
+<h2 id=descricao>Descrição</h2>
+
+<p>O aplicativo "Estética Automotiva" tem como objetivo conectar pessoas (clientes) que querem cuidar de seus veículos, a locais que oferecem os serviços desejados, tais como
+    lavação externa, limpeza interna, enceramento, etc.
+    Por ora, o aplicativo ainda está em construção.
+    No futuro, também será possível agendar uso de estacionamentos, e serviços mecânicos.</p>
+<br><a href="#topo">voltar</a>
+
+
+<h2 id=servicos>Serviços</h2>
+
+<p>Os serviços oferecidos aos <i>clientes</i> incluem:</p>
+<ul>
+    <li>cadastro de veículos</li>
+    <li>agendamento de serviços</li>
+    <li>marcar locais como preferidos</li>
+</ul>
+
+<p>Para <i>empreendedores</i>, os serviços incluem:</p>
+<ul>
+    <li>cadastro de serviços</li>
+    <li>cadastro de funcionários</li>
+    <li>monitoramento dos serviços agendados/executados</li>
+</ul>
+
+<p><i>Funcionários</i> têm acesso às tarefas atribuídas a eles, e podem marcar cada uma como "encerrada" conforme forem completando-as.</p>
+
+<br><a href="#topo">voltar</a>
+
+
+<h2 id=sobre>Sobre nós</h2>
+
+<p>Somos um grupo de estudantes do programa <b>Entra 21</b>, e este aplicativo que está sendo desenvolvido será o nosso projeto de final de curso.</p>
+<br><a href="#topo">voltar</a>
+
+
+<h2 id=contato>Contato</h2>
+
+<div style="width:500px;">
+    <label for="nome">Informe seu nome:</label>
+    <input class=contato type="text" name="nome" placeholder="nome" />
+    <br><br>
+    <label for="nome">Informe seu email:</label>
+    <input class=contato type="email" name="email" placeholder="email" />
+    <textarea class=contato style="height:200px;" placeholder="Escreva aqui a sua mensagem."></textarea>
+    <center><button><strong>Enviar</strong></button></center>
+</div>
+
+<br><a href="#topo">voltar</a>
+
+</body>
+</html>
