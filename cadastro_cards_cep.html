@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang='pt'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #cartoes {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .cartao {
+            width: 300px;
+            margin: 10px;
+            padding: 5px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .cartao:hover {
+            transform: translate(-2px, -2px);
+            transition: 0.3s ease;
+        }
+        button {
+            background-color: rgb(0, 132, 255);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 10px;
+        }
+        input {
+            width: 100%;
+            background-color: white;
+            border-color: white;
+            border-style: solid;
+            border-width: 0.1px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Clientes Cadastrados</h3>
+<div id='cartoes'></div>
+<p id='alertas'></p>
+
+<script>
+    if (typeof(Storage) === 'undefined') {
+        document.getElementById('p').innerHTML = 'no Web storage support!'
+    } else {
+        pessoas = JSON.parse(localStorage.getItem('pessoas')) || [] // Retrieve
+        function removeRegistro(n) {
+            pessoas.splice(n, 1)
+            localStorage.setItem('pessoas', JSON.stringify(pessoas))
+            location.reload();
+        }
+        function editarRegistro(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
+            const bedit = document.getElementById('bedit'+n)
+            const bdel = document.getElementById('bdel'+n)
+            nome.disabled = ''
+            email.disabled = ''
+            telefone.disabled = ''
+            cep.disabled = ''
+            nome.style.borderColor = 'black'
+            email.style.borderColor = 'black'
+            telefone.style.borderColor = 'black'
+            cep.style.borderColor = 'black'
+            bedit.innerHTML = 'atualizar'
+            bedit.onclick = function() { atualizaRegistro(n); }
+            bdel.innerHTML = 'cancelar'
+            bdel.onclick = function() { cancelaEdicao(n); }
+        }
+        function atualizaRegistro(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
+            pessoas[n].nome = nome.value
+            pessoas[n].email = email.value
+            pessoas[n].telefone = telefone.value
+            if(pessoas[n].cep != cep.value) {
+                pessoas[n].cep = cep.value
+                fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
+                .then( (dados) => dados.json() )
+                .then( (resposta) => {
+                    pessoas[n].endereco = resposta
+                    localStorage.setItem('pessoas', JSON.stringify(pessoas))
+                    document.getElementById('detalhes'+n).innerHTML = `<b>rua:</b> ${pessoas[n].endereco.logradouro} ${pessoas[n].endereco.complemento}`
+                    document.getElementById('detalhes'+n).innerHTML += `<br> ${pessoas[n].endereco.localidade}, ${pessoas[n].endereco.uf}`
+                    cancelaEdicao(n)
+                } , () => {
+                    document.getElementById('detalhes'+n).innerHTML = 'CEP inválido'
+                })
+            } else {
+                localStorage.setItem('pessoas', JSON.stringify(pessoas))
+                cancelaEdicao(n)
+            }
+        }
+        function cancelaEdicao(n) {
+            const nome = document.getElementById('nome'+n)
+            const email = document.getElementById('email'+n)
+            const telefone = document.getElementById('telefone'+n)
+            const cep = document.getElementById('cep'+n)
+            const bedit = document.getElementById('bedit'+n)
+            const bdel = document.getElementById('bdel'+n)
+            nome.style.borderColor = 'white'
+            email.style.borderColor = 'white'
+            telefone.style.borderColor = 'white'
+            cep.style.borderColor = 'white'
+            nome.disabled = true
+            email.disabled = true
+            telefone.disabled = true
+            cep.disabled = true
+            bedit.innerHTML = 'editar'
+            bedit.onclick = function() { editarRegistro(n); }
+            bdel.innerHTML = 'remover'
+            bdel.onclick = function() { removeRegistro(n); }
+        }
+        function alternarDetalhes(n) {
+            par = document.getElementById('detalhes'+n)
+            if(par.style.display == 'none') {
+                par.style.display = 'block'
+                document.getElementById('bmais'+n).innerHTML = 'ocultar'
+            } else {
+                par.style.display = 'none'
+                document.getElementById('bmais'+n).innerHTML = 'detalhes'
+            }
+
+        }
+        const div = document.getElementById('cartoes')
+        pessoas.forEach((pessoa,n) => {
+            const cdiv = document.createElement('div')
+            cdiv.className = 'cartao'
+            const nome = document.createElement('input')
+            nome.id = 'nome'+n
+            nome.type = 'text'
+            nome.style.color = 'blue'
+            nome.style.fontSize = '18pt'
+            nome.style.fontWeight = 'bold'
+            nome.disabled = 'true'
+            nome.value = pessoa.nome
+            cdiv.appendChild(nome)
+            const epar = document.createElement('p')
+            const elabel = document.createElement('label')
+            elabel.innerHTML = '<b>E-mail:</b>'
+            epar.append(elabel)
+            const email = document.createElement('input')
+            email.id = 'email'+n
+            email.type = 'text'
+            email.disabled = 'true'
+            email.value = pessoa.email
+            epar.appendChild(email)
+            cdiv.appendChild(epar)
+            const tpar = document.createElement('p')
+            const tlabel = document.createElement('label')
+            tlabel.innerHTML = '<b>Telefone:</b>'
+            tpar.append(tlabel)
+            const telefone = document.createElement('input')
+            telefone.id = 'telefone'+n
+            telefone.type = 'text'
+            telefone.disabled = 'true'
+            telefone.value = pessoa.telefone
+            tpar.appendChild(telefone)
+            cdiv.appendChild(tpar)
+// ENDERECO
+            const cpar = document.createElement('p')
+            const clabel = document.createElement('label')
+            clabel.innerHTML = '<b>CEP:</b>'
+            cpar.append(clabel)
+            const cep = document.createElement('input')
+            cep.id = 'cep'+n
+            cep.type = 'text'
+            cep.disabled = 'true'
+            cep.value = pessoa.cep
+            cpar.appendChild(cep)
+            cdiv.appendChild(cpar)
+            if(pessoa.endereco!==undefined) {
+                const bmais = document.createElement('button')
+                bmais.innerHTML = 'detalhes'
+                bmais.id = 'bmais'+n
+                bmais.style.backgroundColor = '#eee'
+                bmais.style.color = 'black'
+                bmais.style.padding = '2px'
+                bmais.onclick = function () { alternarDetalhes(n) }
+                cdiv.appendChild(bmais)
+                const detalhes = document.createElement('p')
+                detalhes.id = 'detalhes'+n
+                detalhes.style.display = 'none'
+                detalhes.innerHTML = `<b>rua:</b> ${pessoa.endereco.logradouro} ${pessoa.endereco.complemento}`
+                detalhes.innerHTML += `<br> ${pessoa.endereco.localidade}, ${pessoa.endereco.uf}`
+                cdiv.appendChild(detalhes)
+            }
+//
+            const bdiv = document.createElement('div')
+            bdiv.style.display = 'flex'
+            bdiv.style.justifyContent = 'space-between'
+            const bedit = document.createElement('button')
+            bedit.id = 'bedit'+n
+            bedit.innerHTML = 'editar'
+            bedit.onclick = function() { editarRegistro(n, nome, email, telefone, bedit, bdel); }
+            const bdel = document.createElement('button')
+            bdel.id = 'bdel'+n
+            bdel.innerHTML = 'remover'
+            bdel.style.backgroundColor = 'red'
+            bdel.onclick = function() { removeRegistro(n); }
+            bdiv.appendChild(document.createElement('span'))
+            bdiv.appendChild(bedit)
+            bdiv.appendChild(document.createElement('span'))
+            bdiv.appendChild(bdel)
+            bdiv.appendChild(document.createElement('span'))
+            cdiv.appendChild(bdiv)
+            div.appendChild(cdiv)
+        })
+    }
+</script>
+</body>
+</html>

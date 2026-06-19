@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p></p>
+    <span></span>
+
+    <script>
+        function mostrarEmParagrafo(n) {
+            document.getElementsByTagName('p')[0].innerHTML = n
+        }
+
+        function mostrarEmSpan(n) {
+            document.getElementsByTagName('span')[0].innerHTML = n
+        }
+
+        function calcular(n1, n2, exibeResultado) {
+            let x = n1 + n2
+            exibeResultado(x)
+        }
+        calcular(10,20,mostrarEmParagrafo)
+        calcular(30,50,mostrarEmSpan)
+// setTimeout(callback, milliseconds)   // executa função após x millisegundos
+// setInterval(callback, milliseconds)  // executa função a cada x millisegundos
+    </script>
+</body>
+</html>

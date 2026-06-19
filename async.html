@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function lerCeps() {
+            fetch(`http://viace.com.br/ws/89012-170/json/`)
+                .then(dados => dados.json()) // arrow functions com 1 argumento e 1 linha(=retorno)
+                .then(resposta => console.log(resposta))
+                .catch(error => console.log(error.message))
+            console.log('ola')
+        }
+        lerCeps()
+
+        async function carregaLogradouro() {
+            let dados = await fetch(`http://viacep.com.br/ws/89012-170/json/`)
+            let response = await dados.json()
+            console.log(response)
+            console.log('ola')
+        }
+        carregaLogradouro()
+// ambas as formas tem a mesma eficiência; 'then' resulta em códigos mais limpos; await permite organizar o código
+// .then() permite que o código continue, sem esperar a resposta do fetch()
+// frameworks recentes têm usado async/await
+
+        async function carregaLogradouroE() {
+            try {
+                let dados = await fetch(`http://viace.com.br/ws/89012-170/json/`)
+                let response = await dados.json()
+                console.log(response)
+                console.log('ola')
+            }
+            catch(error) {
+                console.error(error.message)
+            }
+        }
+        carregaLogradouroE()
+    </script>
+</body>
+</html>

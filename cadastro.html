@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+/*         flex-direction: column; */
+    }
+    .container div {
+        width: 40%;
+        margin: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.2);
+        padding: 15px;
+    }
+    button {
+        width: 100px;
+    }
+    input {
+        width: 100%;
+    }
+</style>
+<script>
+    pessoas = []
+    function inserePessoa() {
+        event.preventDefault();
+        nome = document.getElementById('nome').value
+        email = document.getElementById('email').value
+        telefone = document.getElementById('telefone').value
+        pessoas.push({nome: nome, email: email, telefone: telefone})
+        console.log(pessoas)
+        var tabela = '<table>'
+        tabela += '<tr>'
+        tabela += '<th>#</th>'
+        tabela += '<th>nome</th>'
+        tabela += '<th>email</th>'
+        tabela += '<th>telefone</th>'
+        tabela += '</tr>'
+        for (n=0; n<pessoas.length; n++) {
+            tabela += '<tr>'
+            tabela += '<td>'+(n+1)+'</td>'
+            tabela += '<td>'+pessoas[n].nome+'</td>'
+            tabela += '<td>'+pessoas[n].email+'</td>'
+            tabela += '<td>'+pessoas[n].telefone+'</td>'
+            tabela += '</tr>'
+        }
+        tabela += '</table>'
+        div = document.getElementById('lista')
+        div.innerHTML = tabela
+    }
+</script>
+</head>
+
+<body>
+<div class="container">
+    <div id="cadastro">
+        <form onsubmit="inserePessoa()">
+            <h2>Cadastro de Clientes</h2>
+            <label for="nome">Nome</label>
+            <br>
+            <input type="text" id="nome" />
+            <br>
+            <label for="email">Email</label>
+            <br>
+            <input type="email" id="email" />
+            <br>
+            <label for="telefone">Telefone</label>
+            <br>
+            <input type="number" id="telefone" />
+            <br>
+            <button onclick="inserePessoa()">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="clientes">
+        <h3>Lista de Clientes</h3>
+        <div id="lista" style="box-shadow:none"></div>
+    </div>
+</div>
+</body>
+</html>

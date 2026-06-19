@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>Informe CEP</label>
+    <br>
+    <input type="text" id="cep"
+        placeholder="ex: 89107-000"
+        onblur="buscarLogradouro()"
+        value="70150-903"
+        />
+    <br>
+    <input type="text" id="rua" />
+    <br>
+    <input type="text" id="unidade" />
+
+    <script>
+        function buscarLogradouro() {
+            document.getElementById('rua').value = ''
+            const cep = document.getElementById('cep')
+            fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
+                .then((dados) => dados.json())
+                .then((resposta) => {
+                    console.log(resposta)
+                    document.getElementById('rua').value = resposta.logradouro
+                    document.getElementById('unidade').value = resposta.unidade
+                })
+        }
+    </script>
+
+</body>
+</html>

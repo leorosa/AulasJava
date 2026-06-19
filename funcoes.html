@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Trabalhando com funções</h2>
+    <button onclick="ola()">clique</button>
+    <script>
+        console.log('olá mundo')
+
+        function ola() {
+            console.log('olá de novo')
+        }
+
+        function dobro(n1) {
+            let x = n1*2
+            console.log(x)
+        }
+        dobro(10)
+
+        function dividir(n1,n2) {
+            var x = n1/n2
+            console.log(x)
+        }
+        dividir(100,2)
+
+        function subtrair(n1,n2) {
+            var x = n1 - n2
+            return x
+        }
+        let retorno = subtrair(100,10)
+        console.log(retorno)
+
+        const gravar = function(nome) { // função anônima
+            console.log(`Salvando: ${nome}`)
+        }
+        gravar('Ana da Silva')
+
+        const nomeCompleto = function(nome,sobreNome) {
+            console.log(`${nome} ${sobreNome}`)
+        }
+        nomeCompleto('Ana', 'da Silva')
+
+        const media = (n1,n2) => { // arrow function
+            let soma = n1+n2
+            console.log(soma/2)
+        }
+        media(20,30)
+    </script>
+</body>
+</html>

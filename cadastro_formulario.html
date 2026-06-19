@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+    #cadastro {
+        width: 40%;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.1);
+        padding: 15px;
+    }
+/*  #alertas {
+        display: none;
+    } */
+    button {
+        width: 100px;
+        background-color: rgb(0, 132, 255);
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+    }
+    input {
+        width: 100%;
+        border-width: 1px;
+        border-color: rgba(0,0,0,0.5);
+    }
+</style>
+<script>
+    var pessoas = localStorage.getItem("pessoas")
+    if(pessoas===undefined || pessoas===null) {
+        pessoas = []
+    } else {
+        pessoas = JSON.parse(pessoas)
+    }
+    function validarInput(id) {
+        if(document.getElementById(id).value==='') {
+            document.getElementById("alertas").innerHTML = "preencha o "+id
+            document.getElementById(id).focus()
+            return false
+        }
+        return true
+    }
+    function inserePessoa(event) {
+        event.preventDefault();
+        nome = document.getElementById('nome').value
+        email = document.getElementById('email').value
+        telefone = document.getElementById('telefone').value
+        if (!validarInput('nome')) { return }
+        if (!validarInput('email')) { return }
+        if (!validarInput('telefone')) { return }
+        pessoas.push({nome: nome, email: email, telefone: telefone})
+        document.getElementById("alertas").innerHTML = "registro gravado com sucesso"
+        document.getElementById('formulario').reset()
+        document.getElementById('nome').focus()
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("pessoas", JSON.stringify(pessoas)) // Store
+        } else {
+            document.getElementById("alertas").innerHTML = "no Web storage support!"
+        }
+    }
+    function abrirTabela() {
+        window.open('cadastro_cards.html', '_blank');
+    }
+    function limparTabela() {
+        document.getElementById('formulario').reset()
+        localStorage.clear();
+    }
+</script>
+</head>
+
+<body>
+<h2>Cadastro de Clientes</h2>
+<div id="cadastro">
+    <form id="formulario">
+        <label for="nome">Nome</label>
+        <br>
+        <input type="text" id="nome" />
+        <br>
+        <label for="email">E-mail</label>
+        <br>
+        <input type="email" id="email" />
+        <br>
+        <label for="telefone">Telefone</label>
+        <br>
+        <input type="number" id="telefone" />
+        <br>
+        <button type="submit">Cadastrar</button>
+        <button type="button" onclick="abrirTabela()">Abrir</button>
+        <button type="button" onclick="limparTabela()">Limpar</button>
+    </form>
+</div>
+<p id="alertas"></p>
+
+<script>
+    const form = document.getElementById("cadastro")
+    form.addEventListener("submit", function(event) {inserePessoa(event)})
+</script>
+
+</body>
+</html>
