@@ -5,22 +5,30 @@ class Main {
         arroz.preco = 3.99;
         arroz.estoque = 100;
         arroz.unidade = "kg";
-        arroz.printDesconto();
-        arroz.printAcrescimo();
+        arroz.printDesconto(10);
+        arroz.printAcrescimo(5);
+        arroz.display();
     }
 }
 
+// normalmente a classe está em arquivo separado
 class Produto {
     String descricao;
     double preco;
     int estoque;
     String unidade;
     
-    void printDesconto() {
-        System.out.println(this.descricao + " custa R$" + this.preco*0.9 + " com 10% de desconto.");
+    void printDesconto(double taxa) {
+        System.out.println(this.descricao + " custa R$" + this.preco*(1-taxa/100) + " com " + taxa + "% de desconto.");
     }
-    void printAcrescimo() {
-        System.out.println(this.descricao + " custa R$" + this.preco*1.1 + " com 10% de taxa.");
+    void printAcrescimo(double taxa) {
+        System.out.println(this.descricao + " custa R$" + this.preco*(1+taxa/100) + " com " + taxa +"% de taxa.");
     }
 
+    void display() {
+        System.out.println("Descrição: " + this.descricao);
+        System.out.println("Preço:     " + this.preco);
+        System.out.println("Estoque:   " + this.estoque);
+        System.out.println("Unidade:   " + this.unidade);
+    }
 }
