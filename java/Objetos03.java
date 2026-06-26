@@ -31,36 +31,38 @@ class Main {
                 p.editar();
                 produtos.add(p);
     		} else if (opcao.equals("a")) {
-    			int i = 0;
-    			for (Produto p : produtos) {
-    				System.out.print(i + " ");
-    				p.display();
+    			if (produtos.size()>0) {
+            		listItems(produtos);
+        			int i = sc.nextInt();
+    	    		produtos.get(i).editar();
     			}
-    			i = sc.nextInt();
-				Produto p = produtos.get(i);
-				p.editar();
     		} else if (opcao.equals("r")) {
-    			int i = 0;
-    			for (Produto p : produtos) {
-    				System.out.print(i + " ");
-    				p.display();
+    			if (produtos.size()>0) {
+            		listItems(produtos);
+        			int i = sc.nextInt();
+    	    		produtos.remove(i);
     			}
-    			i = sc.nextInt();
-    			produtos.remove(i);
     		} else if (opcao.equals("l")) {
-    			int i = 0;
-    			for (Produto p : produtos) {
-    				System.out.print(i + " ");
-    				p.display();
+    			if (produtos.size()>0) {
+            		listItems(produtos);
+        			int i = sc.nextInt();
+    	    		produtos.get(i).display();
     			}
-    			i = sc.nextInt();
-    			produtos.get(i).display();
     		} else if (opcao.equals("L")) {
     			for (Produto p : produtos) {
     				p.display();
     			}
     		}
         }
+    }
+
+    static void listItems(List<Produto> produtos) {
+	    int i = 0;
+	    for (Produto p : produtos) {
+		    System.out.print(i + " ");
+		    p.display();
+		    i++;
+    	}
     }
 }
 
