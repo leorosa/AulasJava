@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Main {
+    public static Scanner sc = new Scanner(System.in); // Create a Scanner object
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in); // Create a Scanner object
         List<Produto> produtos = new ArrayList();
         while (true) {
         	System.out.println("opções: [e]ntrar, [a]lterar, [l]istar produto, [L]istar todos, ou [r]emover");
@@ -31,23 +31,17 @@ class Main {
                 p.editar();
                 produtos.add(p);
     		} else if (opcao.equals("a")) {
-    			if (produtos.size()>0) {
-            		listItems(produtos);
-        			int i = sc.nextInt();
+        		int i = selectItem(produtos);
+        		if (i>=0)
     	    		produtos.get(i).editar();
-    			}
     		} else if (opcao.equals("r")) {
-    			if (produtos.size()>0) {
-            		listItems(produtos);
-        			int i = sc.nextInt();
+        		int i = selectItem(produtos);
+        		if (i>=0)
     	    		produtos.remove(i);
-    			}
     		} else if (opcao.equals("l")) {
-    			if (produtos.size()>0) {
-            		listItems(produtos);
-        			int i = sc.nextInt();
+        		int i = selectItem(produtos);
+        		if (i>=0)
     	    		produtos.get(i).display();
-    			}
     		} else if (opcao.equals("L")) {
     			for (Produto p : produtos) {
     				p.display();
@@ -56,13 +50,19 @@ class Main {
         }
     }
 
-    static void listItems(List<Produto> produtos) {
+    static int selectItem(List<Produto> produtos) {
+        if (produtos.size()==0)
+            return -1;
 	    int i = 0;
 	    for (Produto p : produtos) {
-		    System.out.print(i + " ");
-		    p.display();
+		    System.out.print(i + " " + p.descricao);
 		    i++;
     	}
+    	i = -1;
+    	while (i<0||i>=produtos.size())
+    		i = sc.nextInt();
+    		sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
+    	return i;
     }
 }
 
@@ -73,7 +73,7 @@ class Produto {
     String unidade;
 
     void display() {
-        System.out.println(this.descricao + "; preço: " + this.preco + "; estoque: " + this.estoque + "; unidade: " + this.unidade);
+        System.out.println(this.descricao + "\npreço: " + this.preco + "\nestoque: " + this.estoque + "\nunidade: " + this.unidade);
     }
     double desconto(double taxa) {
         return this.preco * (1-taxa/100);
@@ -83,7 +83,7 @@ class Produto {
     }
     void editar() {
         Scanner sc = new Scanner(System.in); // Create a Scanner object
-		System.out.print("nome: ");
+		System.out.print("descrição: ");
 		this.descricao = sc.nextLine();
 		System.out.print("preço: ");
 		this.preco = sc.nextFloat();
