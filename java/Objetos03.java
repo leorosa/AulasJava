@@ -24,24 +24,26 @@ class Main {
     public static void main(String[] args) {
         List<Produto> produtos = new ArrayList();
         while (true) {
-        	System.out.println("opções: [e]ntrar, [a]lterar, [l]istar produto, [L]istar todos, ou [r]emover");
+            if (produtos.size()==0)
+            	System.out.println("opções: [e]ntrar novo produto");
+        	else
+            	System.out.println("opções: [e]ntrar, [a]lterar, [l]istar produto, [L]istar todos, ou [r]emover");
     		String opcao = sc.nextLine();
     		if (opcao.equals("e")) {
     	        Produto p = new Produto();
                 p.editar();
                 produtos.add(p);
+    		} else if (produtos.size()==0) {
+    		    continue;
     		} else if (opcao.equals("a")) {
         		int i = selectItem(produtos);
-        		if (i>=0)
-    	    		produtos.get(i).editar();
+        		produtos.get(i).editar();
     		} else if (opcao.equals("r")) {
         		int i = selectItem(produtos);
-        		if (i>=0)
-    	    		produtos.remove(i);
+        		produtos.remove(i);
     		} else if (opcao.equals("l")) {
         		int i = selectItem(produtos);
-        		if (i>=0)
-    	    		produtos.get(i).display();
+	    		produtos.get(i).display();
     		} else if (opcao.equals("L")) {
     			for (Produto p : produtos) {
     				p.display();
@@ -51,11 +53,9 @@ class Main {
     }
 
     static int selectItem(List<Produto> produtos) {
-        if (produtos.size()==0)
-            return -1;
 	    int i = 0;
 	    for (Produto p : produtos) {
-		    System.out.print(i + " " + p.descricao);
+		    System.out.println(i + " " + p.descricao);
 		    i++;
     	}
     	i = -1;
