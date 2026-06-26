@@ -21,24 +21,25 @@ import java.util.List;
 
 class Main {
     public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in); // Create a Scanner object
+        Scanner sc = new Scanner(System.in); // Create a Scanner object
         List<Produto> produtos = new ArrayList();
         while (true) {
-        	System.out.println("opções: [e]ntrar, [a]lterar, [l]istar produto, ou [L]istar todos");
+        	System.out.println("opções: [e]ntrar, [a]lterar, [l]istar produto, [L]istar todos, ou [r]emover");
     		String opcao = sc.nextLine();
     		if (opcao.equals("e")) {
     	        Produto p = new Produto();
-    			System.out.print("nome: ");
-        		p.descricao = sc.nextLine();
-    			System.out.print("preço: ");
-        		p.preco = sc.nextFloat();
-    			System.out.print("estoque: ");
-        		p.estoque = sc.nextInt();
-    			System.out.print("unidade: ");
-    			sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
-        		p.unidade = sc.nextLine();
+                p.editar();
                 produtos.add(p);
     		} else if (opcao.equals("a")) {
+    			int i = 0;
+    			for (Produto p : produtos) {
+    				System.out.print(i + " ");
+    				p.display();
+    			}
+    			i = sc.nextInt();
+				Produto p = produtos.get(i);
+				p.editar();
+    		} else if (opcao.equals("r")) {
     			int i = 0;
     			for (Produto p : produtos) {
     				System.out.print(i + " ");
@@ -77,5 +78,17 @@ class Produto {
     }
     double acrescimo(double taxa) {
         return this.preco * (1+taxa/100);
+    }
+    void editar() {
+        Scanner sc = new Scanner(System.in); // Create a Scanner object
+		System.out.print("nome: ");
+		this.descricao = sc.nextLine();
+		System.out.print("preço: ");
+		this.preco = sc.nextFloat();
+		System.out.print("estoque: ");
+		this.estoque = sc.nextInt();
+		System.out.print("unidade: ");
+		sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
+    	this.unidade = sc.nextLine();
     }
 }
