@@ -72,7 +72,6 @@ public class exercicioObjetos {
     }
 
     static void editar(Produto produto) {
-        Scanner sc = new Scanner(System.in);
         System.out.print("descrição: ");
         produto.setDescricao(sc.nextLine());
         System.out.print("preço: ");
@@ -82,7 +81,6 @@ public class exercicioObjetos {
         System.out.print("unidade: ");
         sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
         produto.setUnidade(sc.nextLine());
-        sc.close();
     }
 }
 
@@ -111,7 +109,7 @@ class Produto {
     public String getUnidade() { return this.unidade; }
 
     public void setDescricao(String descricao) { this.descricao = descricao; }
-    public void setPreco(double preco) { this.preco = preco; }
-    public void setEstoque(int estoque) { this.estoque = estoque; }
+    public void setPreco(double preco) { if (preco>0) this.preco = preco; }
+    public void setEstoque(int estoque) { if (estoque>=0) this.estoque = estoque; }
     public void setUnidade(String unidade) { this.unidade = unidade; }
 }
