@@ -25,7 +25,7 @@ import java.awt.event.*;
 
 public class exercicioObjetos {
     public static Scanner sc = new Scanner(System.in);
-    public static List<Produto> produtos = new ArrayList();
+    public static List<Produto> produtos = new ArrayList<>();
 
     public static void main(String[] args) {
 
