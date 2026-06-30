@@ -13,6 +13,10 @@ Crie um programa que permita ao usuário cadastrar produtos.
 O usuário deve informar os dados. Crie uma menu com opções de inserir novo produto, 
 alterar um existente, excluir um existente, 
 listar um produto de acordo com a descrição desejado e a opção para listar todos
+
+Encapsular todos os atributos da classe Produto e validar para:
+-> preço e estoque não sejam negativos;
+-> a unidade de medida deve ter somente dois caracteres. 
 */
 
 import java.util.Scanner;
@@ -52,7 +56,7 @@ public class exercicioObjetos {
             } else if (opcao.equals("L")) {
                 for (Produto p : produtos) {
                     p.display();
-                    System.out.println("=====");
+//                    System.out.println("=====");
                 }
             }
         }
@@ -94,7 +98,7 @@ class Produto {
     private String unidade;
 
     public void display() {
-        System.out.println(this.descricao + "\npreço: " + this.preco + "\nestoque: " + this.estoque + "\nunidade: " + this.unidade);
+        System.out.println("--> " + this.descricao + "\npreço: " + this.preco + "\nestoque: " + this.estoque + "\nunidade: " + this.unidade);
     }
     double desconto(double taxa) {
         return this.preco * (1-taxa/100);
@@ -108,8 +112,8 @@ class Produto {
     public int getEstoque() { return this.estoque; }
     public String getUnidade() { return this.unidade; }
 
-    public void setDescricao(String descricao) { this.descricao = descricao; }
-    public void setPreco(double preco) { if (preco>0) this.preco = preco; }
-    public void setEstoque(int estoque) { if (estoque>=0) this.estoque = estoque; }
-    public void setUnidade(String unidade) { this.unidade = unidade; }
+    public void setDescricao(String descricao) { if (descricao.length()>0) this.descricao = descricao; else System.out.println("descrição inválida."); }
+    public void setPreco(double preco) { if (preco>0) this.preco = preco; else System.out.println("preço inválido."); }
+    public void setEstoque(int estoque) { if (estoque>=0) this.estoque = estoque; else System.out.println("estoque inválido."); }
+    public void setUnidade(String unidade) { if (unidade.length()>0 && unidade.length()<=2) this.unidade = unidade; else System.out.println("unidade inválida."); }
 }
