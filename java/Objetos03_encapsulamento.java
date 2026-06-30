@@ -36,6 +36,7 @@ public class exercicioObjetos {
                 editar(p);
                 produtos.add(p);
             } else if (opcao.equals("s")) {
+                sc.close();
                 break;
             } else if (produtos.size()==0) {
                 continue;
@@ -66,12 +67,12 @@ public class exercicioObjetos {
         i = -1;
         while (i<0||i>=produtos.size())
             i = sc.nextInt();
-        sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
+        sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
         return i;
     }
 
     static void editar(Produto produto) {
-        Scanner sc = new Scanner(System.in); // Create a Scanner object
+        Scanner sc = new Scanner(System.in);
         System.out.print("descrição: ");
         produto.setDescricao(sc.nextLine());
         System.out.print("preço: ");
@@ -79,10 +80,14 @@ public class exercicioObjetos {
         System.out.print("estoque: ");
         produto.setEstoque(sc.nextInt());
         System.out.print("unidade: ");
-        sc.nextLine(); // Consome o "\n" que sobrou do Enter anterior
+        sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
         produto.setUnidade(sc.nextLine());
+        sc.close();
     }
 }
+
+
+/* ***** ***** ***** */
 
 class Produto {
     private String descricao;
