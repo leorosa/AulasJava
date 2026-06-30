@@ -19,44 +19,86 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+//Java class to implement AWT Menu and MenuItem
+import java.awt.*;
+import java.awt.event.*;
+
 public class exercicioObjetos {
     public static Scanner sc = new Scanner(System.in);
     public static List<Produto> produtos = new ArrayList();
 
     public static void main(String[] args) {
 
-        while (true) {
-            if (produtos.size()==0)
-                System.out.println("opções: [n]ovo produto ou [s]air");
-            else
-                System.out.println("opções: [n]ovo produto, [a]lterar produto, [l]istar produto, [L]istar todos, [r]emover ou [s]air");
-            String opcao = sc.nextLine();
-            if (opcao.equals("n")) {
+        Frame frame = new Frame("Menu Example");
+        MenuBar menuBar = new MenuBar();
+        frame.setMenuBar(menuBar);
+
+        Menu prodMenu = new Menu("produto");
+        MenuItem novoItem = new MenuItem("novo");
+        MenuItem alteraItem = new MenuItem("alterar");
+        MenuItem listaItem = new MenuItem("listar");
+        MenuItem listaTodos = new MenuItem("listar todos");
+        MenuItem removeItem = new MenuItem("remover");
+        MenuItem sairItem = new MenuItem("sair");
+        prodMenu.add(novoItem);
+        prodMenu.add(alteraItem);
+        prodMenu.add(listaItem);
+        prodMenu.add(listaTodos);
+        prodMenu.add(removeItem);
+        prodMenu.addSeparator();
+        prodMenu.add(sairItem);
+        menuBar.add(prodMenu);
+        frame.setSize(300, 100);
+        frame.setVisible(true);
+
+        novoItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 Produto p = new Produto();
                 p.editar();
                 produtos.add(p);
-            } else if (opcao.equals("s")) {
-                break;
-            } else if (produtos.size()==0) {
-                continue;
-            } else if (opcao.equals("a")) {
-                int i = selectItem(produtos);
+            }
+        });
+
+        alteraItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (produtos.size()==0) return;
+                int i = selectItem();
                 produtos.get(i).editar();
-            } else if (opcao.equals("r")) {
-                int i = selectItem(produtos);
-                produtos.remove(i);
-            } else if (opcao.equals("l")) {
-                int i = selectItem(produtos);
+            }
+        });
+
+        listaItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (produtos.size()==0) return;
+                int i = selectItem();
                 produtos.get(i).display();
-            } else if (opcao.equals("L")) {
+            }
+        });
+
+        listaTodos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 for (Produto p : produtos) {
                     p.display();
                 }
             }
-        }
+        });
+
+        removeItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (produtos.size()==0) return;
+                int i = selectItem();
+                produtos.remove(i);
+            }
+        });
+
+        sairItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
-    static int selectItem(List<Produto> produtos) {
+    static int selectItem() {
         int i = 0;
         for (Produto p : produtos) {
             System.out.println(i + " " + p.descricao);
