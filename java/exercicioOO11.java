@@ -47,11 +47,10 @@ public class Exercicio11 {
 				usuarioExiste = true;
 				livroExiste = false;
 				livros.forEach(livro -> {
-					if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
+					if (livro.titulo.equals(titulo)) {
 						livroExiste = true;
-						livro.emprestar();
-						usuario.livros.add(titulo);
-	//				break;
+						if(livro.emprestar())
+							usuario.livros.add(titulo);
 					}
 				});
 			}
@@ -70,7 +69,7 @@ public class Exercicio11 {
 				livroExiste = false;
 				if (usuario.livros.contains(titulo)) {
 					livros.forEach(livro -> {
-						if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
+						if (livro.titulo.equals(titulo)) {
 							livroExiste = true;
 							livro.devolver();
 							usuario.livros.add(titulo);
@@ -93,9 +92,13 @@ class Livro {
 	String autor;
 	int quantidadeDisponivel;
 
-	void emprestar() {
-		if (this.quantidadeDisponivel>0)
+	boolean emprestar() {
+		if (this.quantidadeDisponivel>0) {
 			this.quantidadeDisponivel -= 1;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	void devolver() {
 		this.quantidadeDisponivel += 1;
