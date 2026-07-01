@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Exercicio11 {
+
+	public static void main(String[] args) {
+		List<Livro> livros = new ArrayList<>();
+
+		Livro livro1 = new Livro();
+		livro1.titulo = "O Hobbit";
+		livro1.autor = "Tolkien";
+		livro1.quantidadeDisponivel = 10;
+		livros.add(livro1);
+		Livro livro2 = new Livro();
+		livro2.titulo = "O Silmarillion";
+		livro2.autor = "Tolkien";
+		livro2.quantidadeDisponivel = 5;
+		livros.add(livro2);
+
+		Usuario usuario = new Usuario();
+		usuario.nome = "João";
+		usuario.matricula = 12345;
+
+		livro1.emprestar();
+		livro2.emprestar();
+		livro1.exibirLivro();
+		livro2.exibirLivro();
+		livro1.devolver();
+		livro2.devolver();
+		livro1.exibirLivro();
+		livro2.exibirLivro();
+	}
+
+}
+
+class Livro {
+	String titulo;
+	String autor;
+	int quantidadeDisponivel;
+	
+	void emprestar() {
+		if (this.quantidadeDisponivel>0)
+			this.quantidadeDisponivel -= 1;
+	}
+	void devolver() {
+		this.quantidadeDisponivel += 1;
+	}
+	void exibirLivro() {
+		System.out.println("Título: " + this.titulo);
+		System.out.println("Autor: " + this.autor);
+		System.out.println("Quantidade disponível: " + this.quantidadeDisponivel + " unidades");
+	}
+}
+
+class Usuario {
+	String nome;
+	int matricula;
+
+	void exibirUsuario() {
+		System.out.println("Nome: " + this.nome);
+		System.out.println("Matricula: " + this.matricula);
+	}
+}
