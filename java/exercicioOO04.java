@@ -3,6 +3,7 @@ public class Exercicio04 {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome("João");
 		funcionario.setSalario(2500);
+		funcionario.exibirDados();
 		funcionario.aumentarSalario(15);
 		funcionario.calcularSalarioAnual();
 		funcionario.exibirDados();
@@ -22,6 +23,7 @@ class Funcionario {
 			this.salario = salario;
 	}
 	void aumentarSalario(double percentual) {
+		this.salarioAntigo = this.salario;
 		this.salario *= (1+percentual/100);
 	}
 	void calcularSalarioAnual() {
