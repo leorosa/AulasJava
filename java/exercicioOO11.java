@@ -49,7 +49,7 @@ public class Exercicio11 {
 				livros.forEach(livro -> {
 					if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
 						livroExiste = true;
-						livro.quantidadeDisponivel -= 1;
+						livro.emprestar();
 						usuario.livros.add(titulo);
 	//				break;
 					}
@@ -72,7 +72,7 @@ public class Exercicio11 {
 					livros.forEach(livro -> {
 						if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
 							livroExiste = true;
-							livro.quantidadeDisponivel -= 1;
+							livro.devolver();
 							usuario.livros.add(titulo);
 						}
 					});
