@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Exercicio11 {
+	public static List<Livro> livros = new ArrayList<>();
+	public static List<Usuario> usuarios = new ArrayList<>();
 
 	public static void main(String[] args) {
-		List<Livro> livros = new ArrayList<>();
 
 		Livro livro1 = new Livro();
 		livro1.titulo = "O Hobbit";
@@ -20,7 +21,8 @@ public class Exercicio11 {
 		Usuario usuario = new Usuario();
 		usuario.nome = "João";
 		usuario.matricula = 12345;
-
+		usuarios.add(usuario);
+/*
 		livro1.emprestar();
 		livro2.emprestar();
 		livro1.exibirLivro();
@@ -29,15 +31,68 @@ public class Exercicio11 {
 		livro2.devolver();
 		livro1.exibirLivro();
 		livro2.exibirLivro();
+*/
+		emprestar("O Hobbit", "João");
+		emprestar("Hobbit", "Maria");
+		devolver("Hobbit", "João");
+		devolver("O Hobbit", "João");
+	}
+	
+	static boolean usuarioExiste;
+	static boolean livroExiste;
+	static void emprestar(String titulo, String nome) {
+		usuarioExiste = false;
+		usuarios.forEach(usuario -> {
+			if (usuario.nome.equals(nome)) {
+				usuarioExiste = true;
+				livroExiste = false;
+				livros.forEach(livro -> {
+					if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
+						livroExiste = true;
+						livro.quantidadeDisponivel -= 1;
+						usuario.livros.add(titulo);
+	//				break;
+					}
+				});
+			}
+		});
+		if (!usuarioExiste)
+			System.out.println(nome + " não cadastrado.");
+		if (!livroExiste)
+			System.out.println(titulo + " não cadastrado.");
 	}
 
+	static void devolver(String titulo, String nome) {
+		usuarioExiste = false;
+		usuarios.forEach(usuario -> {
+			if (usuario.nome.equals(nome)) {
+				usuarioExiste = true;
+				livroExiste = false;
+				if (usuario.livros.contains(titulo)) {
+					livros.forEach(livro -> {
+						if (livro.titulo.equals(titulo) && livro.quantidadeDisponivel>0) {
+							livroExiste = true;
+							livro.quantidadeDisponivel -= 1;
+							usuario.livros.add(titulo);
+						}
+					});
+				} else {
+					System.out.println(usuario.nome + " não pegou '" + titulo + "' emprestado.");
+				}
+			}
+		});
+		if (!usuarioExiste)
+			System.out.println(nome + " não cadastrado.");
+		if (!livroExiste)
+			System.out.println(titulo + " não cadastrado.");
+	}
 }
 
 class Livro {
 	String titulo;
 	String autor;
 	int quantidadeDisponivel;
-	
+
 	void emprestar() {
 		if (this.quantidadeDisponivel>0)
 			this.quantidadeDisponivel -= 1;
@@ -55,9 +110,11 @@ class Livro {
 class Usuario {
 	String nome;
 	int matricula;
+	List<String> livros = new ArrayList<>();
 
 	void exibirUsuario() {
 		System.out.println("Nome: " + this.nome);
 		System.out.println("Matricula: " + this.matricula);
+		System.out.println("Livros emprestados: " + this.livros.toString());
 	}
 }
