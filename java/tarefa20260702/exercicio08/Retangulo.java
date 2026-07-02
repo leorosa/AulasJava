@@ -1,18 +1,17 @@
-public class Exercicio08 {
-	public static void main(String[] args) {
-		Retangulo retangulo = new Retangulo();
-		retangulo.largura = 5;
-		retangulo.altura = 3;
-		retangulo.exibirInformacoes();
-		retangulo.calcularArea();
-		retangulo.calcularPerimetro();
-	}
-}
+package exercicio08;
 
-class Retangulo {
-	double largura;
-	double altura;
+public class Retangulo {
+	private double largura;
+	private double altura;
 	
+	void setLargura(double largura) {
+		if(largura>0)
+			this.largura = largura;
+	}
+	void setAltura(double altura) {
+		if(altura>0)
+			this.altura = altura;
+	}
 	void calcularArea() {
 		System.out.println("Área: " + (this.largura*this.altura));
 	}

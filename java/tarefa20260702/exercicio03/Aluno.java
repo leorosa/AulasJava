@@ -1,15 +1,6 @@
-public class Exercicio03 {
-	public static void main(String[] args) {
-		Aluno aluno = new Aluno();
-		aluno.setNome("João");
-		aluno.setNota1(8);
-		aluno.setNota2(7.55);
-		System.out.println(aluno.calcularMedia());
-		aluno.verificarSituacao();
-	}
-}
+package exercicio03;
 
-class Aluno {
+public class Aluno {
 	private String nome;
 	private double nota1;
 	private double nota2;

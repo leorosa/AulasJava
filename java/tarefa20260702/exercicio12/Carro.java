@@ -1,24 +1,23 @@
-public class Exercicio12 {
-	public static void main(String[] args) {
-		Carro carro = new Carro();
-		carro.modelo = "308";
-		carro.marca = "Peugeot";
-		carro.ano = 2010;
-		carro.exibirInformacoes();
-		carro.alugar();
-		carro.exibirInformacoes();
-		carro.devolver();
-		carro.exibirInformacoes();
+package exercicio12;
+
+public class Carro {
+	private String modelo;
+	private String marca;
+	private int ano;
+	private boolean disponivel = true;
+
+	void setModelo(String modelo) {
+		if (modelo.length()>0)
+			this.modelo = modelo;
 	}
-}
-
-class Carro {
-	String modelo;
-	String marca;
-	int ano;
-	boolean disponivel = true;
-	int velocidadeAtual;
-
+	void setMarca(String marca) {
+		if (marca.length()>0)
+			this.marca = marca;
+	}
+	void setAno(int ano) {
+		if (ano>0)
+			this.ano = ano;
+	}
 	void alugar() {
 		if (this.disponivel)
 			this.disponivel = false;

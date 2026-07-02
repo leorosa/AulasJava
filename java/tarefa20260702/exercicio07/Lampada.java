@@ -1,15 +1,7 @@
-public class Exercicio07 {
-	public static void main(String[] args) {
-		Lampada lampada = new Lampada();
-		lampada.ligar();
-		lampada.mostrarEstado();
-		lampada.desligar();
-		lampada.mostrarEstado();
-	}
-}
+package exercicio07;
 
-class Lampada {
-	boolean ligada;
+public class Lampada {
+	private boolean ligada;
 	
 	void ligar() {
 		this.ligada = true;
