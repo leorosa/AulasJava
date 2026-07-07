@@ -1,0 +1,20 @@
+@startuml
+class Pessoa {
+    -nome: String
+    -email: String
+    +display(): void
+    +gets()
+    +sets()
+}
+
+class Aluno extends Pessoa {
+    +media: float
+    +getStatus(): String
+}
+
+Cliente--|>Pessoa
+class Cliente {
+    +cartao: String
+    +getLimite(): float
+}
+@enduml
