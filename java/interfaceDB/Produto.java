@@ -1,7 +1,5 @@
 package modelos;
 
-import utils.ConectaDB;
-
 public class Produto {
 	private int id;
 	private String descricao;
@@ -12,8 +10,6 @@ public class Produto {
 	public Produto(String descricao, double preco) {
 		setDescricao(descricao);
 		setPreco(preco);
-		if (ConectaDB.conectar() != null)
-			System.out.println("conectado");
 	}
 	public Produto(int id, String descricao, double preco) {
 		setId(id);

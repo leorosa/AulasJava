@@ -4,11 +4,14 @@ import java.util.List;
 
 import interfaces.ICRUD;
 import modelos.Produto;
+import utils.ConectaDB;
 
 public class ProdutoDao implements ICRUD {
 
 	@Override
 	public Produto salvar(Produto prod) {
+		if (ConectaDB.conectar() != null)
+			System.out.println("conectado");
 		prod.setId(1);
 		return prod;
 	}
