@@ -9,17 +9,18 @@ public class ProdutoDao implements ICRUD {
 
 	@Override
 	public Produto salvar(Produto prod) {
-		return null;
+		prod.setId(1);
+		return prod;
 	}
 
 	@Override
 	public void deletar(int id) {
-		
+		System.out.println("deletando produto: " + id);
 	}
 
 	@Override
 	public void alterar(Produto prod) {
-		
+		System.out.println("alterando produto: " + prod.getId());
 	}
 
 	@Override
