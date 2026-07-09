@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined:">
+    <style>
+        body {
+            background: lightgray;
+        }
+        .container {
+            display: flex;
+            margin: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .imgNoticia {
+            border-radius: 5px;
+            width: 100%
+        }
+        .card {
+            margin: 5px;
+            display: block;
+            border-radius: 5px;
+/*          border-width: 1px;
+            border-style: solid; */
+            background: white;
+            width: 300px;
+            height: 310px;
+            transition: transform 0.2s ease;
+            box-shadow: 2px 2px 3px gray;
+            cursor: pointer;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-2px) translateX(-2px);
+        }
+        .card .fonte {
+            margin: 5px;
+            font-size: 10pt;
+        }
+        .titulo {
+            font-weight: bold;
+            padding: 5px;
+        }
+        .card div {
+            display: flex;
+        }
+        .material-symbols-outlined {
+            margin-left: 10px;
+            font-size: 1em;
+        }
+        .social {
+            position: absolute; /* para quando o título tem menos do que 3 linhas; o .card tem altura fixa, e position:relative */
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img class="imgNoticia" src="https://www.bing.com/th?id=ONUT.bMM1GuS1e7SaK9CAco2D4g&pid=News&w=308&h=200&c=14&rs=2" />
+            <div class="fonte">
+                <img src="https://www.bing.com/th?id=ODF.jvs1O4LPpypSJDRgmKOUTw&pid=news&w=16&h=16&c=14&rs=2"/>
+                Estadão - 2h
+            </div>
+            <div class="titulo">
+                <span>Alcolumbre diz que trecho de PL da dosimetria se choca com lei antifacção e tira itens de votação</span>
+            </div>
+            <div class="social">
+            <i class="material-symbols-outlined">thumb_up</i>
+            <span>123</span>
+            <i class="material-symbols-outlined">thumb_down</i>
+            <i class="material-symbols-outlined">chat_bubble</i>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="imgNoticia" src="https://www.bing.com/th?id=ONUT.KVOIhWvi1i_WRR1DVAsrHw&pid=News&w=308&h=200&c=14&rs=2" />
+            <div class="fonte">
+                <img src="https://www.bing.com/th?id=ODF.xt6JKvzj-d6pt_UP_9T6nw&pid=news&w=16&h=16&c=14&rs=2"/>
+                Veja - 1h
+            </div>
+            <div class="titulo">
+                <span>Flávio Bolsonaro diz que derrota de Lula 'marca fim do governo' e faz promessa sobre anistia</span>
+            </div>
+            <div class="social">
+            <i class="material-symbols-outlined">thumb_up</i>
+            <span>32</span>
+            <i class="material-symbols-outlined">thumb_down</i>
+            <i class="material-symbols-outlined">chat_bubble</i>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="imgNoticia" src="https://www.bing.com/th?id=ONUT.xp4danCy2HKJZkKlpAVR5w&pid=News&w=308&h=200&c=14&rs=2" />
+            <div class="fonte">
+                <img src="https://www.bing.com/th?id=ODF.lje-rdRZXNODo4kSvJtjwg&pid=news&w=16&h=16&c=14&rs=2"/>
+                Record News - 5h
+            </div>
+            <div class="titulo">
+                <span>Desemprego sobe em março e atinge 6,6 milhões de trabalhadores brasileiros</span>
+            </div>
+            <div class="social">
+            <i class="material-symbols-outlined">thumb_up</i>
+            <span>321</span>
+            <i class="material-symbols-outlined">thumb_down</i>
+            <i class="material-symbols-outlined">chat_bubble</i>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html

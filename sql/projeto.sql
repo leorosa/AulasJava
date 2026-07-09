@@ -108,4 +108,4 @@ alter table avaliacoes
 alter table avaliacoes
 	add constraint fkFuncionario_
     foreign key (idFuncionario)
-    references funcionarios(idFuncionario);
+    references funcionarios(idFuncionario)

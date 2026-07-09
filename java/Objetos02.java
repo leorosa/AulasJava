@@ -17,7 +17,7 @@ class Produto {
     double preco;
     int estoque;
     String unidade;
-    
+
     void printDesconto(double taxa) {
         System.out.println(this.descricao + " custa R$" + this.preco*(1-taxa/100) + " com " + taxa + "% de desconto.");
     }

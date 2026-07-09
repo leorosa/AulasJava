@@ -9,7 +9,7 @@ class Main {
         p1.email = "ana@gmail.com";
 //        System.out.println(p.nome + " " + p.email);
         pessoas.add(p1);
-        
+
         Pessoa p2 = new Pessoa(); // instanciar objeto p2
         p2.nome = "João";
         p2.email = "joao@gmail.com";
@@ -21,7 +21,7 @@ class Main {
         p3.email = "pedro@gmail.com";
 //        System.out.println(p2.nome + " " + p2.email);
         pessoas.add(p3);
-        
+
         for (Pessoa p : pessoas) {
             p.display();
         }
@@ -31,7 +31,7 @@ class Main {
 class Pessoa {
     String nome;
     String email;
-    
+
     void display() {
         System.out.println(this.nome + " " + this.email);
     }

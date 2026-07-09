@@ -5,7 +5,7 @@ class Main {
         p.email = "ana@gmail.com";
 //        System.out.println(p.nome + " " + p.email);
         p.display();
-        
+
         Pessoa p2 = new Pessoa(); // instanciar objeto p2
         p2.nome = "João";
         p2.email = "joao@gmail.com";
@@ -17,7 +17,7 @@ class Main {
 class Pessoa {
     String nome;
     String email;
-    
+
     void display() {
         System.out.println(this.nome + " " + this.email);
     }

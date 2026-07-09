@@ -25,4 +25,3 @@ class ContaBancaria {
 		System.out.println("titular: "+this.titular);
 		System.out.println("saldo atual: R$"+this.saldo);
 	}
-}

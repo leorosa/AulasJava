@@ -9,14 +9,14 @@ criar os métodos:
 -> conceder desconto
 -> conceder acréscimo
 
-Crie um programa que permita ao usuário cadastrar produtos. 
-O usuário deve informar os dados. Crie uma menu com opções de inserir novo produto, 
-alterar um existente, excluir um existente, 
+Crie um programa que permita ao usuário cadastrar produtos.
+O usuário deve informar os dados. Crie uma menu com opções de inserir novo produto,
+alterar um existente, excluir um existente,
 listar um produto de acordo com a descrição desejado e a opção para listar todos
 
 Encapsular todos os atributos da classe Produto e validar para:
 -> preço e estoque não sejam negativos;
--> a unidade de medida deve ter somente dois caracteres. 
+-> a unidade de medida deve ter somente dois caracteres.
 */
 
 import java.util.Scanner;

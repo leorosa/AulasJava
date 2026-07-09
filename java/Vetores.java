@@ -12,7 +12,7 @@ public class Vetores {
 //		exercicio06();
 		jogoDaVelha();
 	}
-	
+
 	public static void exemplo() {
 		String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
 		System.out.println(cars[0]);

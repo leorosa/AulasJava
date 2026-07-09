@@ -29,4 +29,3 @@ public class Aluno {
 		else
 			System.out.println(this.nome + " está Reprovado");
 	}
-}

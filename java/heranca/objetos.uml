@@ -17,4 +17,4 @@ class Cliente {
     +cartao: String
     +getLimite(): float
 }
-@enduml
+@endum

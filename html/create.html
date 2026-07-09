@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="texto"></div>
+    <button onclick="criarParagrafo()">Criar parágrafo</button>
+
+    <hr />
+
+    <button onclick="criarBotao()">Criar botão</button>
+
+
+    <div id="botoes">
+        <!-- botoes-->
+    </div>
+
+    <hr />
+
+    <button onclick="removerBotoes()">remover</button>
+
+    <script>
+        function criarParagrafo() {
+            const mp = document.createElement('p')
+            mp.innerHTML = 'hello word'
+            mp.setAttribute('class', 'red')
+            document.getElementById('texto').appendChild(mp)
+        }
+        function criarBotao() {
+            const bt = document.createElement('button')
+            bt.innerHTML = 'salvar'
+            bt.setAttribute('onclick', 'alert()')
+            document.getElementById('botoes').appendChild(bt)
+
+            const btinput = document.createElement('input')
+            btinput.setAttribute('type', 'button')
+            btinput.setAttribute('value', 'salvar')
+            btinput.style.backgroundColor = 'red'
+            document.getElementById('botoes').appendChild(btinput)
+        }
+        function removerBotoes() {
+            //const bt = document.getElementsByTagName('button')
+            const bt = document.querySelector('#botoes button')
+            document.getElementById('botoes').removeChild(bt)
+            const mb = document.querySelector('.red')
+            mb.setAttribute('class', 'blue')
+        }
+        </script>
+</body>
+</html

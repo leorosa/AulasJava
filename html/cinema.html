@@ -9,14 +9,12 @@
             display: flex
         }
         #cadeiras {
+            margin: 50px;
             text-align: center;
-            background-color: rgb(224, 224, 255);
-            width: 50%;
         }
         #info {
+            margin: 50px;
             text-align: center;
-            background-color: rgb(198, 198, 255);
-            width: 50%;
         }
         #tela {
             transform: scaleY(0.3) rotate(-90deg) translate(0%,-300%);
@@ -40,43 +38,24 @@
 <body>
     <div id="main">
     <div id="cadeiras">
-        <p><img src="https://cms-assets.webediamovies.pro/staging/154/74d6b67bdda2d445657a92153f99b648.png" width="100px"/></p>
-        <!--p>sadsa</p>
+        <p>Cinépolis</p>
+        <p>sadsa</p>
         <button>dfdasfsad</button>
         <p>dfsfd</p>
-        <hr-->
-        <p><b>1. Selecione seus assentos</b></p>
+        <hr>
+        <p>Selecione seus assentos</p>
         <div id="tela">)</div>
         <p id="telaStr">TELA</p>
-        <div id="divCadeiras"></div>
-        <hr />
-        <p>FUNDO DA SALA</p>
-        <div style="display:flex">
-            <div style="width:33%;text-align:left;margin:10pt;">
-                <p><button style="width:1.5em">&nbsp;</button>Disponível</p>
-                <p><button style="background:blue;color:white;width:1.5em;padding:0px">AC</button>Acompanhante</p>
-            </div>
-            <div style="width:33%;text-align:left;margin:10pt;">
-                <p><button style="background:green;width:1.5em">&nbsp;</button>Selecionado</p>
-                <p>♿ Cadeirante</p>
-            </div>
-            <div style="width:33%;text-align:left;margin:10pt;">
-                <p><button style="background:gray;width:1.5em">&nbsp;</button>Ocupado</p>
-                <p>-</p>
-            </div>
-        </div>
-        <hr />
-        <button style="background:rgb(34, 34, 87);color:white;padding:10px">SELECIONE SEUS INGRESSOS</button>
     </div>
     <div id="info">
-        <p><img src="https://images.tbco.app/blob-image/all.web.img.acsta.net/img/ee/57/ee5732a83ae31f2ca946118dcbe765fb.jpg?height=120" /></p>
-        <p><b>O Gênio do Crime</b></p>
-        <p>10 - 1h30</p>
-        <p>Nacional - Acessibilidade - Tradicional</p>
+        <p>figura</p>
+        <p>O Gênio do Crime</p>
+        <p>10 -</p>
+        <p>Nacional - Acessibilidade - Sala Tradicional</p>
         <hr />
         <p>Cinépolis Blumenau Norte (SC) - 5</p>
-        <p><b>13:10</b> Thursday, May 14, 2026</p>
-        <button style="border-radius:20px; border-width:1px; padding: 10px">CONSULTE OUTRO HORÁRIO</button>
+        <p>13:10 Thursday, May 14, 2026</p>
+        <button>CONSULTE OUTRO HORÁRIO</button>
         <p id="selecao"></p>
         <hr />
     </div>
@@ -88,8 +67,7 @@
             for (f=0; f<fileiras.length; f++) {
                 div = document.createElement('div')
                 div.style.display = 'flex'
-                div.style.justifyContent = 'center'
-                document.getElementById('divCadeiras').appendChild(div)
+                document.getElementById('cadeiras').appendChild(div)
                 label = document.createElement('label')
                 label.innerHTML = fileiras[f]
                 label.style.width = '25px'
@@ -121,10 +99,6 @@
             //console.log(bt)
             bt.setAttribute('onclick', 'liberarCadeira("'+nome+'")')
             bt.style.background = 'green'
-            bt.style.border = 'solid'
-            bt.style.borderColor = 'green'
-            bt.style.borderRadius = '2px'
-            bt.style.borderWidth = '2px'
             // adicionar numero
             selecao.push(nome)
             setInfo()
@@ -133,11 +107,8 @@
             //console.log(nome)
             bt = document.getElementById(nome)
             //console.log(bt)
-            bt.setAttribute('onclick', 'selecionarCadeira("'+nome+'")')
+           // nome.setAttribute('onclick', 'selecionarCadeira('+nome+')')
             bt.style.background = ''
-            bt.style.border = ''
-            bt.style.borderColor = ''
-            bt.style.borderRadius = ''
             // remover numero
             idx = selecao.indexOf(nome)
             selecao.splice(idx, 1)
@@ -145,13 +116,7 @@
         }
          function setInfo() {
             info = document.getElementById("selecao")
-            if (selecao.length==0) {
-                info.innerHTML = ''
-            } else if (selecao.length==1) {
-                info.innerHTML = '<div style="display:flex;width=100%"><div style="width: 200px;"><b>'+selecao.length+' x</b> assento</div><div style="flex: 0.95; text-align: right;">' + selecao[0] + '</div></div>'
-            } else {
-                info.innerHTML = '<div style="display:flex;width=100%"><div style="width: 200px;"><b>'+selecao.length+' x</b> assentos</div><div style="flex: 0.95; text-align: right;">'  + selecao.join(', ') + '</div></div>'
-            }
+            info.innerHTML = ''+selecao.length+' x ASSENTOS\t\t' + selecao.join(', ')
         }
    </script>
 </body>
