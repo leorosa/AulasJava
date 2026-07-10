@@ -1,6 +1,6 @@
 import java.util.Scanner; // Import the Scanner class 
 
-public class ListaExercicio1 {
+public class ListaExercicio01 {
 
 	public static void main(String[] args) {
 //		exercicio01();

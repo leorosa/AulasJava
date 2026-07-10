@@ -1,4 +1,4 @@
-﻿// Aula 02
+// Aula 02
 
 import java.util.Scanner; // Import the Scanner class
 import javax.swing.JOptionPane;
