@@ -29,6 +29,12 @@ public class Main {
 		} else if (opcao.equals("r")) {
 			int i = selectItem(produtos);
 			dao.deletar(i);
+			Produto p = dao.consultar(i);
+			if (p!=null) {
+				System.out.println(p.getId() + " - " + p.getDescricao() + " R$" + p.getPreco());
+			} else {
+				System.out.println("Produto removido");
+			}
 		} else if (opcao.equals("l")) {
 			int i = selectItem(produtos);
 			Produto p = dao.consultar(i);
