@@ -12,14 +12,10 @@ public class Produto {
 
 	public Produto() {
 	}
-	public Produto(String descricao, double preco) {
+	public Produto(String descricao, double preco, int estoque) {
 		setDescricao(descricao);
 		setPreco(preco);
-	}
-	public Produto(int id, String descricao, double preco) {
-		setId(id);
-		setDescricao(descricao);
-		setPreco(preco);
+		setEstoque(estoque);
 	}
 	public Produto(int id, String descricao, double preco, int estoque) {
 		setId(id);
