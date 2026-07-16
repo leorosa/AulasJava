@@ -129,7 +129,6 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		System.out.println(this.getId() + " - " + this.getNome() + " " + this.getEmail());
 	}
 	public void editar() {
-//	public Cliente(int id, String cpf, String nome, String email, String rua, int numero, String bairro, String cep, String cidade, String estado) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("CPF: ");
 		this.setCpf(sc.nextLine());
