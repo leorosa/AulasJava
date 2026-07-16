@@ -125,4 +125,31 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 			System.out.println("use código de duas letras para estado");
 	}
 
+	public void listar() {
+		System.out.println(this.getId() + " - " + this.getNome() + " " + this.getEmail());
+	}
+	public void editar() {
+//	public Cliente(int id, String cpf, String nome, String email, String rua, int numero, String bairro, String cep, String cidade, String estado) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("CPF: ");
+		this.setCpf(sc.nextLine());
+		System.out.print("nome: ");
+		this.setNome(sc.nextLine());
+		System.out.print("e-mail: ");
+		this.setEmail(sc.nextLine());
+		System.out.print("rua: ");
+		this.setRua(sc.nextLine());
+		System.out.print("numero: ");
+		this.setNumero(sc.nextInt());
+		sc.next(); // consumir nova linha ignorada por nextInt()
+		System.out.print("bairro: ");
+		this.setBairro(sc.nextLine());
+		System.out.print("CEP: ");
+		this.setCep(sc.nextLine());
+		System.out.print("cidade: ");
+		this.setCidade(sc.nextLine());
+		System.out.print("estado: ");
+		this.setEstado(sc.nextLine());
+//		sc.close();
+	}
 }
