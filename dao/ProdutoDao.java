@@ -12,7 +12,7 @@ import interfaces.ICRUD;
 import modelos.Produto;
 import utils.ConectaDB;
 
-public class ProdutoDao implements ICRUD {
+public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public Produto inserir(Produto prod) {
