@@ -37,7 +37,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		setNumero(numero);
 		setBairro(bairro);
 		setCep(cep);
-		setCidae(cidade);
+		setCidade(cidade);
 		setEstado(estado);
 	}
 	public Cliente(int id, String cpf, String nome, String email, String rua, int numero, String bairro, String cep, String cidade, String estado) {
@@ -49,7 +49,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		setNumero(numero);
 		setBairro(bairro);
 		setCep(cep);
-		setCidae(cidade);
+		setCidade(cidade);
 		setEstado(estado);
 	}
 
@@ -140,7 +140,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		this.setRua(sc.nextLine());
 		System.out.print("numero: ");
 		this.setNumero(sc.nextInt());
-		sc.next(); // consumir nova linha ignorada por nextInt()
+		sc.nextLine(); // consumir nova linha ignorada por nextInt()
 		System.out.print("bairro: ");
 		this.setBairro(sc.nextLine());
 		System.out.print("CEP: ");

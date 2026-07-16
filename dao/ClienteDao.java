@@ -114,6 +114,7 @@ public class ClienteDao implements ICRUD<Cliente,Integer> {
 			PreparedStatement stmt = con.prepareStatement("select * from tb_clientes");
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
+				System.out.println("aqui");
 				Cliente cli = new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("nome"), rs.getString("email"), rs.getString("rua"), rs.getInt("numero"), rs.getString("bairro"), rs.getString("cep"), rs.getString("cidade"), rs.getString("estado"));
 				clientes.add(cli);
 			}
@@ -123,6 +124,7 @@ public class ClienteDao implements ICRUD<Cliente,Integer> {
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println(clientes.size());
 		return clientes;
 	}
 
