@@ -53,4 +53,76 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		setEstado(estado);
 	}
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		if (cpf.length()>0)
+			this.cpf = cpf;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		if (nome.length()>0)
+			this.nome = nome;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		if (email.length()>0)
+			this.email = email;
+	}
+	public String getRua() {
+		return rua;
+	}
+	public void setRua(String rua) {
+		if (rua.length()>0)
+			this.rua = rua;
+	}
+	public int getNumero() {
+		return numero;
+	}
+	public void setNumero(int numero) {
+		if (numero>0) // nao ha nada gratis
+			this.numero = numero;
+	}
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		if (bairro.length()>0)
+			this.bairro = bairro;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		if (cep.length()>0)
+			this.cep = cep;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		if (cidade.length()>0)
+			this.cidade = cidade;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		if (estado.length()==2)
+			this.estado = estado;
+		else
+			System.out.println("use código de duas letras para estado");
+	}
+
 }
