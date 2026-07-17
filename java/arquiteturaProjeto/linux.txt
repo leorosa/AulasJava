@@ -1,0 +1,2 @@
+para rodar no linux:
+$ java -cp "lib/*:src" src/Main.java
