@@ -29,27 +29,28 @@ public class Produto {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		if (id!=null)
+			this.id = id;
 	}
 	public String getDescricao() {
 		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		if (descricao.length()>0)
+		if (descricao!=null && descricao.length()>0)
 			this.descricao = descricao;
 	}
 	public double getPreco() {
 		return preco;
 	}
 	public void setPreco(double preco) {
-		if (estoque>0) // nao ha nada gratis
+		if (preco!=null && preco>0) // nao ha nada gratis
 			this.preco = preco;
 	}
 	public int getEstoque() {
 		return estoque;
 	}
 	public void setEstoque(int estoque) {
-		if (estoque>=0)
+		if (estoque!=null && estoque>=0)
 			this.estoque = estoque;
 	}
 

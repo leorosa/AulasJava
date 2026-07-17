@@ -57,41 +57,42 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		if (id!=null)
+			this.id = id;
 	}
 	public String getCpf() {
 		return cpf;
 	}
 	public void setCpf(String cpf) {
-		if (cpf.length()>0)
+		if (cpf!=null && cpf.length()>0)
 			this.cpf = cpf;
 	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
-		if (nome.length()>0)
+		if (nome!=null && nome.length()>0)
 			this.nome = nome;
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		if (email.length()>0)
+		if (email!=null && email.length()>0)
 			this.email = email;
 	}
 	public String getRua() {
 		return rua;
 	}
 	public void setRua(String rua) {
-		if (rua.length()>0)
+		if (rua!=null && rua.length()>0)
 			this.rua = rua;
 	}
 	public int getNumero() {
 		return numero;
 	}
 	public void setNumero(int numero) {
-		if (numero>0)
+		if (numero!=null && numero>0)
 			this.numero = numero;
 	}
 	public String getBairro() {
@@ -105,14 +106,14 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return cep;
 	}
 	public void setCep(String cep) {
-		if (cep.length()>0)
+		if (cep!=null && cep.length()>0)
 			this.cep = cep;
 	}
 	public String getCidade() {
 		return cidade;
 	}
 	public void setCidade(String cidade) {
-		if (cidade.length()>0)
+		if (cidade!=null && cidade.length()>0)
 			this.cidade = cidade;
 	}
 	public String getEstado() {
