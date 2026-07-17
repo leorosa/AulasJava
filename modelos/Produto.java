@@ -7,6 +7,7 @@ public class Produto {
 	private String descricao;
 	private double preco;
 // no banco de dados MySQL:
+//      create table tb_produtos (id int primary key auto increment, descricao varchar(200), preco float);
 //      alter table tb_produtos add column estoque int;
 	private int estoque;
 

@@ -91,7 +91,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return numero;
 	}
 	public void setNumero(int numero) {
-		if (numero>0) // nao ha nada gratis
+		if (numero>0)
 			this.numero = numero;
 	}
 	public String getBairro() {

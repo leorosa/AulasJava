@@ -15,13 +15,12 @@ public class Main {
 		while (true) {
 			produtos = prodDao.consultar();
 			clientes = cliDao.consultar();
-			System.out.println(produtos.size() + " " + clientes.size());
 			System.out.println("digite [c] para clientes, [p] para produtos, ou [s] para sair");
 			String modo = sc.nextLine();
 			String opcao = "n";
 			if (modo.equals("p")) {
 				if (produtos.size()!=0) {
-					System.out.println("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, ou [r]emover");
+					System.out.println("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, [r]emover");
 					opcao = sc.nextLine();
 				}
 				if (opcao.equals("n")) {
