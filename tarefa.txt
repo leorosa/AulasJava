@@ -12,3 +12,7 @@ A partir do projeto implementado em sala:
 
 Criar um repositório no git para o projeto. Cada etapa deve ter no mínimo um commit;
 Atividade Individual.
+
+-----
+para rodar no linux:
+$ java -cp "lib/*:src" src/Main.java
