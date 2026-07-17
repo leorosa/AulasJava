@@ -98,7 +98,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return bairro;
 	}
 	public void setBairro(String bairro) {
-		if (bairro.length()>0)
+		if (bairro!=null && bairro.length()>0)
 			this.bairro = bairro;
 	}
 	public String getCep() {
@@ -119,7 +119,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return estado;
 	}
 	public void setEstado(String estado) {
-		if (estado.length()==2)
+		if (estado!=null && estado.length()==2)
 			this.estado = estado;
 		else
 			System.out.println("use código de duas letras para estado");

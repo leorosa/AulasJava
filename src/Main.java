@@ -19,7 +19,7 @@ public class Main {
 			String modo = sc.nextLine();
 			String opcao = "n";
 			if (modo.equals("p")) {
-				if (produtos.size()!=0) {
+				if (!produtos.isEmpty()) {
 					System.out.println("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, [r]emover");
 					opcao = sc.nextLine();
 				}
@@ -31,22 +31,29 @@ public class Main {
 					sc.close();
 					break;
 				} else if (opcao.equals("a")) {
-					int i = selectProd(produtos);
-					Produto prod = produtos.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
-					prod.editar();
-					prodDao.alterar(prod);
-				} else if (opcao.equals("r")) {
-					int i = selectProd(produtos);
-					prodDao.deletar(i);
-					Produto prod = prodDao.consultar(i);
+//					int i = selectProd(produtos);
+//					Produto prod = produtos.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
+					Produto prod = selectProd(produtos);
 					if (prod!=null) {
-						System.out.println(prod.getId() + " - " + prod.getDescricao() + " R$" + prod.getPreco());
-					} else {
-						System.out.println("Produto removido");
+						prod.editar();
+						prodDao.alterar(prod);
 					}
+				} else if (opcao.equals("r")) {
+//					int i = selectProd(produtos);
+//					prodDao.deletar(i);
+					Produto prod = selectProd(produtos);
+					if (prod!=null)
+						prodDao.deletar(prod.getId());
+//					Produto prod = prodDao.consultar(i);
+//					if (prod!=null) {
+//						System.out.println(prod.getId() + " - " + prod.getDescricao() + " R$" + prod.getPreco());
+//					} else {
+//						System.out.println("Produto removido");
+//					}
 				} else if (opcao.equals("l")) {
-					int i = selectProd(produtos);
-					Produto prod = prodDao.consultar(i);
+//					int i = selectProd(produtos);
+//					Produto prod = prodDao.consultar(i);
+					Produto prod = selectProd(produtos);
 					prod.listar();
 				} else if (opcao.equals("L")) {
 					List<Produto> lista = prodDao.consultar();
@@ -55,7 +62,7 @@ public class Main {
 					}
 				}
 			} else if (modo.equals("c")) {
-				if (clientes.size()!=0) {
+				if (!clientes.isEmpty()) {
 					System.out.println("CLIENTE: [n]ovo, [a]lterar, [l]istar, [L]istar todos, ou [r]emover");
 					opcao = sc.nextLine();
 				}
@@ -64,23 +71,30 @@ public class Main {
 					cli.editar();
 					cliDao.inserir(cli);
 				} else if (opcao.equals("a")) {
-					int i = selectCli(clientes);
-					Cliente cli = clientes.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
-					cli.editar();
-					cliDao.alterar(cli);
-				} else if (opcao.equals("r")) {
-					int i = selectCli(clientes);
-					cliDao.deletar(i);
-					Cliente cli = cliDao.consultar(i);
+//					int i = selectCli(clientes);
+//					Cliente cli = clientes.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
+					Cliente cli = selectCli(clientes);
 					if (cli!=null) {
-						System.out.println(cli.getId() + " - " + cli.getNome());
-					} else {
-						System.out.println("Cliente removido");
+						cli.editar();
+						cliDao.alterar(cli);
 					}
+				} else if (opcao.equals("r")) {
+//					int i = selectCli(clientes);
+//					cliDao.deletar(i);
+					Cliente cli = selectCli(clientes);
+					if (cli!=null)
+						cliDao.deletar(cli.getId());
+//					if (cli!=null) {
+//						System.out.println(cli.getId() + " - " + cli.getNome());
+//					} else {
+//						System.out.println("Cliente removido");
+//					}
 				} else if (opcao.equals("l")) {
-					int i = selectCli(clientes);
-					Cliente cli = cliDao.consultar(i);
-					cli.listar();
+//					int i = selectCli(clientes);
+//					Cliente cli = cliDao.consultar(i);
+					Cliente cli = selectCli(clientes);
+					if (cli!=null)
+						cli.listar();
 				} else if (opcao.equals("L")) {
 					List<Cliente> lista = cliDao.consultar();
 					for(Cliente cli : lista) {
@@ -94,29 +108,32 @@ public class Main {
 		}
 	}
 
-	static int selectProd(List<Produto> produtos) {
-		int i = 1;
+	static Produto selectProd(List<Produto> produtos) {
 		for (Produto prod : produtos) {
-			System.out.println(i + " " + prod.getDescricao());
-			i++;
+			System.out.println(prod.getId() + " " + prod.getDescricao());
 		}
-		i = 0;
-		while (i<1||i>produtos.size())
-			i = sc.nextInt();
+//		i = 0;
+//		while (i<1||i>produtos.size())
+			int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
-		return i;
+		for (Produto prod : produtos) {
+			if (i==prod.getId())
+				return prod;
+		}
+		return null;
 	}
 
-	static int selectCli(List<Cliente> clientes) {
-		int i = 1;
+	static Cliente selectCli(List<Cliente> clientes) {
 		for (Cliente cli : clientes) {
-			System.out.println(i + " " + cli.getNome());
-			i++;
+			System.out.println(cli.getId() + " " + cli.getNome());
 		}
-		i = 0;
-		while (i<1||i>clientes.size())
-			i = sc.nextInt();
+//		while (i<1||i>clientes.size())
+			int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
-		return i;
+		for (Cliente cli : clientes) {
+			if (i==cli.getId())
+				return cli;
+		}
+		return null;
 	}
 }
