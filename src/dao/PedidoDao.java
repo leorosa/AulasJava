@@ -21,8 +21,8 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			stm.setDate(1, ped.getData());
-			stm.setInt(2, ped.getStatus());
-			stm.setInt(3, ped.getCliente());
+			stm.setInt(2, ped.getIdStatus());
+			stm.setInt(3, ped.getIdCliente());
 			stm.execute();
 			ResultSet rs = stm.getGeneratedKeys();
 			if(rs.next()) {
@@ -61,7 +61,7 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setDate(1, ped.getData());
-			stm.setInt(2, ped.getStatus());
+			stm.setInt(2, ped.getIdStatus());
 			stm.setInt(3, ped.getId());
 			stm.execute();
 			stm.close();

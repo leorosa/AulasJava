@@ -7,7 +7,7 @@ public class ConectaDB {
 	private static final String URL = "jdbc:mysql://localhost:3306/bd_aula";
 	private static final String USUARIO = "root";
 	private static final String SENHA = "@1@senac2021";
-	
+
 	public static Connection conectar() {
 		try {
 			return DriverManager.getConnection(URL, USUARIO, SENHA);

@@ -6,9 +6,12 @@ public class Produto {
 	private int id;
 	private String descricao;
 	private double preco;
-// no banco de dados MySQL:
-//      create table tb_produtos (id int primary key auto increment, descricao varchar(200), preco float);
-//      alter table tb_produtos add column estoque int;
+//no banco de dados MySQL:
+//create table tb_produtos (
+//    id int primary key auto increment,
+//    descricao varchar(200),
+//    preco float,
+//    estoque int );
 	private int estoque;
 
 	public Produto() {
@@ -29,8 +32,7 @@ public class Produto {
 		return id;
 	}
 	public void setId(int id) {
-		if (id!=null)
-			this.id = id;
+		this.id = id;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -43,14 +45,14 @@ public class Produto {
 		return preco;
 	}
 	public void setPreco(double preco) {
-		if (preco!=null && preco>0) // nao ha nada gratis
+		if (preco>0) // nao ha nada gratis
 			this.preco = preco;
 	}
 	public int getEstoque() {
 		return estoque;
 	}
 	public void setEstoque(int estoque) {
-		if (estoque!=null && estoque>=0)
+		if (estoque>=0)
 			this.estoque = estoque;
 	}
 

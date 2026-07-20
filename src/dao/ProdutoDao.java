@@ -43,10 +43,10 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 		String sql = "delete from tb_produtos where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1,id);
-			stmt.execute();
-			stmt.close();
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setInt(1,id);
+			stm.execute();
+			stm.close();
 			con.close();
 			System.out.println("deletando produto: " + id);
 		} catch(Exception e) {
@@ -59,13 +59,13 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 		String sql = "update tb_produtos set descricao=?, preco=?, estoque=? where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, prod.getDescricao());
-			stmt.setDouble(2, prod.getPreco());
-			stmt.setInt(3, prod.getEstoque());
-			stmt.setInt(4, prod.getId());
-			stmt.execute();
-			stmt.close();
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setString(1, prod.getDescricao());
+			stm.setDouble(2, prod.getPreco());
+			stm.setInt(3, prod.getEstoque());
+			stm.setInt(4, prod.getId());
+			stm.execute();
+			stm.close();
 			con.close();
 			System.out.println("alterando produto: " + prod.getId());
 		} catch(Exception e) {
@@ -75,23 +75,23 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public Produto consultar(Integer id) {
-		Produto produto = null;
+		Produto prod = null;
 		String sql = "select * from tb_produtos where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1,id);
-			ResultSet rs = stmt.executeQuery();
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setInt(1,id);
+			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				produto = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getDouble("preco"), rs.getInt("estoque"));
+				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getDouble("preco"), rs.getInt("estoque"));
 			}
 			rs.close();
-			stmt.close();
+			stm.close();
 			con.close();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return produto;
+		return prod;
 	}
 
 	@Override
@@ -99,14 +99,14 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 		List<Produto> produtos = new ArrayList<Produto>();
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stmt = con.prepareStatement("select * from tb_produtos");
-			ResultSet rs = stmt.executeQuery();
+			PreparedStatement stm = con.prepareStatement("select * from tb_produtos");
+			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Produto p = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getDouble("preco"), rs.getInt("estoque"));
-				produtos.add(p);
+				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getDouble("preco"), rs.getInt("estoque"));
+				produtos.add(prod);
 			}
 			rs.close();
-			stmt.close();
+			stm.close();
 			con.close();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());

@@ -8,25 +8,33 @@ public class Pedido {
 	private Date data;
 	private int idStatus;
 	private int idCliente;
-// no banco de dados MySQL:
-//      create table tb_pedidos(id int primary key auto_increment,data date,status int,constraint fk_status foreign key (status) references tb_status(id),cliente int,constraint fk_cliente foreign key (cliente) references tb_clientes(id));
-//      create table tb_status ( id int primary key auto_increment, descricao varchar(100) );
-//      insert into tb_status (descricao) values ("aberto");
-//      insert into tb_status (descricao) values ("finalizado");
-//      insert into tb_status (descricao) values ("cancelado");
+//no banco de dados MySQL:
+//create table tb_pedidos (
+//    id int primary key auto_increment,
+//    data date,
+//    id_status int,
+//    constraint fk_status foreign key (id_status) references tb_status(id),
+//    id_cliente int,
+//    constraint fk_cliente foreign key (id_cliente) references tb_clientes(id) );
+//create table tb_status (
+//    id int primary key auto_increment,
+//    descricao varchar(100) );
+//insert into tb_status (descricao) values ("aberto");
+//insert into tb_status (descricao) values ("finalizado");
+//insert into tb_status (descricao) values ("cancelado");
 
 	public Pedido() {
 	}
 	public Pedido(Date data, int idStatus, int idCliente) {
 		setData(data);
-		setStatus(idStatus);
-		setCliente(idCliente);
+		setIdStatus(idStatus);
+		setIdCliente(idCliente);
 	}
 	public Pedido(int id, Date data, int idStatus, int idCliente) {
 		setId(id);
 		setData(data);
-		setStatus(idStatus);
-		setCliente(idCliente);
+		setIdStatus(idStatus);
+		setIdCliente(idCliente);
 	}
 
 	public int getId() {
@@ -43,22 +51,22 @@ public class Pedido {
 //		if (data!=null && data.length()>0)
 			this.data = data;
 	}
-	public int getStatus() {
+	public int getIdStatus() {
 		return idStatus;
 	}
-	public void setStatus(int idStatus) {
+	public void setIdStatus(int idStatus) {
 		if (idStatus>0)
 			this.idStatus = idStatus;
 	}
-	public int getCliente() {
+	public int getIdCliente() {
 		return idCliente;
 	}
-	public void setCliente(int idCliente) {
+	public void setIdCliente(int idCliente) {
 		if (idCliente>0)
 			this.idCliente = idCliente;
 	}
 
 	public void listar() {
-		System.out.println(this.getId() + " - " + this.getData() + this.getCliente() + " " + this.getStatus());
+		System.out.println(this.getId() + " - " + this.getData() + this.getIdCliente() + " " + this.getIdStatus());
 	}
 }

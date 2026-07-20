@@ -20,8 +20,8 @@ public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-			stm.setInt(1, lPed.getPedido());
-			stm.setInt(2, lPed.getProduto());
+			stm.setInt(1, lPed.getIdPedido());
+			stm.setInt(2, lPed.getIdProduto());
 			stm.setInt(3, lPed.getQuantidade());
 			stm.execute();
 			ResultSet rs = stm.getGeneratedKeys();
@@ -60,8 +60,8 @@ public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
-			stm.setInt(1, lPed.getPedido());
-			stm.setInt(2, lPed.getProduto());
+			stm.setInt(1, lPed.getIdPedido());
+			stm.setInt(2, lPed.getIdProduto());
 			stm.setInt(3, lPed.getQuantidade());
 			stm.setInt(4, lPed.getId());
 			stm.execute();

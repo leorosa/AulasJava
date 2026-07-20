@@ -13,9 +13,9 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 	private String cep;
 	private String cidade;
 	private String estado;
-// no banco de dados MySQL:
+//no banco de dados MySQL:
 //create table tb_clientes (
-//	id int primary key auto_increment,
+//    id int primary key auto_increment,
 //    cpf varchar(14),
 //    nome varchar(200),
 //    email varchar(200),
@@ -24,8 +24,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 //    bairro varchar(200),
 //    cep varchar(9),
 //    cidade varchar(200),
-//    estado varchar(2)
-//);
+//    estado varchar(2) );
 
 	public Cliente() {
 	}
@@ -57,8 +56,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return id;
 	}
 	public void setId(int id) {
-		if (id!=null)
-			this.id = id;
+		this.id = id;
 	}
 	public String getCpf() {
 		return cpf;
@@ -92,7 +90,7 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 		return numero;
 	}
 	public void setNumero(int numero) {
-		if (numero!=null && numero>0)
+		if (numero>0)
 			this.numero = numero;
 	}
 	public String getBairro() {

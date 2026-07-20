@@ -7,20 +7,26 @@ public class ListaPedido {
 	private int idPedido;
 	private int idProduto;
 	private int quantidade;
-// no banco de dados MySQL:
-//      create table lista_pedido ( id int primary key auto_increment, id_pedido int, constraint fk_pedido foreign key (id_pedido) references tb_pedidos(id), id_produto int, constraint fk_produto foreign key (id) references tb_produtos(id), quantidade int);
+//no banco de dados MySQL:
+//create table lista_pedido (
+//    id int primary key auto_increment,
+//    id_pedido int,
+//    constraint fk_pedido foreign key (id_pedido) references tb_pedidos(id),
+//    id_produto int,
+//    constraint fk_produto foreign key (id_produto) references tb_produtos(id),
+//    quantidade int );
 
 	public ListaPedido() {
 	}
 	public ListaPedido(int idPedido, int idProduto, int quantidade) {
-		setPedido(idPedido);
-		setProduto(idProduto);
+		setIdPedido(idPedido);
+		setIdProduto(idProduto);
 		setQuantidade(quantidade);
 	}
 	public ListaPedido(int id, int idPedido, int idProduto, int quantidade) {
 		setId(id);
-		setPedido(idPedido);
-		setProduto(idProduto);
+		setIdPedido(idPedido);
+		setIdProduto(idProduto);
 		setQuantidade(quantidade);
 	}
 
@@ -31,17 +37,17 @@ public class ListaPedido {
 		if (id>0)
 			this.id = id;
 	}
-	public int getPedido() {
+	public int getIdPedido() {
 		return idPedido;
 	}
-	public void setPedido(int idPedido) {
+	public void setIdPedido(int idPedido) {
 		if (idPedido>0)
 			this.idPedido = idPedido;
 	}
-	public int getProduto() {
+	public int getIdProduto() {
 		return idProduto;
 	}
-	public void setProduto(int idProduto) {
+	public void setIdProduto(int idProduto) {
 		if (idProduto>0)
 			this.idProduto = idProduto;
 	}
@@ -54,14 +60,14 @@ public class ListaPedido {
 	}
 
 	public void listar() {
-		System.out.println(this.getId() + " - " + this.getPedido() + this.getProduto() + " " + this.getQuantidade());
+		System.out.println(this.getId() + " - " + this.getIdPedido() + this.getIdProduto() + " " + this.getQuantidade());
 	}
 	public void editar() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("id pedido: ");
-		this.setPedido(sc.nextInt());
+		this.setIdPedido(sc.nextInt());
 		System.out.print("id produto: ");
-		this.setProduto(sc.nextInt());
+		this.setIdProduto(sc.nextInt());
 		System.out.print("quantidade: ");
 		this.setQuantidade(sc.nextInt());
 		sc.nextLine(); // consome nova linhe ignorada por sc.nextInt()
