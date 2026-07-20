@@ -1,21 +1,30 @@
 import dao.ClienteDao;
 import dao.ProdutoDao;
+import dao.PedidoDao;
+import dao.ListaPedidoDao;
 import java.util.List;
 import java.util.Scanner;
 import modelos.Cliente;
 import modelos.Produto;
+import modelos.Pedido;
+import modelos.ListaPedido;
 
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		ProdutoDao prodDao = new ProdutoDao();
 		ClienteDao cliDao = new ClienteDao();
+		PedidoDao pedDao = new PedidoDao();
+		ListaPedidoDao lPedDao = new ListaPedidoDao();
 		List<Produto> produtos;
 		List<Cliente> clientes;
+		List<Pedido> pedidos;
+		List<ListaPedido> listaPedidos;
 		while (true) {
 			produtos = prodDao.consultar();
 			clientes = cliDao.consultar();
-			System.out.println("digite [c] para clientes, [p] para produtos, ou [s] para sair");
+			pedidos = pedDao.consultar();
+			System.out.println("digite [c] para clientes, [p] para produtos, [n] para compras, ou outra tecla para sair");
 			String modo = sc.nextLine();
 			String opcao = "n";
 			if (modo.equals("p")) {
@@ -27,9 +36,6 @@ public class Main {
 					Produto prod = new Produto();
 					prod.editar();
 					prodDao.inserir(prod);
-				} else if (opcao.equals("s")) {
-					sc.close();
-					break;
 				} else if (opcao.equals("a")) {
 //					int i = selectProd(produtos);
 //					Produto prod = produtos.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
@@ -101,7 +107,29 @@ public class Main {
 						cli.listar();
 					}
 				}
-			} else if (modo.equals("s")) {
+			} else if (modo.equals("n")) {
+				if (opcao.equals("n")) {
+					Pedido ped = new Pedido();
+					ped.setIdCliente(selectCli(clientes).getId());
+					java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+					ped.setData(sqlDate);
+					ped.setIdStatus(1); // carrinho aberto
+					pedDao.inserir(ped);
+					while (true) {
+						System.out.print("tecle [p] para adicionar produto: ");
+						if(!sc.nextLine().equals("p"))
+							break;
+						ListaPedido lPed = new ListaPedido();
+						lPed.setIdPedido(ped.getId());
+						lPed.setIdProduto(selectProd(produtos).getId());
+						System.out.print("quantidade? ");
+						int qtd = sc.nextInt();
+						sc.nextLine(); // consumir linha ignorada por nextInt()
+						lPed.setQuantidade(qtd);
+						lPedDao.inserir(lPed);
+					}
+				}
+			} else {
 				sc.close();
 				break;
 			}
@@ -136,4 +164,5 @@ public class Main {
 		}
 		return null;
 	}
+
 }
