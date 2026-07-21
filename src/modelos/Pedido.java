@@ -66,7 +66,7 @@ public class Pedido {
 			this.idCliente = idCliente;
 	}
 
-	public void listar() {
+	public void listar() { // TODO mostrar informações ao invés de ids
 		System.out.println(this.getId() + " - " + this.getData() + ", cliente: " + this.getIdCliente() + ", status: " + this.getIdStatus());
 	}
 }

@@ -59,9 +59,10 @@ public class ListaPedido {
 			this.quantidade = quantidade;
 	}
 
-	public void listar() {
+	public void listar() { // TODO mostrar informações ao invés de ids
 		System.out.println(this.getId() + " - pedido: " + this.getIdPedido() + ", produto: " + this.getIdProduto() + ", quantidade: " + this.getQuantidade());
 	}
+/*
 	public void editar() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("id pedido: ");
@@ -73,4 +74,5 @@ public class ListaPedido {
 		sc.nextLine(); // consome nova linhe ignorada por sc.nextInt()
 //		sc.close();
 	}
+*/
 }

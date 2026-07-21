@@ -128,17 +128,23 @@ public class Main {
 					}
 					if (opcao.equals("a")||opcao.equals("n")) {
 						while (true) {
-							System.out.print("tecle [p] para adicionar produto: ");
-							if(!sc.nextLine().equals("p"))
+							System.out.print("ITEMS: [l]istar, [a]dicionar, [e]ditar, ou [r]emover: ");
+							opcao = sc.nextLine();
+							if(opcao.equals("a")) { // TODO checar se produto já está no carrinho
+								ListaPedido lPed = new ListaPedido();
+								lPed.setIdPedido(ped.getId());
+								lPed.setIdProduto(selectProd(produtos).getId());
+								System.out.print("quantidade? ");
+								int qtd = sc.nextInt();
+								sc.nextLine(); // consumir linha ignorada por nextInt()
+								lPed.setQuantidade(qtd);
+								lPedDao.inserir(lPed);
+							} else if(opcao.equals("e")) { // TODO editar produto da lista
+							} else if(opcao.equals("r")) { // TODO remover produto da lista
+							} else if(opcao.equals("l")) { // TODO mostrar lista
+							} else {
 								break;
-							ListaPedido lPed = new ListaPedido();
-							lPed.setIdPedido(ped.getId());
-							lPed.setIdProduto(selectProd(produtos).getId());
-							System.out.print("quantidade? ");
-							int qtd = sc.nextInt();
-							sc.nextLine(); // consumir linha ignorada por nextInt()
-							lPed.setQuantidade(qtd);
-							lPedDao.inserir(lPed);
+							}
 						}
 					}
 				}
