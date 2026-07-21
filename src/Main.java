@@ -1,13 +1,13 @@
 import dao.ClienteDao;
-import dao.ProdutoDao;
-import dao.PedidoDao;
 import dao.ListaPedidoDao;
+import dao.PedidoDao;
+import dao.ProdutoDao;
 import java.util.List;
 import java.util.Scanner;
 import modelos.Cliente;
-import modelos.Produto;
-import modelos.Pedido;
 import modelos.ListaPedido;
+import modelos.Pedido;
+import modelos.Produto;
 
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class Main {
 		List<Produto> produtos;
 		List<Cliente> clientes;
 		List<Pedido> pedidos;
-		List<ListaPedido> listaPedidos;
+		List<ListaPedido> itemsPedido = null;
 		while (true) {
 			produtos = prodDao.consultar();
 			clientes = cliDao.consultar();
@@ -83,6 +83,8 @@ public class Main {
 				}
 			} else if (modo.equals("n")) {
 				Cliente cli = selectCli(clientes);
+				if (cli==null)
+					continue;
 				PedidoDao pedDao = new PedidoDao();
 				ListaPedidoDao lPedDao = new ListaPedidoDao();
 				pedidos = pedDao.consultarCliente(cli.getId());
@@ -94,33 +96,53 @@ public class Main {
 						System.out.print("PEDIDOS: [a]brir, [l]istar, [L]istar todos, [f]inalizar, ou [c]ancelar: ");
 					opcao = sc.nextLine();
 				}
-				if (opcao.equals("f")) {
+				if (opcao.equals("f")) { // somente fechar compra se houver estoque suficiente
 					if (ped!=null)
+						itemsPedido = lPedDao.consultarPedido(ped.getId());
+						Boolean estoqueSuficiente = true;
+						if (itemsPedido!=null) {
+							for(ListaPedido lPed : itemsPedido) {
+								Produto prod = prodDao.consultar(lPed.getIdProduto());
+								if (lPed.getQuantidade()>prod.getEstoque()) {
+									estoqueSuficiente = false;
+									System.out.println("estoque insuficiente para " + prod.getDescricao() + ": " + lPed.getQuantidade() + " > " + prod.getEstoque());
+								}
+							}
+						}
+						if (!estoqueSuficiente)
+							continue;
+						if (itemsPedido!=null) {
+							for(ListaPedido lPed : itemsPedido) {
+								Produto prod = prodDao.consultar(lPed.getIdProduto());
+								prod.setEstoque(prod.getEstoque() - lPed.getQuantidade());
+								prodDao.alterar(prod);
+							}
+						}
 						ped.setIdStatus(2);
 						pedDao.alterar(ped);
 				} else if (opcao.equals("c")) {
 					if (ped!=null)
 						ped.setIdStatus(3);
-						pedDao.alterar(ped);
+						pedDao.alterar(ped); // ou remover?
 				} else if (opcao.equals("l")) {
 					ped = selectPed(pedidos);
 					if (ped!=null) {
 						ped.listar();
-						listaPedidos = lPedDao.consultar(ped.getId());
-						System.out.println("cliente: " + cli.getId() + ", pedido: " + ped.getId() + ", lista: " + listaPedidos.size());
-						for(ListaPedido lPed : listaPedidos) {
+						itemsPedido = lPedDao.consultarPedido(ped.getId());
+						System.out.println("cliente: " + cli.getNome() + ", pedido: " + ped.getId() + ", lista: " + itemsPedido.size() + " items");
+						for(ListaPedido lPed : itemsPedido) {
 							lPed.listar();
 						}
 					}
 				} else if (opcao.equals("L")) {
-					List<Pedido> lista = pedDao.consultar();
-					for(Pedido pedd : lista) {
-						pedd.listar();
+					List<Pedido> pedidosGeral = pedDao.consultar();
+					for(Pedido pedGeral : pedidosGeral) {
+						pedGeral.listar();
 					}
-				} else {
+				} else { // abrir/novo
 					if (ped==null) {
 						ped = new Pedido();
-						ped.setIdCliente(selectCli(clientes).getId());
+						ped.setIdCliente(cli.getId());
 						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
 						ped.setData(sqlDate);
 						ped.setIdStatus(1); // carrinho aberto
@@ -128,20 +150,48 @@ public class Main {
 					}
 					if (opcao.equals("a")||opcao.equals("n")) {
 						while (true) {
+							itemsPedido = lPedDao.consultarPedido(ped.getId());
 							System.out.print("ITEMS: [l]istar, [a]dicionar, [e]ditar, ou [r]emover: ");
 							opcao = sc.nextLine();
-							if(opcao.equals("a")) { // TODO checar se produto já está no carrinho
-								ListaPedido lPed = new ListaPedido();
-								lPed.setIdPedido(ped.getId());
-								lPed.setIdProduto(selectProd(produtos).getId());
-								System.out.print("quantidade? ");
-								int qtd = sc.nextInt();
-								sc.nextLine(); // consumir linha ignorada por nextInt()
-								lPed.setQuantidade(qtd);
-								lPedDao.inserir(lPed);
-							} else if(opcao.equals("e")) { // TODO editar produto da lista
-							} else if(opcao.equals("r")) { // TODO remover produto da lista
-							} else if(opcao.equals("l")) { // TODO mostrar lista
+							if(opcao.equals("a")) {
+								ListaPedido lPed = null;
+								Produto prod = selectProd(produtos);
+								if (prod!=null) {
+									for (ListaPedido itemPed : itemsPedido) { // checar se produto já está no carrinho
+										if (prod.getId()==itemPed.getIdProduto())
+											lPed=itemPed;
+									}
+									if (lPed==null) {
+										lPed = new ListaPedido();
+										lPed.setIdProduto(prod.getId());
+										lPed.setIdPedido(ped.getId());
+										lPedDao.inserir(lPed);
+									}
+									System.out.print("entre com a quantidade: ");
+									int qtd = sc.nextInt();
+									sc.nextLine(); // consumir linha ignorada por nextInt()
+									lPed.setQuantidade(qtd);
+									lPedDao.alterar(lPed);
+								}
+							} else if(opcao.equals("e")) {
+								ListaPedido lPed = selectLPed(itemsPedido);
+								if (lPed!=null) {
+									System.out.print("entre com a quantidade: ");
+									int qtd = sc.nextInt();
+									sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
+									lPed.setQuantidade(qtd);
+									lPedDao.alterar(lPed);
+								}
+							} else if(opcao.equals("r")) {
+								ListaPedido lPed = selectLPed(itemsPedido);
+								System.out.print("entre com a quantidade: ");
+								if (lPed!=null)
+									lPedDao.deletar(lPed.getId());
+							} else if(opcao.equals("l")) {
+								for (ListaPedido lPed : itemsPedido) {
+									Produto prod = prodDao.consultar(lPed.getIdProduto());
+									System.out.println(lPed.getId() + ", produto: " + prod.getDescricao() + ", quantidade: " + lPed.getQuantidade());
+								}
 							} else {
 								break;
 							}
@@ -183,13 +233,26 @@ public class Main {
 
 	static Pedido selectPed(List<Pedido> pedidos) {
 		for (Pedido ped : pedidos) {
-			System.out.println(ped.getId() + ", cliente: " + ped.getIdCliente() + ", status: " +ped.getIdStatus());
+			System.out.println(ped.getId() + ", status: " +ped.getIdStatus());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Pedido ped : pedidos) {
 			if (i==ped.getId())
 				return ped;
+		}
+		return null;
+	}
+
+	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
+		for (ListaPedido lPed : listaPedidos) {
+			System.out.println(lPed.getId() + ", produto: " + lPed.getIdProduto() + ", quantidade: " + lPed.getQuantidade());
+		}
+		int i = sc.nextInt();
+		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
+		for (ListaPedido lPed : listaPedidos) {
+			if (i==lPed.getId())
+				return lPed;
 		}
 		return null;
 	}
