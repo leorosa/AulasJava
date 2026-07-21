@@ -1,0 +1,47 @@
+@startuml
+class Cliente {
+  id: int
+  cpf: String
+  nome: String
+  email: String
+  rua: String
+  numero: int
+  bairro: String
+  cep: String
+  cidade: String
+  estado: String
+  void listar()
+  void editar()
+}
+class Produto {
+  id: int
+  descricao: String
+  preco: double
+  void listar()
+  void editar()
+}
+class Status {
+  id: int
+  descricao: String
+}
+
+Cliente->Pedido
+Status->Pedido
+class Pedido {
+  id: int
+  id_cliente: int
+  id_status: int
+  data: Date
+  void listar()
+}
+
+Pedido->ListaPedido
+Produto->ListaPedido
+class ListaPedido {
+  id: int
+  id_pedido: int
+  id_produto: int
+  quantidade: int
+  void listar()
+}
+@enduml
