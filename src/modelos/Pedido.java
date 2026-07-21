@@ -8,6 +8,7 @@ public class Pedido {
 	private Date data;
 	private int idStatus;
 	private int idCliente;
+	private String nomeCliente;
 //no banco de dados MySQL:
 //create table tb_pedidos (
 //    id int primary key auto_increment,
@@ -25,16 +26,18 @@ public class Pedido {
 
 	public Pedido() {
 	}
-	public Pedido(Date data, int idStatus, int idCliente) {
+	public Pedido(Date data, int idStatus, int idCliente, String nomeCliente) {
 		setData(data);
 		setIdStatus(idStatus);
 		setIdCliente(idCliente);
+		setNomeCliente(nomeCliente);
 	}
-	public Pedido(int id, Date data, int idStatus, int idCliente) {
+	public Pedido(int id, Date data, int idStatus, int idCliente, String nomeCliente) {
 		setId(id);
 		setData(data);
 		setIdStatus(idStatus);
 		setIdCliente(idCliente);
+		setNomeCliente(nomeCliente);
 	}
 
 	public int getId() {
@@ -65,8 +68,15 @@ public class Pedido {
 		if (idCliente>0)
 			this.idCliente = idCliente;
 	}
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+	public void setNomeCliente(String nomeCliente) {
+		if (nomeCliente!=null && nomeCliente.length()>0)
+			this.nomeCliente = nomeCliente;
+	}
 
 	public void listar() { // TODO mostrar informações ao invés de ids
-		System.out.println(this.getId() + " - " + this.getData() + ", cliente: " + this.getIdCliente() + ", status: " + this.getIdStatus());
+		System.out.println(this.getId() + " - " + this.getData() + ", cliente: " + this.getNomeCliente() + ", status: " + this.getIdStatus());
 	}
 }

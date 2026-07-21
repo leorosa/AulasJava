@@ -75,7 +75,7 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 	@Override
 	public Pedido consultar(Integer id) {
 		Pedido ped = null;
-		String sql = "select * from tb_pedidos where id=?"; // inner join lista_items on lista_items.id_pedido=tb_pedidos.id inner join tb_produtos in tb_produtos.id=lista_items.id_produto";
+		String sql = "select * from tb_pedidos where id=? inner join tb_clientes on tb_clientes.id=tb_pedidos.id_cliente";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
@@ -95,14 +95,14 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 
 	public List<Pedido> consultarCliente(Integer idCliente) {
 		List<Pedido> pedidos = new ArrayList<Pedido>();
-		String sql = "select * from tb_pedidos where id_cliente=?";
+		String sql = "select * from tb_pedidos inner join tb_clientes on tb_clientes.id=tb_pedidos.id_cliente where id_cliente=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setInt(1,idCliente);
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Pedido ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"));
+				Pedido ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"), rs.getString("nome"));
 				pedidos.add(ped);
 			}
 			rs.close();
@@ -116,14 +116,14 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 
 	public Pedido consultarAberto(Integer idCliente) {
 		Pedido ped = null;
-		String sql = "select * from tb_pedidos where id_cliente=? and id_status=1";
+		String sql = "select * from tb_pedidos inner join tb_clientes on tb_clientes.id=tb_pedidos.id_cliente where id_cliente=? and id_status=1";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setInt(1,idCliente);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				ped = new Pedido(rs.getInt("id"), rs.getDate("data"), 1, (int)idCliente);
+				ped = new Pedido(rs.getInt("id"), rs.getDate("data"), 1, (int)idCliente, rs.getString("nome"));
 			}
 			rs.close();
 			stm.close();
