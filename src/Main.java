@@ -34,28 +34,16 @@ public class Main {
 					prod.editar();
 					prodDao.inserir(prod);
 				} else if (opcao.equals("a")) {
-//					int i = selectProd(produtos);
-//					Produto prod = produtos.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
 					Produto prod = selectProd(produtos);
 					if (prod!=null) {
 						prod.editar();
 						prodDao.alterar(prod);
 					}
 				} else if (opcao.equals("r")) {
-//					int i = selectProd(produtos);
-//					prodDao.deletar(i);
 					Produto prod = selectProd(produtos);
 					if (prod!=null)
 						prodDao.deletar(prod.getId());
-//					Produto prod = prodDao.consultar(i);
-//					if (prod!=null) {
-//						System.out.println(prod.getId() + " - " + prod.getDescricao() + " R$" + prod.getPreco());
-//					} else {
-//						System.out.println("Produto removido");
-//					}
 				} else if (opcao.equals("l")) {
-//					int i = selectProd(produtos);
-//					Produto prod = prodDao.consultar(i);
 					Produto prod = selectProd(produtos);
 					prod.listar();
 				} else if (opcao.equals("L")) {
@@ -74,27 +62,16 @@ public class Main {
 					cli.editar();
 					cliDao.inserir(cli);
 				} else if (opcao.equals("a")) {
-//					int i = selectCli(clientes);
-//					Cliente cli = clientes.get(i-1); // i-1 porque arrays iniciam em 0, enquanto tabelas iniciam em 1
 					Cliente cli = selectCli(clientes);
 					if (cli!=null) {
 						cli.editar();
 						cliDao.alterar(cli);
 					}
 				} else if (opcao.equals("r")) {
-//					int i = selectCli(clientes);
-//					cliDao.deletar(i);
 					Cliente cli = selectCli(clientes);
 					if (cli!=null)
 						cliDao.deletar(cli.getId());
-//					if (cli!=null) {
-//						System.out.println(cli.getId() + " - " + cli.getNome());
-//					} else {
-//						System.out.println("Cliente removido");
-//					}
 				} else if (opcao.equals("l")) {
-//					int i = selectCli(clientes);
-//					Cliente cli = cliDao.consultar(i);
 					Cliente cli = selectCli(clientes);
 					if (cli!=null)
 						cli.listar();
@@ -120,9 +97,11 @@ public class Main {
 				if (opcao.equals("f")) {
 					if (ped!=null)
 						ped.setIdStatus(2);
+						pedDao.alterar(ped);
 				} else if (opcao.equals("c")) {
 					if (ped!=null)
 						ped.setIdStatus(3);
+						pedDao.alterar(ped);
 				} else if (opcao.equals("l")) {
 					ped = selectPed(pedidos);
 					if (ped!=null) {
@@ -145,7 +124,7 @@ public class Main {
 						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
 						ped.setData(sqlDate);
 						ped.setIdStatus(1); // carrinho aberto
-//						pedDao.inserir(ped);
+						pedDao.inserir(ped);
 					}
 					if (opcao.equals("a")||opcao.equals("n")) {
 						while (true) {
@@ -159,7 +138,7 @@ public class Main {
 							int qtd = sc.nextInt();
 							sc.nextLine(); // consumir linha ignorada por nextInt()
 							lPed.setQuantidade(qtd);
-//							lPedDao.inserir(lPed);
+							lPedDao.inserir(lPed);
 						}
 					}
 				}
@@ -174,9 +153,7 @@ public class Main {
 		for (Produto prod : produtos) {
 			System.out.println(prod.getId() + " " + prod.getDescricao());
 		}
-//		i = 0;
-//		while (i<1||i>produtos.size())
-			int i = sc.nextInt();
+		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Produto prod : produtos) {
 			if (i==prod.getId())
@@ -189,8 +166,7 @@ public class Main {
 		for (Cliente cli : clientes) {
 			System.out.println(cli.getId() + " " + cli.getNome());
 		}
-//		while (i<1||i>clientes.size())
-			int i = sc.nextInt();
+		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Cliente cli : clientes) {
 			if (i==cli.getId())
@@ -203,7 +179,7 @@ public class Main {
 		for (Pedido ped : pedidos) {
 			System.out.println(ped.getId() + ", cliente: " + ped.getIdCliente() + ", status: " +ped.getIdStatus());
 		}
-			int i = sc.nextInt();
+		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Pedido ped : pedidos) {
 			if (i==ped.getId())

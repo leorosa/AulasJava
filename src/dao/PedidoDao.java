@@ -56,7 +56,7 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 
 	@Override
 	public void alterar(Pedido ped) {
-		String sql = "update tb_produtos set data=?, id_status=? where id=?"; // nao faz sentido alterar cliente...
+		String sql = "update tb_pedidos set data=?, id_status=? where id=?"; // nao faz sentido alterar cliente...
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
