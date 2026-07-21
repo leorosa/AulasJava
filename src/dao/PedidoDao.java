@@ -93,9 +93,30 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 		return ped;
 	}
 
+	public List<Pedido> consultarCliente(Integer idCliente) {
+		List<Pedido> pedidos = new ArrayList<Pedido>();
+		String sql = "select * from tb_pedidos where id_cliente=?";
+		try {
+			Connection con = ConectaDB.conectar();
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setInt(1,idCliente);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				Pedido ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"));
+				pedidos.add(ped);
+			}
+			rs.close();
+			stm.close();
+			con.close();
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return pedidos;
+	}
+
 	public Pedido consultarAberto(Integer idCliente) {
 		Pedido ped = null;
-		String sql = "select * from tb_pedidos where id_cliente=? and status=1";
+		String sql = "select * from tb_pedidos where id_cliente=? and id_status=1";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);

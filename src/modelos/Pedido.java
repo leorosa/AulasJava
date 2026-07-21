@@ -67,6 +67,6 @@ public class Pedido {
 	}
 
 	public void listar() {
-		System.out.println(this.getId() + " - " + this.getData() + this.getIdCliente() + " " + this.getIdStatus());
+		System.out.println(this.getId() + " - " + this.getData() + ", cliente: " + this.getIdCliente() + ", status: " + this.getIdStatus());
 	}
 }

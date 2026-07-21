@@ -14,8 +14,6 @@ public class Main {
 	public static void main(String[] args) {
 		ProdutoDao prodDao = new ProdutoDao();
 		ClienteDao cliDao = new ClienteDao();
-		PedidoDao pedDao = new PedidoDao();
-		ListaPedidoDao lPedDao = new ListaPedidoDao();
 		List<Produto> produtos;
 		List<Cliente> clientes;
 		List<Pedido> pedidos;
@@ -23,13 +21,12 @@ public class Main {
 		while (true) {
 			produtos = prodDao.consultar();
 			clientes = cliDao.consultar();
-			pedidos = pedDao.consultar();
-			System.out.println("digite [c] para clientes, [p] para produtos, [n] para compras, ou outra tecla para sair");
+			System.out.print("digite [c] para clientes, [p] para produtos, [n] para compras, ou outra tecla para sair: ");
 			String modo = sc.nextLine();
 			String opcao = "n";
 			if (modo.equals("p")) {
 				if (!produtos.isEmpty()) {
-					System.out.println("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, [r]emover");
+					System.out.print("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, [r]emover: ");
 					opcao = sc.nextLine();
 				}
 				if (opcao.equals("n")) {
@@ -69,7 +66,7 @@ public class Main {
 				}
 			} else if (modo.equals("c")) {
 				if (!clientes.isEmpty()) {
-					System.out.println("CLIENTE: [n]ovo, [a]lterar, [l]istar, [L]istar todos, ou [r]emover");
+					System.out.print("CLIENTE: [n]ovo, [a]lterar, [l]istar, [L]istar todos, ou [r]emover: ");
 					opcao = sc.nextLine();
 				}
 				if (opcao.equals("n")) {
@@ -108,25 +105,47 @@ public class Main {
 					}
 				}
 			} else if (modo.equals("n")) {
-				if (opcao.equals("n")) {
-					Pedido ped = new Pedido();
-					ped.setIdCliente(selectCli(clientes).getId());
-					java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-					ped.setData(sqlDate);
-					ped.setIdStatus(1); // carrinho aberto
-					pedDao.inserir(ped);
-					while (true) {
-						System.out.print("tecle [p] para adicionar produto: ");
-						if(!sc.nextLine().equals("p"))
-							break;
-						ListaPedido lPed = new ListaPedido();
-						lPed.setIdPedido(ped.getId());
-						lPed.setIdProduto(selectProd(produtos).getId());
-						System.out.print("quantidade? ");
-						int qtd = sc.nextInt();
-						sc.nextLine(); // consumir linha ignorada por nextInt()
-						lPed.setQuantidade(qtd);
-						lPedDao.inserir(lPed);
+				Cliente cli = selectCli(clientes);
+				PedidoDao pedDao = new PedidoDao();
+				ListaPedidoDao lPedDao = new ListaPedidoDao();
+				pedidos = pedDao.consultarCliente(cli.getId());
+				Pedido ped = pedDao.consultarAberto(cli.getId());
+				if (!pedidos.isEmpty()) {
+					System.out.print("PEDIDOS: [a]brir, [l]istar, [L]istar todos, [f]inalizar, ou [c]ancelar: ");
+					opcao = sc.nextLine();
+				}
+				if (opcao.equals("l")) {
+					ped = selectPed(pedidos);
+					if (ped!=null)
+						ped.listar();
+				} else if (opcao.equals("L")) {
+					List<Pedido> lista = pedDao.consultar();
+					for(Pedido pedd : lista) {
+						pedd.listar();
+					}
+				} else {
+					if (ped==null) {
+						ped = new Pedido();
+						ped.setIdCliente(selectCli(clientes).getId());
+						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+						ped.setData(sqlDate);
+						ped.setIdStatus(1); // carrinho aberto
+//						pedDao.inserir(ped);
+					}
+					if (opcao.equals("a")||opcao.equals("n")) {
+						while (true) {
+							System.out.print("tecle [p] para adicionar produto: ");
+							if(!sc.nextLine().equals("p"))
+								break;
+							ListaPedido lPed = new ListaPedido();
+							lPed.setIdPedido(ped.getId());
+							lPed.setIdProduto(selectProd(produtos).getId());
+							System.out.print("quantidade? ");
+							int qtd = sc.nextInt();
+							sc.nextLine(); // consumir linha ignorada por nextInt()
+							lPed.setQuantidade(qtd);
+//							lPedDao.inserir(lPed);
+						}
 					}
 				}
 			} else {
@@ -165,4 +184,16 @@ public class Main {
 		return null;
 	}
 
+	static Pedido selectPed(List<Pedido> pedidos) {
+		for (Pedido ped : pedidos) {
+			System.out.println(ped.getId() + ", cliente: " + ped.getIdCliente() + ", status: " +ped.getIdStatus());
+		}
+			int i = sc.nextInt();
+		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
+		for (Pedido ped : pedidos) {
+			if (i==ped.getId())
+				return ped;
+		}
+		return null;
+	}
 }
