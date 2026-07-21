@@ -8,11 +8,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//import interfaces.ICRUD;
+import interfaces.ICRUD;
 import modelos.ListaPedido;
 import utils.ConectaDB;
 
-public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
+public class ListaPedidoDao implements ICRUD<ListaPedido,Integer> {
 
 //	@Override
 	public ListaPedido inserir(ListaPedido lPed) {
@@ -73,7 +73,6 @@ public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
 		}
 	}
 
-/*
 	@Override
 	public ListaPedido consultar(Integer id) {
 		ListaPedido lPed = null;
@@ -99,9 +98,8 @@ public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
 	public List<ListaPedido> consultar() {
 		return null;
 	}
-*/
 
-	public List<ListaPedido> consultar(Integer idPedido) {
+	public List<ListaPedido> consultarPedido(Integer idPedido) {
 		List<ListaPedido> lPed = new ArrayList<ListaPedido>();
 		String sql = "select * from lista_pedido where id_pedido=?";
 		try {
