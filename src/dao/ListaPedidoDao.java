@@ -75,14 +75,14 @@ public class ListaPedidoDao implements ICRUD<ListaPedido,Integer> {
 	@Override
 	public ListaPedido consultar(Integer id) {
 		ListaPedido lPed = null;
-		String sql = "select * from lista_pedido where id=?";
+		String sql = "select * from lista_pedido inner join tb_produtos on tb_produtos.id=lista_pedido.id_produto where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				lPed = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getInt("quantidade"));
+				lPed = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getString("descricao"), rs.getInt("quantidade"));
 			}
 			rs.close();
 			stm.close();
@@ -100,14 +100,14 @@ public class ListaPedidoDao implements ICRUD<ListaPedido,Integer> {
 
 	public List<ListaPedido> consultarPedido(Integer idPedido) {
 		List<ListaPedido> lPed = new ArrayList<ListaPedido>();
-		String sql = "select * from lista_pedido where id_pedido=?";
+		String sql = "select * from lista_pedido inner join tb_produtos on tb_produtos.id=lista_pedido.id_produto where id_pedido=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setInt(1,idPedido);
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				ListaPedido pedItem = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getInt("quantidade"));
+				ListaPedido pedItem = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getString("descricao"), rs.getInt("quantidade"));
 				lPed.add(pedItem);
 			}
 			rs.close();

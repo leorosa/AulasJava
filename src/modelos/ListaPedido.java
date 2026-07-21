@@ -1,11 +1,10 @@
 package modelos;
 
-import java.util.Scanner;
-
 public class ListaPedido {
 	private int id;
 	private int idPedido;
 	private int idProduto;
+	private String descricaoProduto;
 	private int quantidade;
 //no banco de dados MySQL:
 //create table lista_pedido (
@@ -18,15 +17,17 @@ public class ListaPedido {
 
 	public ListaPedido() {
 	}
-	public ListaPedido(int idPedido, int idProduto, int quantidade) {
+	public ListaPedido(int idPedido, int idProduto, String descricaoProduto, int quantidade) {
 		setIdPedido(idPedido);
 		setIdProduto(idProduto);
+		setDescricaoProduto(descricaoProduto);
 		setQuantidade(quantidade);
 	}
-	public ListaPedido(int id, int idPedido, int idProduto, int quantidade) {
+	public ListaPedido(int id, int idPedido, int idProduto, String descricaoProduto, int quantidade) {
 		setId(id);
 		setIdPedido(idPedido);
 		setIdProduto(idProduto);
+		setDescricaoProduto(descricaoProduto);
 		setQuantidade(quantidade);
 	}
 
@@ -50,6 +51,13 @@ public class ListaPedido {
 	public void setIdProduto(int idProduto) {
 		if (idProduto>0)
 			this.idProduto = idProduto;
+	}
+	public String getDescricaoProduto() {
+		return descricaoProduto;
+	}
+	public void setDescricaoProduto(String descricaoProduto) {
+		if (descricaoProduto!=null && descricaoProduto.length()>0)
+			this.descricaoProduto = descricaoProduto;
 	}
 	public int getQuantidade() {
 		return quantidade;

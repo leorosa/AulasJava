@@ -189,8 +189,7 @@ public class Main {
 									lPedDao.deletar(lPed.getId());
 							} else if(opcao.equals("l")) {
 								for (ListaPedido lPed : itemsPedido) {
-									Produto prod = prodDao.consultar(lPed.getIdProduto());
-									System.out.println(lPed.getId() + ", produto: " + prod.getDescricao() + ", quantidade: " + lPed.getQuantidade());
+									System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
 								}
 							} else {
 								break;
@@ -246,7 +245,7 @@ public class Main {
 
 	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
 		for (ListaPedido lPed : listaPedidos) {
-			System.out.println(lPed.getId() + ", produto: " + lPed.getIdProduto() + ", quantidade: " + lPed.getQuantidade());
+			System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
