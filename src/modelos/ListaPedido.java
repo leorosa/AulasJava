@@ -60,7 +60,7 @@ public class ListaPedido {
 	}
 
 	public void listar() {
-		System.out.println(this.getId() + " - " + this.getIdPedido() + this.getIdProduto() + " " + this.getQuantidade());
+		System.out.println(this.getId() + " - pedido: " + this.getIdPedido() + ", produto: " + this.getIdProduto() + ", quantidade: " + this.getQuantidade());
 	}
 	public void editar() {
 		Scanner sc = new Scanner(System.in);

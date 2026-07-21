@@ -111,13 +111,28 @@ public class Main {
 				pedidos = pedDao.consultarCliente(cli.getId());
 				Pedido ped = pedDao.consultarAberto(cli.getId());
 				if (!pedidos.isEmpty()) {
-					System.out.print("PEDIDOS: [a]brir, [l]istar, [L]istar todos, [f]inalizar, ou [c]ancelar: ");
+					if (ped==null)
+						System.out.print("PEDIDOS: [n]ovo, [l]istar, [L]istar todos: ");
+					else
+						System.out.print("PEDIDOS: [a]brir, [l]istar, [L]istar todos, [f]inalizar, ou [c]ancelar: ");
 					opcao = sc.nextLine();
 				}
-				if (opcao.equals("l")) {
-					ped = selectPed(pedidos);
+				if (opcao.equals("f")) {
 					if (ped!=null)
+						ped.setIdStatus(2);
+				} else if (opcao.equals("c")) {
+					if (ped!=null)
+						ped.setIdStatus(3);
+				} else if (opcao.equals("l")) {
+					ped = selectPed(pedidos);
+					if (ped!=null) {
 						ped.listar();
+						listaPedidos = lPedDao.consultar(ped.getId());
+						System.out.println("cliente: " + cli.getId() + ", pedido: " + ped.getId() + ", lista: " + listaPedidos.size());
+						for(ListaPedido lPed : listaPedidos) {
+							lPed.listar();
+						}
+					}
 				} else if (opcao.equals("L")) {
 					List<Pedido> lista = pedDao.consultar();
 					for(Pedido pedd : lista) {

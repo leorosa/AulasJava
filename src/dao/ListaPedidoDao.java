@@ -110,7 +110,7 @@ public class ListaPedidoDao { //implements ICRUD<ListaPedido,Integer> {
 			stm.setInt(1,idPedido);
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				ListaPedido pedItem = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getInt("id_quantidade"));
+				ListaPedido pedItem = new ListaPedido(rs.getInt("id"), rs.getInt("id_pedido"), rs.getInt("id_produto"), rs.getInt("quantidade"));
 				lPed.add(pedItem);
 			}
 			rs.close();
