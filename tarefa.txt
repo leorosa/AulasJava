@@ -1,0 +1,18 @@
+A partir do projeto implementado em sala:
+-> criar um menu para cadastrar produtos
+-> acrescentar atributo estoque ao produto;
+-> criar cadastro de clientes:id, cpf, nome, email, rua, numero, bairro, cep, cidade e estado
+-> acrescentar opções de menu para as operações de CRUD de cliente.
+
+-> criar cadastro de pedido: id, cliente, data, status e lista de produtos
+-> criar método adicionar no carrinho;
+-> criar método remover do carrinho;
+-> criar método para finalizar pedido.
+-> criar opções de menu para as operações de pedido.
+
+Criar um repositório no git para o projeto. Cada etapa deve ter no mínimo um commit;
+Atividade Individual.
+
+-----
+para rodar no linux:
+$ java -cp "lib/*:src" src/Main.java
