@@ -27,6 +27,5 @@
 	<hr />
 	<a href="cadastro.jsp">cadastro</a>
 	<a href="exemplos.jsp">exemplos</a>
-	<a href="trataform.jsp">trataform</a>
 </body>
 </html>

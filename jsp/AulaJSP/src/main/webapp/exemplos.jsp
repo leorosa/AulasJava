@@ -34,17 +34,13 @@
 	%>
 	<hr />
 		<%@include file="topo.jsp"%>
-		Dados do formulario<br>
-		<%
-		String nome = request.getParameter("txtnome");
-		if(nome=="")
-			out.println("Nome não foi digitato");
-		else
-			out.println("Seu nome é " + nome);
-		%>
+		<form action="trataform.jsp" method="post">
+			Nome:<input type="text" name="txtnome"/><br>
+			E-Mail:<input type="text" name="txtemail"/><br>
+			Data de Nascimento:<input type="text" name="txtdtnasc"/><br>
+			<input type="submit" value="Enviar"/>
 
-		<br>E-Mail: <%=request.getParameter("txtemail")%><br>
-		Data de Nascimento: <%=request.getParameter("txtdtnasc")%><br>
+		</form>
 		<hr />
 		<%@include file="rodape.jsp"%>
 </body>
