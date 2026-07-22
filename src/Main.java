@@ -26,7 +26,7 @@ public class Main {
 			String opcao = "n";
 			if (modo.equals("p")) {
 				if (!produtos.isEmpty()) {
-					System.out.print("PRODUTO: [n]ovo, [a]lterar, [l]istar, [L]istar todos, [r]emover: ");
+					System.out.print("PRODUTO: [n]ovo, [a]lterar, [l]istar, ou [r]emover: ");
 					opcao = sc.nextLine();
 				}
 				if (opcao.equals("n")) {
@@ -44,17 +44,11 @@ public class Main {
 					if (prod!=null)
 						prodDao.deletar(prod.getId());
 				} else if (opcao.equals("l")) {
-					Produto prod = selectProd(produtos);
-					prod.listar();
-				} else if (opcao.equals("L")) {
-					List<Produto> lista = prodDao.consultar();
-					for(Produto prod : lista) {
-						prod.listar();
-					}
+					listarProd(produtos);
 				}
 			} else if (modo.equals("c")) {
 				if (!clientes.isEmpty()) {
-					System.out.print("CLIENTE: [n]ovo, [a]lterar, [l]istar, [L]istar todos, ou [r]emover: ");
+					System.out.print("CLIENTE: [n]ovo, [a]lterar, [l]istar, ou [r]emover: ");
 					opcao = sc.nextLine();
 				}
 				if (opcao.equals("n")) {
@@ -72,14 +66,7 @@ public class Main {
 					if (cli!=null)
 						cliDao.deletar(cli.getId());
 				} else if (opcao.equals("l")) {
-					Cliente cli = selectCli(clientes);
-					if (cli!=null)
-						cli.listar();
-				} else if (opcao.equals("L")) {
-					List<Cliente> lista = cliDao.consultar();
-					for(Cliente cli : lista) {
-						cli.listar();
-					}
+					listarCli(clientes);
 				}
 			} else if (modo.equals("n")) {
 				Cliente cli = selectCli(clientes);
@@ -125,20 +112,11 @@ public class Main {
 						ped.setIdStatus(3);
 						pedDao.alterar(ped); // ou remover?
 				} else if (opcao.equals("l")) {
-					ped = selectPed(pedidos);
-					if (ped!=null) {
-						ped.listar();
-						itemsPedido = lPedDao.consultarPedido(ped.getId());
-						System.out.println("cliente: " + cli.getNome() + ", pedido: " + ped.getId() + ", lista: " + itemsPedido.size() + " items");
-						for(ListaPedido lPed : itemsPedido) {
-							lPed.listar();
-						}
-					}
+					listarPed(pedidos);
 				} else if (opcao.equals("L")) {
 					List<Pedido> pedidosGeral = pedDao.consultar();
-					for(Pedido pedGeral : pedidosGeral) {
-						pedGeral.listar();
-					}
+					if (pedidosGeral!=null)
+						listarPed(pedidosGeral);
 				} else { // abrir/novo
 					if (ped==null) {
 						ped = new Pedido();
@@ -188,9 +166,7 @@ public class Main {
 								if (lPed!=null)
 									lPedDao.deletar(lPed.getId());
 							} else if(opcao.equals("l")) {
-								for (ListaPedido lPed : itemsPedido) {
-									System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
-								}
+								listarLPed(itemsPedido);
 							} else {
 								break;
 							}
@@ -204,10 +180,13 @@ public class Main {
 		}
 	}
 
-	static Produto selectProd(List<Produto> produtos) {
+	static void listarProd(List<Produto> produtos) {
 		for (Produto prod : produtos) {
-			System.out.println(prod.getId() + " " + prod.getDescricao());
+			prod.listar();
 		}
+	}
+	static Produto selectProd(List<Produto> produtos) {
+		listarProd(produtos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Produto prod : produtos) {
@@ -217,10 +196,13 @@ public class Main {
 		return null;
 	}
 
-	static Cliente selectCli(List<Cliente> clientes) {
+	static void listarCli(List<Cliente> clientes) {
 		for (Cliente cli : clientes) {
-			System.out.println(cli.getId() + " " + cli.getNome());
+			cli.listar();
 		}
+	}
+	static Cliente selectCli(List<Cliente> clientes) {
+		listarCli(clientes);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Cliente cli : clientes) {
@@ -230,10 +212,13 @@ public class Main {
 		return null;
 	}
 
-	static Pedido selectPed(List<Pedido> pedidos) {
+	static void listarPed(List<Pedido> pedidos) {
 		for (Pedido ped : pedidos) {
-			System.out.println(ped.getId() + ", status: " +ped.getIdStatus());
+			ped.listar();
 		}
+	}
+	static Pedido selectPed(List<Pedido> pedidos) {
+		listarPed(pedidos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Pedido ped : pedidos) {
@@ -243,10 +228,13 @@ public class Main {
 		return null;
 	}
 
-	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
+	static void listarLPed(List<ListaPedido> listaPedidos) {
 		for (ListaPedido lPed : listaPedidos) {
-			System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
+			lPed.listar();
 		}
+	}
+	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
+		listarLPed(listaPedidos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (ListaPedido lPed : listaPedidos) {
