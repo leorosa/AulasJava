@@ -9,7 +9,6 @@
 </head>
 <body>
 	<h1>Ola</h1>
-	<a href="cadastro.jsp">cadastro</a>
 	<%
 		String nome = "Fulano";
 		out.print("seu nome é " + nome);
@@ -24,5 +23,8 @@
 		}
 	%>
 	</p>
+	<hr />
+	<a href="cadastro.jsp">cadastro</a>
+	<a href="exemplos.jsp">exemplos</a>
 </body>
 </html>
