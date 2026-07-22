@@ -204,10 +204,13 @@ public class Main {
 		}
 	}
 
-	static Produto selectProd(List<Produto> produtos) {
+	static void listarProd(List<Produto> produtos) {
 		for (Produto prod : produtos) {
-			prod.listar(); //System.out.println(prod.getId() + " " + prod.getDescricao());
+			prod.listar();
 		}
+	}
+	static Produto selectProd(List<Produto> produtos) {
+		listarProd(produtos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Produto prod : produtos) {
@@ -217,10 +220,13 @@ public class Main {
 		return null;
 	}
 
-	static Cliente selectCli(List<Cliente> clientes) {
+	static void listarCli(List<Cliente> clientes) {
 		for (Cliente cli : clientes) {
-			cli.listar(); //System.out.println(cli.getId() + " " + cli.getNome());
+			cli.listar();
 		}
+	}
+	static Cliente selectCli(List<Cliente> clientes) {
+		listarCli(clientes);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Cliente cli : clientes) {
@@ -230,10 +236,13 @@ public class Main {
 		return null;
 	}
 
-	static Pedido selectPed(List<Pedido> pedidos) {
+	static void listarPed(List<Pedido> pedidos) {
 		for (Pedido ped : pedidos) {
-			ped.listar(); //System.out.println(ped.getId() + ", status: " +ped.getIdStatus());
+			ped.listar();
 		}
+	}
+	static Pedido selectPed(List<Pedido> pedidos) {
+		listarPed(pedidos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (Pedido ped : pedidos) {
@@ -243,10 +252,13 @@ public class Main {
 		return null;
 	}
 
-	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
+	static void listarLPed(List<ListaPedido> listaPedidos) {
 		for (ListaPedido lPed : listaPedidos) {
-			lPed.listar(); //System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
+			lPed.listar();
 		}
+	}
+	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
+		listarLPed(listaPedidos);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
 		for (ListaPedido lPed : listaPedidos) {
