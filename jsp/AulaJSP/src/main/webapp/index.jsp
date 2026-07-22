@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<!-- https://www.devmedia.com.br/introducao-ao-java-server-pages-jsp/25602 -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Ola</h1>
+	<a href="cadastro.jsp">cadastro</a>
+	<%
+		String nome = "Fulano";
+		out.print("seu nome é " + nome);
+	%>
+	<%
+		int idade = 50;
+	%>
+	<p>
+	<%
+		if (idade>18) {
+			out.print(nome + " é maior de idade");
+		}
+	%>
+	</p>
+</body>
+</html>
