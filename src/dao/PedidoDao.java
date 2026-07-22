@@ -82,7 +82,7 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente")); //rs.getString("nome"), rs.getInt("quantidade"), rs.getFloat("preco"));
+				ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"), rs.getString("nome")); //rs.getInt("quantidade"), rs.getFloat("preco"));
 			}
 			rs.close();
 			stm.close();
@@ -139,10 +139,10 @@ public class PedidoDao implements ICRUD<Pedido,Integer> {
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stm = con.prepareStatement("select * from tb_pedidos");
+			PreparedStatement stm = con.prepareStatement("select * from tb_pedidos inner join tb_clientes on tb_clientes.id=tb_pedidos.id_cliente");
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Pedido ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"));
+				Pedido ped = new Pedido(rs.getInt("id"), rs.getDate("data"), rs.getInt("id_status"), rs.getInt("id_cliente"), rs.getString("nome"));
 				pedidos.add(ped);
 			}
 			rs.close();
