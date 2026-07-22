@@ -206,7 +206,7 @@ public class Main {
 
 	static Produto selectProd(List<Produto> produtos) {
 		for (Produto prod : produtos) {
-			System.out.println(prod.getId() + " " + prod.getDescricao());
+			prod.listar(); //System.out.println(prod.getId() + " " + prod.getDescricao());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
@@ -219,7 +219,7 @@ public class Main {
 
 	static Cliente selectCli(List<Cliente> clientes) {
 		for (Cliente cli : clientes) {
-			System.out.println(cli.getId() + " " + cli.getNome());
+			cli.listar(); //System.out.println(cli.getId() + " " + cli.getNome());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
@@ -232,7 +232,7 @@ public class Main {
 
 	static Pedido selectPed(List<Pedido> pedidos) {
 		for (Pedido ped : pedidos) {
-			System.out.println(ped.getId() + ", status: " +ped.getIdStatus());
+			ped.listar(); //System.out.println(ped.getId() + ", status: " +ped.getIdStatus());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
@@ -245,7 +245,7 @@ public class Main {
 
 	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
 		for (ListaPedido lPed : listaPedidos) {
-			System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
+			lPed.listar(); //System.out.println(lPed.getId() + ", produto: " + lPed.getDescricaoProduto() + ", quantidade: " + lPed.getQuantidade());
 		}
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
