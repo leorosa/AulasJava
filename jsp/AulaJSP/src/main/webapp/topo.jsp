@@ -25,3 +25,4 @@
 	int ano = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 	out.println("Hoje é dia " + dia + " de " + fncMES(mes) + " de " + ano);
 %></h4>
+<hr />

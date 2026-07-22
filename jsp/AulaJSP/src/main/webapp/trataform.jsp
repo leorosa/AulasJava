@@ -9,11 +9,11 @@ java.text.*, java.lang.String" pageEncoding="ISO-8859-1"%>
 	</head>
 	<body>
 		<%@include file="topo.jsp"%>
-		Dados do formulario<br>
+		Dados do formulário<br>
 		<%
 		String nome = request.getParameter("txtnome");
 		if(nome=="")
-			out.println("Nome não foi digitato");
+			out.println("Nome não foi digitado");
 		else
 			out.println("Seu nome é " + nome);
 		%>

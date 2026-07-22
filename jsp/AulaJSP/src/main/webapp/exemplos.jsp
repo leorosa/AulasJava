@@ -29,7 +29,7 @@
 				out.println("Hoje é " + xdia + " de Março de " + xano);
 				break;
 			default:
-				out.println("Ola");
+				out.println("Olá");
 		}
 	%>
 	<hr />
@@ -41,7 +41,6 @@
 			<input type="submit" value="Enviar"/>
 
 		</form>
-		<hr />
 		<%@include file="rodape.jsp"%>
 </body>
 </html>
