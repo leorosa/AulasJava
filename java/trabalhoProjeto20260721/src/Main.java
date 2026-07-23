@@ -1,11 +1,11 @@
 import dao.ClienteDao;
-import dao.ListaPedidoDao;
+import dao.ItemPedidoDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import java.util.List;
 import java.util.Scanner;
 import modelos.Cliente;
-import modelos.ListaPedido;
+import modelos.ItemPedido;
 import modelos.Pedido;
 import modelos.Produto;
 
@@ -17,7 +17,7 @@ public class Main {
 		List<Produto> produtos;
 		List<Cliente> clientes;
 		List<Pedido> pedidos;
-		List<ListaPedido> itemsPedido = null;
+		List<ItemPedido> itemsPedido = null;
 		while (true) {
 			produtos = prodDao.consultar();
 			clientes = cliDao.consultar();
@@ -73,7 +73,7 @@ public class Main {
 				if (cli==null)
 					continue;
 				PedidoDao pedDao = new PedidoDao();
-				ListaPedidoDao lPedDao = new ListaPedidoDao();
+				ItemPedidoDao iPedDao = new ItemPedidoDao();
 				pedidos = pedDao.consultarCliente(cli.getId());
 				Pedido ped = pedDao.consultarAberto(cli.getId());
 				if (!pedidos.isEmpty()) {
@@ -85,23 +85,23 @@ public class Main {
 				}
 				if (opcao.equals("f")) { // somente fechar compra se houver estoque suficiente
 					if (ped!=null)
-						itemsPedido = lPedDao.consultarPedido(ped.getId());
+						itemsPedido = iPedDao.consultarPedido(ped.getId());
 						Boolean estoqueSuficiente = true;
 						if (itemsPedido!=null) {
-							for(ListaPedido lPed : itemsPedido) {
-								Produto prod = prodDao.consultar(lPed.getIdProduto());
-								if (lPed.getQuantidade()>prod.getEstoque()) {
+							for(ItemPedido iPed : itemsPedido) {
+								Produto prod = prodDao.consultar(iPed.getIdProduto());
+								if (iPed.getQuantidade()>prod.getEstoque()) {
 									estoqueSuficiente = false;
-									System.out.println("estoque insuficiente para " + prod.getDescricao() + ": " + lPed.getQuantidade() + " > " + prod.getEstoque());
+									System.out.println("estoque insuficiente para " + prod.getDescricao() + ": " + iPed.getQuantidade() + " > " + prod.getEstoque());
 								}
 							}
 						}
 						if (!estoqueSuficiente)
 							continue;
 						if (itemsPedido!=null) {
-							for(ListaPedido lPed : itemsPedido) {
-								Produto prod = prodDao.consultar(lPed.getIdProduto());
-								prod.setEstoque(prod.getEstoque() - lPed.getQuantidade());
+							for(ItemPedido iPed : itemsPedido) {
+								Produto prod = prodDao.consultar(iPed.getIdProduto());
+								prod.setEstoque(prod.getEstoque() - iPed.getQuantidade());
 								prodDao.alterar(prod);
 							}
 						}
@@ -128,45 +128,45 @@ public class Main {
 					}
 					if (opcao.equals("a")||opcao.equals("n")) {
 						while (true) {
-							itemsPedido = lPedDao.consultarPedido(ped.getId());
+							itemsPedido = iPedDao.consultarPedido(ped.getId());
 							System.out.print("ITEMS: [l]istar, [a]dicionar, [e]ditar, ou [r]emover: ");
 							opcao = sc.nextLine();
 							if(opcao.equals("a")) {
-								ListaPedido lPed = null;
+								ItemPedido iPed = null;
 								Produto prod = selectProd(produtos);
 								if (prod!=null) {
-									for (ListaPedido itemPed : itemsPedido) { // checar se produto já está no carrinho
+									for (ItemPedido itemPed : itemsPedido) { // checar se produto já está no carrinho
 										if (prod.getId()==itemPed.getIdProduto())
-											lPed=itemPed;
+											iPed=itemPed;
 									}
-									if (lPed==null) {
-										lPed = new ListaPedido();
-										lPed.setIdProduto(prod.getId());
-										lPed.setIdPedido(ped.getId());
-										lPedDao.inserir(lPed);
+									if (iPed==null) {
+										iPed = new ItemPedido();
+										iPed.setIdProduto(prod.getId());
+										iPed.setIdPedido(ped.getId());
+										iPedDao.inserir(iPed);
 									}
 									System.out.print("entre com a quantidade: ");
 									int qtd = sc.nextInt();
 									sc.nextLine(); // consumir linha ignorada por nextInt()
-									lPed.setQuantidade(qtd);
-									lPedDao.alterar(lPed);
+									iPed.setQuantidade(qtd);
+									iPedDao.alterar(iPed);
 								}
 							} else if(opcao.equals("e")) {
-								ListaPedido lPed = selectLPed(itemsPedido);
-								if (lPed!=null) {
+								ItemPedido iPed = selectIPed(itemsPedido);
+								if (iPed!=null) {
 									System.out.print("entre com a quantidade: ");
 									int qtd = sc.nextInt();
 									sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
-									lPed.setQuantidade(qtd);
-									lPedDao.alterar(lPed);
+									iPed.setQuantidade(qtd);
+									iPedDao.alterar(iPed);
 								}
 							} else if(opcao.equals("r")) {
-								ListaPedido lPed = selectLPed(itemsPedido);
+								ItemPedido iPed = selectIPed(itemsPedido);
 								System.out.print("entre com a quantidade: ");
-								if (lPed!=null)
-									lPedDao.deletar(lPed.getId());
+								if (iPed!=null)
+									iPedDao.deletar(iPed.getId());
 							} else if(opcao.equals("l")) {
-								listarLPed(itemsPedido);
+								listarIPed(itemsPedido);
 							} else {
 								break;
 							}
@@ -228,18 +228,18 @@ public class Main {
 		return null;
 	}
 
-	static void listarLPed(List<ListaPedido> listaPedidos) {
-		for (ListaPedido lPed : listaPedidos) {
-			lPed.listar();
+	static void listarIPed(List<ItemPedido> itemsPedido) {
+		for (ItemPedido iPed : itemsPedido) {
+			iPed.listar();
 		}
 	}
-	static ListaPedido selectLPed(List<ListaPedido> listaPedidos) {
-		listarLPed(listaPedidos);
+	static ItemPedido selectIPed(List<ItemPedido> itemsPedido) {
+		listarIPed(itemsPedido);
 		int i = sc.nextInt();
 		sc.nextLine(); // consome o "\n" que sobrou do Enter anterior
-		for (ListaPedido lPed : listaPedidos) {
-			if (i==lPed.getId())
-				return lPed;
+		for (ItemPedido iPed : itemsPedido) {
+			if (i==iPed.getId())
+				return iPed;
 		}
 		return null;
 	}

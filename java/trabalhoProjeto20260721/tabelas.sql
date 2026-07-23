@@ -35,7 +35,7 @@ create table tb_status (
 --insert into tb_status (descricao) values ("finalizado");
 --insert into tb_status (descricao) values ("cancelado");
 
-create table lista_pedido (
+create table tb_items_pedido (
 	id int primary key auto_increment,
 	id_pedido int,
 		constraint fk_pedido foreign key (id_pedido)
@@ -51,6 +51,7 @@ create table lista_pedido (
 --alter table lista_pedido add constraint fk_pedido foreign key (id_pedido) references tb_pedidos(id);
 --alter table lista_pedido drop foreign key fk_produto;
 --alter table lista_pedido add constraint fk_produto foreign key (id_produto) references tb_produtos(id);
+--rename table lista_pedido to tb_items_pedido
 
 create table tb_pedidos (
 	id int primary key auto_increment,
