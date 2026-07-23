@@ -15,16 +15,16 @@ public class Cliente { // id, cpf, nome, email, rua, numero, bairro, cep, cidade
 	private String estado;
 //no banco de dados MySQL:
 //create table tb_clientes (
-//    id int primary key auto_increment,
-//    cpf varchar(14),
-//    nome varchar(200),
-//    email varchar(200),
-//    rua varchar(200),
-//    numero int,
-//    bairro varchar(200),
-//    cep varchar(9),
-//    cidade varchar(200),
-//    estado varchar(2) );
+//	id int primary key auto_increment,
+//	cpf varchar(14),
+//	nome varchar(200),
+//	email varchar(200),
+//	rua varchar(200),
+//	numero int,
+//	bairro varchar(200),
+//	cep varchar(9),
+//	cidade varchar(200),
+//	estado varchar(2) );
 
 	public Cliente() {
 	}

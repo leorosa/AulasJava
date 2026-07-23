@@ -7,9 +7,9 @@ frutas.push('maçã')
 
 //let fruta = ''
 while (true) {
-    fruta = prompt('informe uma fruta: ')
-    if (fruta=='') { break } // é mais eficiente sempre acrescentar, e depois remover o último
-    frutas.push(fruta)    
+	fruta = prompt('informe uma fruta: ')
+	if (fruta=='') { break } // é mais eficiente sempre acrescentar, e depois remover o último
+	frutas.push(fruta)
 }
 frutas.splice(1,0,'abacaxi') // usa splice para inserir 'abacaxi' na posição 1 (remove 0 items)
 frutas.splice(0,1) // remove 1 item a partir do elemento 0

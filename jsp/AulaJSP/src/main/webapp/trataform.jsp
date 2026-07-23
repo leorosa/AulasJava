@@ -9,13 +9,13 @@ java.text.*, java.lang.String" pageEncoding="ISO-8859-1"%>
 	</head>
 	<body>
 		<%@include file="topo.jsp"%>
-		Dados do formul·rio<br>
+		Dados do formul√°rio<br>
 		<%
 		String nome = request.getParameter("txtnome");
 		if(nome=="")
-			out.println("Nome n„o foi digitado");
+			out.println("Nome n√£o foi digitado");
 		else
-			out.println("Seu nome È " + nome);
+			out.println("Seu nome √© " + nome);
 		%>
 
 		<br>E-Mail: <%=request.getParameter("txtemail")%><br>

@@ -8,10 +8,10 @@ public class Produto {
 	private double preco;
 //no banco de dados MySQL:
 //create table tb_produtos (
-//    id int primary key auto increment,
-//    descricao varchar(200),
-//    preco float,
-//    estoque int );
+//	id int primary key auto increment,
+//	descricao varchar(200),
+//	preco float,
+//	estoque int );
 	private int estoque;
 
 	public Produto() {
