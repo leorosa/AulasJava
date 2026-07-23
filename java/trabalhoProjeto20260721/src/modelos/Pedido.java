@@ -11,15 +11,15 @@ public class Pedido {
 	private String nomeCliente;
 //no banco de dados MySQL:
 //create table tb_pedidos (
-//    id int primary key auto_increment,
-//    data date,
-//    id_status int,
-//    constraint fk_status foreign key (id_status) references tb_status(id),
-//    id_cliente int,
-//    constraint fk_cliente foreign key (id_cliente) references tb_clientes(id) );
+//	id int primary key auto_increment,
+//	data date,
+//	id_status int,
+//	constraint fk_status foreign key (id_status) references tb_status(id),
+//	id_cliente int,
+//	constraint fk_cliente foreign key (id_cliente) references tb_clientes(id) );
 //create table tb_status (
-//    id int primary key auto_increment,
-//    descricao varchar(100) );
+//	id int primary key auto_increment,
+//	descricao varchar(100) );
 //insert into tb_status (descricao) values ("aberto");
 //insert into tb_status (descricao) values ("finalizado");
 //insert into tb_status (descricao) values ("cancelado");

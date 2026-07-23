@@ -4,27 +4,27 @@ set sql_safe_updates = 0;
 
 create table produtos (
 	id_produto int primary key auto_increment,
-    nome varchar(100),
-    preco decimal(10,2),
-    estoque int
+	nome varchar(100),
+	preco decimal(10,2),
+	estoque int
 );
 
 create table pedidos(
 	id_pedido int primary key auto_increment,
-    data_pedido date,
-    nome_cliente varchar(100)
+	data_pedido date,
+	nome_cliente varchar(100)
 );
 
 create table item_pedido(
 	id_item int primary key auto_increment,
-    id_pedido int,
+	id_pedido int,
 		constraint fk_pedido foreign key (id_pedido)
 		references pedidos(id_pedido),
-    id_produto int,
+	id_produto int,
 		constraint fk_produto foreign key (id_produto)
 		references produtos(id_produto),
-    quantidade int,
-    valor_unitario decimal(10,2)
+	quantidade int,
+	valor_unitario decimal(10,2)
 );
 
 insert into produtos (nome,preco,estoque) values ('arroz',25.00,15);
@@ -65,9 +65,9 @@ select sum(quantidade*preco) from item_pedido, produtos
 
 select pedidos.id_pedido as ID, nome_cliente as Nome, data_pedido as Data, nome as Produto, quantidade, preco as 'Preço unitário (R$)', quantidade*preco as 'Subtotal (R$)'
 	from pedidos
-    inner join item_pedido on pedidos.id_pedido=1
-    inner join produtos	on item_pedido.id_produto=produtos.id_produto;
+	inner join item_pedido on pedidos.id_pedido=1
+	inner join produtos	on item_pedido.id_produto=produtos.id_produto;
 select sum(quantidade*preco) as 'Total (R$)'
 	from pedidos
-    inner join item_pedido on pedidos.id_pedido=1
-    inner join produtos	on item_pedido.id_produto=produtos.id_produto;
+	inner join item_pedido on pedidos.id_pedido=1
+	inner join produtos	on item_pedido.id_produto=produtos.id_produto;

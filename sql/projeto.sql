@@ -87,25 +87,25 @@ alter table locais
 	references funcionarios(idFuncionario);
 alter table funcionarios
 	add constraint fkServico_
-    foreign key (idServico)
-    references servicos(idServico);
+	foreign key (idServico)
+	references servicos(idServico);
 alter table funcionarios
 	add constraint fkDado_
-    foreign key (idDado)
-    references dados(idDado);
+	foreign key (idDado)
+	references dados(idDado);
 alter table area
 	add constraint fkServico__
-    foreign key (idServico)
-    references servicos(idServico);
+	foreign key (idServico)
+	references servicos(idServico);
 alter table avaliacoes
 	add constraint fkServico___
-    foreign key (idServico)
-    references servicos(idServico);
+	foreign key (idServico)
+	references servicos(idServico);
 alter table avaliacoes
 	add constraint fkLocal
-    foreign key (idLocal)
-    references locais(idLocal);
+	foreign key (idLocal)
+	references locais(idLocal);
 alter table avaliacoes
 	add constraint fkFuncionario_
-    foreign key (idFuncionario)
-    references funcionarios(idFuncionario)
+	foreign key (idFuncionario)
+	references funcionarios(idFuncionario)

@@ -18,14 +18,14 @@ CREATE TRIGGER trg_cliente_insert
 AFTER INSERT ON clientes
 FOR EACH ROW
 BEGIN
-    INSERT INTO log_clientes(
-        mensagem,
-        data_evento
-    )
-    VALUES(
-        CONCAT('Cliente cadastrado: ', NEW.nome),
-        NOW()
-    ); 
+	INSERT INTO log_clientes(
+		mensagem,
+		data_evento
+	)
+	VALUES(
+		CONCAT('Cliente cadastrado: ', NEW.nome),
+		NOW()
+	); 
 END $$
 DELIMITER ;
 
@@ -78,15 +78,15 @@ UPDATE produtos
 
 DROP TABLE produtos;
 CREATE TABLE produtos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    estoque INT
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100),
+	estoque INT
 );
 
 CREATE TABLE pedidos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    produto_id INT,
-    quantidade INT
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	produto_id INT,
+	quantidade INT
 );
 
 DELIMITER $$
@@ -109,9 +109,9 @@ INSERT INTO pedidos (produto_id,quantidade)
 ##### ##### #####
 
 CREATE TABLE funcionarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    salario DECIMAL(10,2)
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(100),
+	salario DECIMAL(10,2)
 );
 
 DELIMITER $$
@@ -119,10 +119,10 @@ CREATE TRIGGER trg_valida_salario
 BEFORE INSERT ON funcionarios
 FOR EACH ROW
 BEGIN
-    IF NEW.salario < 1500 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Salário abaixo do permitido';
-    END IF;
+	IF NEW.salario < 1500 THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Salário abaixo do permitido';
+	END IF;
 END $$
 DELIMITER ;
 

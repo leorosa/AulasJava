@@ -8,12 +8,12 @@ public class ItemPedido {
 	private int quantidade;
 //no banco de dados MySQL:
 //create table lista_pedido (
-//    id int primary key auto_increment,
-//    id_pedido int,
-//    constraint fk_pedido foreign key (id_pedido) references tb_pedidos(id),
-//    id_produto int,
-//    constraint fk_produto foreign key (id_produto) references tb_produtos(id),
-//    quantidade int );
+//	id int primary key auto_increment,
+//	id_pedido int,
+//	constraint fk_pedido foreign key (id_pedido) references tb_pedidos(id),
+//	id_produto int,
+//	constraint fk_produto foreign key (id_produto) references tb_produtos(id),
+//	quantidade int );
 
 	public ItemPedido() {
 	}
