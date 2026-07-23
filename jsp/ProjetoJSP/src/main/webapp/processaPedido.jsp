@@ -12,8 +12,9 @@
 	java.util.Date utilDate = formatter.parse(dataStr);
 	java.sql.Date data = new java.sql.Date(utilDate.getTime());
 
-	int idCliente = 1;
-	Pedido ped = new Pedido(data, 1, idCliente, "nomeCliente");
+	int idStatus = 1; // FIXME
+	int idCliente = 1; // FIXME
+	Pedido ped = new Pedido(data, idStatus, idCliente, "nomeCliente");
 
 	PedidoDao dao = new PedidoDao();
 	dao.salvar(ped);
