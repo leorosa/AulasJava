@@ -2,7 +2,7 @@
 <%@page import="modelos.Contato"%>
 <%@page import="java.util.List"%>
 <%
-	String nome = request.getParameter("nome");
+String nome = request.getParameter("nome");
 //	out.print("<p>"+nome+"</p>");
 	String email = request.getParameter("email");
 //	out.print("<p>"+email+"</p>");
@@ -15,10 +15,5 @@
 	ContatoDao dao = new ContatoDao();
 	dao.salvar(ct);
 
-	List<Contato> contatos = dao.consultar();
-	for (Contato c : contatos) {
-		out.print("<p>"+c.getNome()+" "+c.getEmail()+"</p>");
-	}
-	out.print("<hr />");
-	out.print("<a href='cadastro.jsp'>novo</a>");
+	response.sendRedirect("consulta.jsp");//página com dados em tabela
 %>
