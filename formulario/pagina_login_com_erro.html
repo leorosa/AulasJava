@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+
+  <style>
+    body {
+      background-color: #e5e5e5;
+      display: flex;
+      justify-content: center;
+      align-itens: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 350px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #1e3c72;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Login</h1>
+
+    <form id="formLogin">
+      <label for="email">E-mail</label>
+      <input type="text" id="email">
+
+      <label for="senha">Senha</label>
+      <input type="password" id="senha">
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    <p id="mensagem"></p>
+  </div>
+
+  <script>
+    const formulario = document.getElementById("formLogin");
+    const email = document.getElementById("email");
+    const senha = document.getElementById("senha");
+    const mensagem = document.getElementById("mensagem");
+
+    formulario.addEventListener("submit", function(evento) {
+      evento.preventDefault();
+
+      if (email.value === "") {
+        mensagem.textContent = "O e-mail é obrigatório";
+      } else if (senha.value.length < 6) {
+        mensagem.textContent = "A senha deve ter pelo menos 6 caracteres";
+      } else {
+        mensagem.textContent = "Login realizado com sucesso!";
+      }
+    });
+
+    function validarEmail(email) {
+      const padrao = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return padrao.test(email);
+    }
+  </script>
+</body>
+</html>
