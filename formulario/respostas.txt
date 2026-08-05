@@ -1,0 +1,8 @@
+Por que validar no cliente melhora a experiência do usuário?
+
+	Porque evita a necessidade de enviar ao servidor informações erradas, causando atrasos ou erros.
+ 
+
+O que é Feedback visual? 
+
+	É uma forma de indicar ao usuário que alguma informação precisa ser revisada.
