@@ -1,9 +1,11 @@
 * {
   box-sizing: border-box;
+  background-color: black;
+  color: white;
 }
 
 body {
-  background-color: #e5e5e5;
+/*  background-color: #e5e5e5;*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,12 +13,13 @@ body {
 }
 
 .container {
-  width: 350px;
+  width: 500px;
   height: 320px;
   padding: 20px;
-  background: white;
+/*  background: white;*/
   border-radius: 10px;
-  margin-bottom: 200px;
+  margin-bottom: 5%;
+  background: none;
 }
 
 input {
@@ -24,12 +27,13 @@ input {
   padding: 10px;
   margin-bottom: 10px;
   border: 0px;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px white;
+  background: none;
 }
 
 button {
-  background-color: #1e3c72;
-  color: white;
+  background-color: #8da5d1; /*#1e3c72;*/
+  color: black; /*white;*/
   width: 100%;
   padding: 10px;
   border: none;
