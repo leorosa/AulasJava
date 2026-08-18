@@ -1,0 +1,27 @@
+CATALINA_BASE=/home/leorosa/Downloads/apache-tomcat-11.0.24
+JAVA_HOME=/usr/lib/jvm/java-26-openjdk//
+$CATALINA_HOME/bin/startup.sh
+
+página instalada em
+$CATALINA_HOME/webapps/my-webapp
+
+https://stackoverflow.com/questions/1858463/jsp-error-only-a-type-can-be-imported-x-y-z-resolves-to-a-package
+my-webapp
+|-- META-INF
+|   `-- MANIFEST.MF
+|-- WEB-INF
+|   |-- classes
+|   |   |-- x
+|   |   |   `-- y
+|   |   |       `-- Z.class
+|   |   `-- another
+|   |       `-- packagename
+|   |           `-- AnotherClass.class
+|   |-- lib
+|   |   |-- ajar.jar
+|   |   |-- bjar.jar
+|   |   `-- zjar.jar
+|   `-- web.xml
+|-- a.jsp
+|-- b.jsp
+`-- index.jsp
