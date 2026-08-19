@@ -13,3 +13,4 @@ curl -X POST -H "Content-Type: application/json" -d '{"descricao":"teclado","pre
 curl -X POST -H "Content-Type: application/json" -d '{"descricao":"mouse","preco":5.99,"estoque":10}' localhost:8080/produtos
 curl -X GET localhost:8080/produtos/1
 curl -X PUT -H "Content-Type: application/json" -d '{"descricao":"mouse","preco":10.99,"estoque":100}' localhost:8080/produtos/2
+curl --json '{"descricao":"cpu","preco":999.99,"estoque":25}' localhost:8080/produtos
