@@ -12,8 +12,6 @@ import com.aulaAPI.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
-	@Autowired
-	private ProdutoRepository repository;
 
 	private List<Produto> produtos = new ArrayList<Produto>();
 	
@@ -34,16 +32,13 @@ public class ProdutoService {
 	}
 	
 	public List<Produto> consultar() {
-		return repository.findAll();
+		return produtos;
 	}
 	public Produto consultarUm(Long id) {
-//		for(Produto prod : produtos) {
-//			if (prod.getId()==id)
-//				return prod;
-//		}
-		Optional<Produto> opt = repository.findById(id);
-		Produto prod = opt.orElseThrow(() -> new RuntimeException("produto não encontrado"));
-		return prod;
+		for(Produto prod : produtos) {
+			if (prod.getId()==id)
+				return prod;
+		}
 	}
 	public Produto alterar(Long id, Produto produto) {
 		for(Produto prod : produtos) {
