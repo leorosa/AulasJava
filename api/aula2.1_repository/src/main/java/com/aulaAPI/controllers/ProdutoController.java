@@ -19,6 +19,7 @@ import com.aulaAPI.services.ProdutoService;
 
 @RestController
 @RequestMapping("produtos")
+@CrossOrigin(origins = "*") //"http://localhost:5500")
 public class ProdutoController {
 
 	//private List<Produto> produtos = new ArrayList<Produto>();
