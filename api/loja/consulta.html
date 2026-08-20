@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Voltar</a>
+        <a href="cadastro.html">Cadastro</a>
+    </nav>
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>R$ unitário</th>
+                <th>Qtd. disponível</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- preenchido pelo javascript -->
+        </tbody>
+    </table>
+    <script>
+        fetch('http://localhost:8080/produtos')
+            .then(resp => resp.json())
+            .then(dados => {
+                dados.forEach(e => {
+                    linha = `<tr><td>${e.id}</td><td>${e.descricao}</td><td>${e.preco}</td><td>${e.estoque}</td></tr>`
+//                  console.log(linha)
+                    document.getElementsByTagName('tbody')[0].innerHTML+=linha
+                })
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Voltar</a>
+        <a href="consulta.html">Consulta</a>
+    </nav>
+    <hr />
+    <button onclick="gravar()">Gravar</button>
+    <script>
+        function gravar() {
+            produto = {
+                descricao: 'milhão',
+                preco: 2.99,
+                estoque: 1000000
+            }
+            fetch('http://localhost:8080/produtos',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(produto)
+            })
+            window.location.href = 'consulta.html'
+        }
+    </script>
+</body>
+</html>
