@@ -1,6 +1,5 @@
 package com.aulaAPI.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +13,6 @@ import com.aulaAPI.repository.ProdutoRepository;
 public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repository;
-
-	private List<Produto> produtos = new ArrayList<Produto>();
 	
 	public Produto salvar(Produto produto) {
 		if (produto.getDescricao().isEmpty()) {
@@ -28,8 +25,6 @@ public class ProdutoService {
 			produto.setEstoque(1);
 		}
 		repository.save(produto);
-//		produto.setId(produtos.size()+1l);
-//		produtos.add(produto);
 		return produto;
 	}
 	
@@ -37,10 +32,6 @@ public class ProdutoService {
 		return repository.findAll();
 	}
 	public Produto consultarUm(Long id) {
-//		for(Produto prod : produtos) {
-//			if (prod.getId()==id)
-//				return prod;
-//		}
 		Optional<Produto> opt = repository.findById(id);
 		Produto prod = opt.orElseThrow(() -> new RuntimeException("produto não encontrado"));
 		return prod;
@@ -51,23 +42,8 @@ public class ProdutoService {
 		prod.setPreco(produto.getPreco());
 		prod.setEstoque(produto.getEstoque());
 		return repository.save(prod);
-//		for(Produto prod : produtos) {
-//			if (prod.getId()==id) {
-//				prod.setDescricao(produto.getDescricao());
-//				prod.setPreco(produto.getPreco());
-//				prod.setEstoque(produto.getEstoque());
-//				return prod;
-//			}
-//		}
-//		throw new RuntimeException("Produto não existente");
 	}
 	public void excluir(Long id) {
 		repository.deleteById(id);
-//			for(Produto prod : produtos) {
-//			if (prod.getId()==id) {
-//				produtos.remove(prod);
-//				return;
-//			}
-//		}
 	}
 }
